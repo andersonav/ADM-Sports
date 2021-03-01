@@ -1,0 +1,103 @@
+#buttonWithIcon svg,
+#buttonWithIcon i {
+    margin-right: 6px;
+    margin-top: -2px;
+}
+
+#buttonWithIcon span {
+    margin-left: 6px;
+}
+
+.carregando-pagina {
+    display: none;
+    width: 25%;
+    position: fixed !important;
+    top: 90% !important;
+    left: 2% !important;
+    z-index: 99999;
+}
+
+.baloes {
+    position: fixed;
+    top: 30px;
+    right: 25px;
+    width: 30%;
+    z-index: 9999;
+    border-radius: 0px;
+}
+
+.required {
+    border-left-color: #e81500 !important;
+    border-left-width: 3px !important;
+}
+
+.pesquisa-res.lista-consulta {
+    max-height: inherit;
+    overflow: auto;
+    font-size: 12px;
+}
+
+#tableConsulta {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+#tableConsulta thead tr th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background: #4e73df;
+    color: #fff;
+    box-shadow: 0 -1px #ddd;
+    z-index: 9;
+    padding: 5px !important;
+}
+
+#tableConsulta tbody tr td {
+    padding: 5px !important;
+}
+
+@-webkit-keyframes carregandoFiltro {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes carregandoFiltro {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+
+    to {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@keyframes carregandoFiltro {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.fa-circle-notch {
+    -moz-animation-name: carregandoFiltro;
+    -moz-animation-duration: 0.8s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -webkit-animation-name: carregandoFiltro;
+    -webkit-animation-duration: 0.8s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    animation-name: carregandoFiltro;
+    animation-duration: 0.8s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}

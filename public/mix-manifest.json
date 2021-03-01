@@ -1,0 +1,16 @@
+{
+    "/assets/js/vendors.js": "/assets/js/vendors.js",
+    "/assets/css/main/main.css": "/assets/css/main/main.css",
+    "/assets/css/app.css": "/assets/css/app.css",
+    "/assets/css/dashboard.css": "/assets/css/dashboard.css",
+    "/assets/css/clientes.css": "/assets/css/clientes.css",
+    "/assets/css/tiposDocumento.css": "/assets/css/tiposDocumento.css",
+    "/assets/css/tiposModuloConta.css": "/assets/css/tiposModuloConta.css",
+    "/assets/css/tiposModuloContaItens.css": "/assets/css/tiposModuloContaItens.css",
+    "/assets/js/master.js": "/assets/js/master.js",
+    "/assets/js/tiposModuloContaItens.js": "/assets/js/tiposModuloContaItens.js",
+    "/assets/js/tiposModuloConta.js": "/assets/js/tiposModuloConta.js",
+    "/assets/js/tiposDocumento.js": "/assets/js/tiposDocumento.js",
+    "/assets/js/dashboard.js": "/assets/js/dashboard.js",
+    "/assets/js/clientes.js": "/assets/js/clientes.js"
+}
