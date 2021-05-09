@@ -3,10 +3,14 @@
 /public/storage
 /storage/*.key
 /vendor
+/schedule/logs.txt
 /.idea
+/.vscode
 /.vagrant
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
 .env
+.phpunit.result.cache
+storage/logs/laravel.log

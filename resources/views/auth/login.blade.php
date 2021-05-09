@@ -1,6 +1,7 @@
 @extends('layouts.login')
 
 @section('content')
+
 <main>
     <div class="container">
         <div class="row justify-content-center">
@@ -22,8 +23,8 @@
 
                             <!-- Form Group (email address)-->
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <label class="text-gray-600 small" for="email">Email</label>
-                                <input class="form-control form-control-solid" type="email" placeholder="" aria-label="Email de Acesso" aria-describedby="email" name="email" value="{{ old('email') }}" required autofocus />
+                                <label class="text-gray-600 small" for="email">Email:</label>
+                                <input class="form-control" type="email" placeholder="" aria-label="Email" aria-describedby="email" name="email" value="{{ old('email') }}" required autofocus />
 
                                 @if ($errors->has('email'))
                                 <span class="help-block">
@@ -34,7 +35,7 @@
                             <!-- Form Group (password)-->
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                 <label class="text-gray-600 small" for="password">Senha</label>
-                                <input class="form-control form-control-solid" type="password" placeholder="" aria-label="Senha" aria-describedby="password" name="password" required />
+                                <input class="form-control" type="password" placeholder="" aria-label="Senha" aria-describedby="password" name="password" required />
 
                                 @if ($errors->has('password'))
                                 <span class="help-block">
@@ -42,15 +43,8 @@
                                 </span>
                                 @endif
                             </div>
-                            <!-- Form Group (forgot password link)-->
-                            <div class="form-group"><a class="small" href="{{ route('password.request') }}">Esqueceu sua senha?</a></div>
                             <!-- Form Group (login box)-->
-                            <div class="form-group d-flex align-items-center justify-content-between mb-0">
-                                <div class="custom-control custom-control-solid custom-checkbox">
-                                    <input class="custom-control-input small" id="lembrarSenha" name="remember" type="checkbox" {{ old('remember') ? 'checked' : '' }} />
-                                    <label class="custom-control-label" for="lembrarSenha">Lembrar senha</label>
-                                </div>
-
+                            <div class="form-group d-flex align-items-center justify-content-center mb-0">
                                 <button type="submit" class="btn btn-primary">
                                     Login
                                 </button>

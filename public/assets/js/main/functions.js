@@ -13,7 +13,7 @@ function returnLanguageDatatable() {
         "loadingRecords": "Carregando...",
         "processing": "Processando...",
         "zeroRecords": "Nenhum registro encontrado",
-        "search": "Pesquisar",
+        "search": "",
         "paginate": {
             "next": "Próximo",
             "previous": "Anterior",
@@ -33,12 +33,12 @@ function returnLanguageDatatable() {
             "1": "%d linha selecionada",
             "_": "%d linhas selecionadas",
             "cells": {
-                "1": "1 célula selecionada",
-                "_": "%d células selecionadas"
+                "1": "",
+                "_": ""
             },
             "columns": {
-                "1": "1 coluna selecionada",
-                "_": "%d colunas selecionadas"
+                "1": "",
+                "_": ""
             }
         },
         "buttons": {
@@ -142,7 +142,7 @@ function returnLanguageDatatable() {
             "loadMessage": "Carregando Painéis de Pesquisa...",
             "title": "Filtros Ativos"
         },
-        "searchPlaceholder": "Digite um termo para pesquisar",
+        "searchPlaceholder": "Pesquisar",
         "thousands": "."
     };
 
@@ -183,10 +183,10 @@ function progressPagina(e) {
     var percentual = 100;
     var socket = parseFloat($('._socket_token').val());
 
-    if (socket > 0 && ajax_tipo == 'manual') {
-        $('.progress-bar').css('transition', '10s');
-        percentual = 30;
-    }
+    // if (socket > 0) {
+    //     $('.progress-bar').css('transition', '10s');
+    //     percentual = 30;
+    // }
 
 
     if (e.lengthComputable) {
@@ -366,23 +366,27 @@ function execAjax1(type, url_action, data, funcSuccess, funcErro, funcComplete, 
 
 function showErro(xhr) {
 
-    var msg = xhr.responseText;
+    var msg = '';
 
-    if (typeof msg !== 'undefined') {
+    if (typeof xhr !== 'undefined') {
+
+        if (typeof xhr.responseText !== 'undefined') {
+            msg = xhr.responseText;
+        } else {
+            msg = xhr;
+        }
 
         if (msg == '') {
-            msg = 'Ops! Não obtivemos resposta do nosso servidor. Por favor, tente novamente.<br/>' + $('#MENSAGEM_ERRO').val();
+            msg = 'Ops! Não obtivemos resposta do nosso servidor. Por favor, tente novamente.<br/>';
         } else {
 
             if (typeof xhr.responseJSON !== 'undefined') {
-                msg = xhr.responseJSON.MENSAGEM;
+                msg = xhr.responseJSON.message;
             }
         }
 
     } else {
-
         msg = xhr;
-
     }
 
     addBalao(msg, 'danger', 2);
@@ -394,6 +398,10 @@ function showErro(xhr) {
  */
 function showSuccess(msg) {
     addBalao(msg, 'success', 1);
+}
+
+function showAlert(msg) {
+    addBalao(msg, 'warning', 3);
 }
 
 $(document).on('click', '.msg-balao-fechar', function () {
@@ -570,7 +578,7 @@ function findNextField(event, consulta) {
     }
 
     if (a.length == 0 && consulta == true) {
-        var zw = $(event).parent().parent().nextAll();
+        var zw = $(event).parent().nextAll();
         for (var index = 0; index < zw.length; index++) {
             var z = $(zw[index]);
             if (z.is('div')) {
@@ -606,5 +614,32 @@ function findNextField(event, consulta) {
                 }
             }
         }
+    }
+}
+
+
+function isNumber(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+
+// Função para truncar números
+// Retorno: String
+function num_trunc(num, fixed) {
+
+    if (!isNumber(num) || isNaN(num) || !isFinite(num)) {
+        num = 0;
+    }
+
+    var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
+    return num.toString().match(re)[0];
+}
+
+function isMobile() {
+    var userAgent = navigator.userAgent.toLowerCase();
+    //console.log('Navegador utilizado',userAgent);
+    //alert('Navegador utilizado',userAgent);
+    if (userAgent.search(/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i) != -1) {
+        return true;
     }
 }

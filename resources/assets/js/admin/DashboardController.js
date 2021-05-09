@@ -26,11 +26,13 @@ function Ctrl(
 	vm.Consulta = new Consulta();
 	vm.Dashboard = new Dashboard();
 
-	vm.test = function () {
-		console.log("TEfg");
-	};
+
+	vm.Dashboard.getLastMovimentacoes();
+
 
 	gScope.Dashboard = vm.Dashboard;
+
+
 
 
 	// Area Chart Example
@@ -438,4 +440,4 @@ function Ctrl(
 		}
 	});
 
-}   
+}

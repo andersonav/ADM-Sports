@@ -1,110 +1,131 @@
 @extends('layouts.master')
 
-@section('content')
 
+@section('css')
+
+<link href="{{asset('assets/css/tiposDocumento.css')}}" rel="stylesheet" />
+
+@endsection
+
+@section('content')
 <main>
     <header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
-        <div class="container">
+        <div class="container-fluid">
             <div class="page-header-content pt-4">
                 <div class="row align-items-center justify-content-between">
                     <div class="col-auto mt-4">
                         <h1 class="page-header-title">
-                            <div class="page-header-icon"><i data-feather="user"></i></div>
-                            Gerenciamento de Tipos de Documento
+                            <div class="page-header-icon"><i data-feather="file"></i></div>
+                            Gerenciamento de tipos de documento
                         </h1>
                         <div class="page-header-subtitle"></div>
                     </div>
                     <div class="col-12 col-xl-auto mt-4">
+                        <button class="btn btn-white p-3" ng-click="vm.TiposDocumento.incluir();" data-hotkey="f6">
+                            <i class="mr-2 text-primary" data-feather="plus-circle"></i>
+                            <span>Incluir</span>
 
-                        <button class="btn btn-warning" id="buttonWithIcon" ng-click="vm.TiposDocumento.incluir();">
-                            <i class="fas fa-plus"></i>
-                            Incluir
-                            <span class="badge badge-white" id="atalho">F6</span>
+                            <span class="badge badge-counter">F6</span>
+
                         </button>
-
                     </div>
                 </div>
             </div>
         </div>
     </header>
     <!-- Main page content-->
-    <div class="container mt-n10">
-        <div class="card mb-4">
+    <div class="container-fluid mt-n10">
+
+        <div class="card">
             <div class="card-body">
-                <div class="datatable">
-                    <table class="table table-bordered table-hover" id="dataTableTiposDocumento" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Descrição</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>ID</th>
-                                <th>Descrição</th>
-                                <th>Ações</th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
-                            <tr ng-repeat="item in vm.TiposDocumento.DADOS track by $index">
-                                <td ng-bind="item.DESC_ID"></td>
-                                <td ng-bind="item.DESCRICAO"></td>
-                                <td>
-                                    <button class="btn btn-datatable btn-icon btn-transparent-dark mr-2" ng-click="vm.TiposDocumento.alterar(item);"><i data-feather="edit"></i></button>
-                                    <button class="btn btn-datatable btn-icon btn-transparent-dark" ng-click="vm.TiposDocumento.excluir(item);"><i data-feather="trash-2"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="row">
+
+                    <div class="col-sm-12" style="margin-top: 25px !important;">
+                        <div class="table-responsive">
+                            <table class="table table-borderless mb-0" id="dataTableTiposDocumento">
+
+                            </table>
+                        </div>
+                    </div>
+
+
                 </div>
-            </div>
-        </div>
 
-        <div class="modal fade" id="modalTiposDocumento" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" ng-if="vm.TiposDocumento.INCLUINDO">Gerenciamento de Tipos de Documento - Inclusão</h5>
-                        <h5 class="modal-title" ng-if="vm.TiposDocumento.INCLUINDO == false && vm.TiposDocumento.ALTERANDO == false">Gerenciamento de Tipos de Documento - Visualização</h5>
-                        <h5 class="modal-title" ng-if="vm.TiposDocumento.ALTERANDO == true && vm.TiposDocumento.INCLUINDO == false">Gerenciamento de Tipos de Documento - Alteração</h5>
-                    </div>
-                    <div class="modal-body">
 
-                        <form>
-                            <div class="row">
-                                
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label for="descricao">Descrição:</label>
-                                        <input class="form-control required" id="descricao" type="text" ng-model="vm.TiposDocumento.SELECTED.DESCRICAO" maxlength="100">
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </form>
-
-                    </div>
-
-                    <div class="modal-footer">
-                        <button class="btn btn-success" id="buttonWithIcon" ng-click="vm.TiposDocumento.gravar();">
-                            <i class="fas fa-check"></i>
-                            Gravar
-                        </button>
-
-                        <button class="btn btn-danger" id="buttonWithIcon" ng-click="vm.TiposDocumento.cancelar();">
-                            <i class="fas fa-ban"></i>
-                            Cancelar
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
 
     </div>
 </main>
+
+
+<div class="modal" id="modalTiposDocumento" role="dialog" tabindex="0" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" ng-if="vm.TiposDocumento.INCLUINDO">Inclusão</h5>
+                <h5 class="modal-title" id="exampleModalLabel" ng-if="vm.TiposDocumento.ALTERANDO">Alteração</h5>
+                <h5 class="modal-title" id="exampleModalLabel" ng-if="vm.TiposDocumento.INCLUINDO == false && vm.TiposDocumento.ALTERANDO == false">Visualização</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="identificador">ID:</label>
+                                <input class="form-control" id="identificador" type="text" ng-disabled="true" ng-model="vm.TiposDocumento.SELECTED.DESC_ID">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="descricao">Descrição:</label>
+                                <input class="form-control" id="descricao" type="text" ng-disabled="vm.TiposDocumento.INCLUINDO == false && vm.TiposDocumento.ALTERANDO == false" ng-model="vm.TiposDocumento.SELECTED.DESCRICAO">
+                            </div>
+                        </div>
+                        
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary p-3" type="button" data-hotkey="f9" ng-click="vm.TiposDocumento.alterar();" ng-if="vm.TiposDocumento.INCLUINDO == false && vm.TiposDocumento.ALTERANDO == false">
+                    <i class="mr-2 text-white" data-feather="edit"></i>
+                    Alterar
+                    <span class="badge badge-counter">F9</span>
+                </button>
+
+                <button class="btn btn-danger p-3" type="button" data-hotkey="f12" ng-click="vm.TiposDocumento.excluir();" ng-if="vm.TiposDocumento.INCLUINDO == false && vm.TiposDocumento.ALTERANDO == false">
+                    <i class="mr-2 text-white" data-feather="trash-2"></i>
+                    Excluir
+                    <span class="badge badge-counter">F12</span>
+                </button>
+
+                <button class="btn btn-success p-3" type="button" data-hotkey="enter" ng-click="vm.TiposDocumento.gravar();" ng-if="vm.TiposDocumento.INCLUINDO == true || vm.TiposDocumento.ALTERANDO == true">
+                    <i class="mr-2 text-white" data-feather="check-circle"></i>
+                    Gravar
+                    <span class="badge badge-counter">ENTER</span>
+                </button>
+
+                <button class="btn btn-danger p-3" type="button" ng-click="vm.TiposDocumento.cancelar();" data-hotkey="esc" ng-if="vm.TiposDocumento.INCLUINDO == true || vm.TiposDocumento.ALTERANDO == true">
+                    <i class="mr-2 text-white" data-feather="slash"></i>
+                    Cancelar
+                    <span class="badge badge-counter">ESC</span>
+                </button>
+
+                <button class="btn btn-white p-3" type="button" data-hotkey="esc" data-dismiss="modal" ng-if="vm.TiposDocumento.INCLUINDO == false && vm.TiposDocumento.ALTERANDO == false">
+                    <i class="mr-2 text-black" data-feather="corner-up-left"></i>
+                    Voltar
+                    <span class="badge badge-counter">ESC</span>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
+
 
 @section('script')
 <script src="{{ asset('assets/js/tiposDocumento.js') }}"></script>

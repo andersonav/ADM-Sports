@@ -8,50 +8,56 @@
 	TiposDocumento.$inject = [
 		'$ajax',
 		'$q',
+		'$compile',
 		'$rootScope',
 		'$timeout',
 		'gScope'
 	];
 
-	function TiposDocumento($ajax, $q, $rootScope, $timeout, gScope) {
+	function TiposDocumento($ajax, $q, $compile, $rootScope, $timeout, gScope) {
 
 		var obj = null;
 
 		/**
 		 * Constructor, with class name
 		 */
-		function TiposDocumento() {
+		function TiposDocumento($scope) {
 
 			obj = this;
-			obj.model 					= 'vm.TiposDocumento';
+			obj.scope 									= $scope;
+			obj.model 									= 'vm.TiposDocumento';
 
-			obj.url_consultar 			= urlhost + '/admin/cadastros/tipos-documento/get';
-			obj.url_gravar 				= urlhost + '/admin/cadastros/tipos-documento/post';
-			obj.url_excluir 			= urlhost + '/admin/cadastros/tipos-documento/delete';
+            obj.url_consultar 							= urlhost + '/admin/funcionalidades/tipos-documento/get';
+			obj.url_gravar 								= urlhost + '/admin/funcionalidades/tipos-documento/post';
+			obj.url_excluir 							= urlhost + '/admin/funcionalidades/tipos-documento/delete';
 
-			obj.SELECTED 				= {};
-			obj.BACKUP 					= {};
-			obj.DADOS 					= [];
+			obj.SELECTED 								= {};
+			obj.BACKUP 									= {};
+			obj.DADOS 									= [];
+			obj.BACKUP_ITENS							= [];
+			obj.consultas								= [];
 
-			obj.CAMPO_INDEX 			= 'ID';
+			obj.CAMPO_INDEX 							= 'ID';
 
-			obj.INCLUINDO 				= false;
-			obj.ALTERANDO 				= false;
+			obj.INCLUINDO 								= false;
+			obj.ALTERANDO 								= false;
 
-			obj.setDadosIncluir 		= setDadosIncluir;
-			obj.incluir 				= incluir;
-			obj.gravar 					= gravar;
-			obj.confirmarGravar 		= confirmarGravar;
-			obj.excluir					= excluir;
-			obj.confirmarExcluir		= confirmarExcluir;
-			obj.cancelar 				= cancelar;
-			obj.confirmarCancelar 		= confirmarCancelar;
-			obj.alterar					= alterar;
-			obj.getTiposDocumento 		= getTiposDocumento;
-			obj.recompileDatatable 		= recompileDatatable;
+			obj.MODAL									= "#modalTiposDocumento";
 
-			obj.DATATABLE 				= null;
-
+			obj.setDadosIncluir 						= setDadosIncluir;
+			obj.incluir 								= incluir;
+			obj.gravar 									= gravar;
+			obj.confirmarGravar 						= confirmarGravar;
+			obj.excluir									= excluir;
+			obj.confirmarExcluir						= confirmarExcluir;
+			obj.cancelar 								= cancelar;
+			obj.confirmarCancelar 						= confirmarCancelar;
+			obj.alterar									= alterar;
+			obj.visualizar								= visualizar;
+			obj.insertConsultas							= insertConsultas;
+			obj.setDadosConsultar						= setDadosConsultar;
+			obj.consultar 		        				= consultar;
+			obj.compileDatatable        				= compileDatatable;
 		}
 
 		function setDadosIncluir() {
@@ -64,14 +70,24 @@
 		}
 
 		function incluir() {
+			var that = this;
+
 			obj.INCLUINDO = true;
 
 			obj.SELECTED = obj.setDadosIncluir();
 
-			$("#modalTiposDocumento").modal('show');
+			if(that.consultas.length > 0){
+				angular.forEach(that.consultas, function(consulta, key){
+					consulta.OBJ.apagar();
+					consulta.OBJ.Input.disabled = false;
+					consulta.OBJ.btn_filtro.disabled = false;
+				});
+			}
+
+			$(obj.MODAL).modal('show');
 
 			$timeout(function () {
-				onFocusInputModal("#modalTiposDocumento");
+				onFocusInputModal(obj.MODAL);
 			}, 200);
 		}
 
@@ -87,7 +103,18 @@
 			}
 
 			if (check == true) {
-				sweetAlert(1, 'Deseja realmente gravar esse registro?', that);
+				var msg = gScope.Confirme.add(1,'Confirmação',
+				'Deseja realmente gravar esse registro?' , [
+					{desc:'Não' 	,	class:'btn-danger' ,	ret:'2',	hotkey:'esc' 	,	glyphicon:'fas fa-ban'       	},
+					{desc:'Sim'     ,	class:'btn-success',	ret:'1',	hotkey:'enter' 	,	glyphicon:'fas fa-check-circle' }
+					
+				],[
+					function (e, btn){ 
+					},
+					function (e, btn){ 
+						that.confirmarGravar();
+					}
+				]);
 			}
 
 		}
@@ -96,45 +123,48 @@
 			var that = this;
 
 			var dados = {
-				DADOS: obj.SELECTED
+				DADOS: obj.SELECTED,
+				FILTRO: {
+
+				}
 			};
 
 			return $q(function (resolve, reject) {
 
 				$ajax.post(that.url_gravar, dados).then(function (response) {
 
-					var copy = angular.copy(obj.DADOS);
-
-					obj.DADOS = [];
-					obj.DATATABLE.clear();
-					obj.DATATABLE.destroy();
+					var msg = '';
 
 					if(obj.INCLUINDO){
-						response.DESC_ID = trim_null(response.ID).padStart(6, '0');
-						copy.push(response);
+						msg = 'Registro incluído com sucesso';
+						
 					}else{
-						angular.forEach(copy, function (item, value){
-							if(item.ID == response.ID){
-								item = Object.merge(item, response);
+						msg = 'Registro alterado com sucesso';
+						var index = -1;
+
+						angular.forEach(obj.DADOS, function(item, value){
+							if(item[obj.CAMPO_INDEX] == response.ID){
+								index = value;		
 							}
 						});
+
+						if(index >= 0){
+							obj.DADOS.splice(index, 1);
+						}
 					}
 
-					$("#modalTiposDocumento").modal('hide');
+					obj.SELECTED = response;
 
-					if(obj.INCLUINDO){
-						showSuccess("Registro incluído com sucesso");
-					}else{
-						showSuccess("Registro alterado com sucesso");
-					}
+					obj.DADOS.push(obj.SELECTED);
+
+					showSuccess(msg);
+
+					$(obj.MODAL).modal('hide');
 
 					obj.INCLUINDO = false;
 					obj.ALTERANDO = false;
-					obj.SELECTED = {};
 
-					obj.DADOS = angular.copy(copy);
-
-					obj.recompileDatatable();
+					obj.compileDatatable();
 
 					resolve(response);
 				}, function (e) {
@@ -143,12 +173,30 @@
 			});
 		}
 
-		function excluir(item) {
+		function excluir(index) {
 			var that = this;
+			
+			var item = obj.SELECTED;
 
-			obj.SELECTED 	= item;
+			if(typeof index != 'undefined'){
+				item = obj.DATATABLE.row(index).data();
+			}
 
-			sweetAlert(3, 'Deseja realmente excluir esse registro?', that);
+			obj.SELECTED = item;
+
+			var msg = gScope.Confirme.add(1,'Confirmação',
+			'Deseja realmente excluir esse registro?' , [
+				{desc:'Não' 	,	class:'btn-danger' ,	ret:'2',	hotkey:'esc' 	,	glyphicon:'fas fa-ban'       	},
+				{desc:'Sim'     ,	class:'btn-success',	ret:'1',	hotkey:'enter' 	,	glyphicon:'fas fa-check-circle' }
+				
+			  ],[
+				function (e, btn){ 
+				},
+				function (e, btn){ 
+					that.confirmarExcluir();
+				}
+			]);
+
 		}
 
 		function confirmarExcluir() {
@@ -162,28 +210,26 @@
 			return $q(function (resolve, reject) {
 
 				$ajax.post(that.url_excluir, dados).then(function (response) {
-					var copySelected = angular.copy(obj.SELECTED);
 
-					var copy = angular.copy(obj.DADOS);
+					var index = -1;
 
-					obj.DADOS = [];
-					obj.DATATABLE.clear();
-					obj.DATATABLE.destroy();
-					
-					angular.forEach(copy, function (item, value){
-						if(item.ID == copySelected.ID){
-							copy.splice(value, 1);
+					angular.forEach(obj.DADOS, function(item, value){
+						if(item[obj.CAMPO_INDEX] == obj.SELECTED.ID){
+							index = value;		
 						}
 					});
 
-					obj.SELECTED = {};
+					if(index >= 0){
+						obj.DADOS.splice(index, 1);
+					}
 
-					obj.DADOS = angular.copy(copy);
+					obj.compileDatatable();
+
+					obj.SELECTED = {};
 
 					showSuccess("Registro excluído com sucesso");
 
-					obj.recompileDatatable();
-
+					$(obj.MODAL).modal('hide');
 					resolve(response);
 				}, function (e) {
 					reject(e);
@@ -195,10 +241,23 @@
 		function cancelar() {
 			var that = this;
 
-			sweetAlert(2, 'Deseja realmente cancelar essa operação?', that);
+			var msg = gScope.Confirme.add(1,'Confirmação',
+			'Deseja realmente cancelar essa operação?' , [
+				{desc:'Não' 	,	class:'btn-danger' ,	ret:'2',	hotkey:'esc' 	,	glyphicon:'fas fa-ban'       	},
+				{desc:'Sim'     ,	class:'btn-success',	ret:'1',	hotkey:'enter' 	,	glyphicon:'fas fa-check-circle' }
+				
+			  ],[
+				function (e, btn){ 
+
+				},
+				function (e, btn){ 
+					that.confirmarCancelar();
+				}
+			]);
 		}
 
 		function confirmarCancelar() {
+			var that = this;
 
 			if(Object.keys(obj.BACKUP).length === 0){
 				obj.SELECTED = {};
@@ -206,46 +265,129 @@
 				obj.SELECTED = angular.copy(obj.BACKUP);
 			}
 
-			$("#modalTiposDocumento").modal('hide');
+			if(obj.INCLUINDO){
+				if(that.consultas.length > 0){
+					angular.forEach(that.consultas, function(consulta, key){
+						consulta.OBJ.apagar();
+						consulta.OBJ.Input.disabled = false;
+						consulta.OBJ.btn_filtro.disabled = false;
+					});
+				}
+
+				$(obj.MODAL).modal('hide');
+			}else{
+				obj.insertConsultas();
+			}
+
 			obj.INCLUINDO = false;
 			obj.ALTERANDO = false;
 		}
 
-		function alterar(item) {
-			obj.INCLUINDO 	= false;
-			obj.ALTERANDO 	= true;
+		function alterar() {
+			var that 		= this;
 
-			obj.SELECTED 	= item;
-			obj.BACKUP		= angular.copy(obj.SELECTED);
+			var check = true;
 
-			$("#modalTiposDocumento").modal('show');
+			if(check == true){
+				obj.INCLUINDO 	= false;
+				obj.ALTERANDO 	= true;
 
-			$timeout(function () {
-				onFocusInputModal("#modalTiposDocumento");
-			}, 200);
+				obj.BACKUP		= angular.copy(obj.SELECTED);
+
+				if(that.consultas.length > 0){
+					angular.forEach(that.consultas, function(consulta, key){
+						if(typeof consulta.ALTERAR == 'undefined' || consulta.ALTERAR == true){
+							consulta.OBJ.btn_apagar_filtro.disabled = false;
+							consulta.OBJ.Input.disabled = false;
+							consulta.OBJ.btn_filtro.disabled = false;
+						}
+					});
+				}
+
+				$(obj.MODAL).modal('show');
+
+				$timeout(function () {
+					onFocusInputModal(obj.MODAL);
+				}, 200);
+			}
 		}
 
-		function getTiposDocumento() {
+		function visualizar(index){
+			var that = this;
+
+			var item = obj.SELECTED;
+
+			if(typeof index != 'undefined'){
+				item = obj.DATATABLE.row(index).data();
+			}
+
+			obj.SELECTED = item;
+
+			obj.insertConsultas();
+
+			$(obj.MODAL).modal('show');
+		}
+
+		function insertConsultas(){
+			var that = this;
+
+			if(that.consultas.length > 0){
+				angular.forEach(that.consultas, function(consulta, key){
+					var nome = consulta.NOME;
+
+					if(typeof that.SELECTED[nome+'_JSON'] != 'undefined' && that.SELECTED[nome+'_JSON'] != '' && that.SELECTED[nome+'_JSON'] != null){
+						consulta.OBJ.setSelected(JSON.parse(that.SELECTED[nome+'_JSON']));
+
+						if(that.SELECTED[that.CAMPO_INDEX] <= 0){
+							consulta.OBJ.btn_apagar_filtro.disabled = false;
+						}else{
+							consulta.OBJ.btn_apagar_filtro.disabled = true;
+						}
+						
+					}else{
+						if(that.SELECTED[that.CAMPO_INDEX] <= 0 && that.disabled_consulta_on_visualizar == false){
+							consulta.OBJ.apagar();
+							consulta.OBJ.Input.disabled = false;
+							consulta.OBJ.btn_filtro.disabled = false;    
+						}else{
+							consulta.OBJ.apagar();
+							consulta.OBJ.Input.disabled = true;
+							consulta.OBJ.btn_filtro.disabled = true;   
+						}
+					}
+				});
+			}
+
+		}
+
+		function setDadosConsultar(dados){
+			var that = this;
+			
+			// dados.FILTRO.FILTRO_TABELA_PRECO			= gScope.ConsultaTabelaPrecoFiltro.item.dados.ID;
+			// dados.FILTRO.FILTRO_CLIENTE					= gScope.ConsultaClienteFiltro.item.dados.CODIGO;
+			
+			return dados;
+		}
+
+		function consultar() {
 
 			var that = this;
 
 			var dados = {
-				DADOS: {
+				FILTRO: {
 
 				}
 			};
+
+			dados = obj.setDadosConsultar(dados);
 
 			return $q(function (resolve, reject) {
 
 				$ajax.post(that.url_consultar, dados).then(function (response) {
 
-					angular.forEach(response, function (item, value) {
-						item.DESC_ID = trim_null(item.ID).padStart(6, '0');
-					});
-
-					obj.DADOS = response;
-
-					obj.recompileDatatable();
+                    obj.DADOS = response;
+                    
+                    obj.compileDatatable();
 
 					resolve(response);
 				}, function (e) {
@@ -253,19 +395,107 @@
 				});
 			});
 
-		}
+        }
+        
+        function compileDatatable(){
 
-		function recompileDatatable() {
-			$timeout(function () {
+			var that = this;
 
-				obj.DATATABLE = '';
+			var StringMask = require('string-mask');
 
+			if(obj.DATATABLE == null){
 				obj.DATATABLE = $('#dataTableTiposDocumento').DataTable({
-					"order": [[1, 'asc']],
+					"order": [[0, 'desc']],
+					"searching": false,
+					"data": obj.DADOS,
+					"deferRender": true,
+					"tabIndex": 0,
+					drawCallback: function () {
+						$('.popoverCFe').popover({
+							"html": true
+						});
+					},
+					"columns": [
+						{ "data": "ID", "title": 'ID', 
+							render : function(data, type, row) {
+								return trim_null(row.ID).padStart(5, '0');
+							}
+						},
+						{ "data": "DESCRICAO", "title": 'Descrição', 
+							render : function(data, type, row) {
+								return row.DESCRICAO;
+							} 
+						},
+						{ "data": "ACTIONS", "title": 'Opções',
+							render : function(data, type, full, meta ) {
+								var html = '';
+
+								var index = meta.row;
+
+								html = html +' <div class="form-group no-print" style="display: contents;"> '+
+								'			<div class="dropdown acoes"> '+ 
+								'				<button type="button" class="btn btn-sm btn-warning toggle" '+
+								'					style="margin-left: 6px;" '+							
+								'					data-toggle="dropdown" ng-dblclick="$event.stopPropagation();" aria-expanded="false" '+ 'ng-readonly="false"> '+
+								'					<span class="fas fa-th-list"></span> '+
+								'					 '+
+								' 				</button> '+
+								'					<ul class="dropdown-menu">	'+
+								'						<li class="dropdown-header" style="text-transform: initial; font-weight: bold;"> '+
+								'							Ações Disponíveis </li>' +
+								'						<li class="dropdown-item" style="cursor: pointer;" ng-click="vm.TiposDocumento.excluir('+index+');"> '+
+								'	 						<a style="text-transform: initial; cursor: pointer;"> '+
+								' 								<span class="fas fa-trash"></span> Excluir</a> ' +
+								'						</li> '+
+								'					</ul> '+
+								'				</div> '+
+								'			</div> ';
+
+								return html;
+							}
+						},
+					],
+					createdRow: function(row, data, dataIndex) {
+
+						// $(row).on('click', function () {
+						// 	if ($(row).hasClass('row_selected') == false) {
+						// 		obj.DATATABLE.$('tr.row_selected').removeClass('row_selected');
+						// 		$(row).addClass('row_selected');
+						// 	} else {
+						// 		$(row).removeClass('row_selected');
+						// 	}
+						// });
+
+						// if(data[obj.CAMPO_INDEX] == obj.SELECTED[obj.CAMPO_INDEX]){
+						// 	$(row).addClass('row_selected');
+						// }
+
+						$(row).on('dblclick', function () {
+							obj.SELECTED = data;
+
+							$timeout(function (){
+								obj.visualizar();
+
+								// obj.DATATABLE.$('tr.row_selected').removeClass('row_selected');
+								// $(row).addClass('row_selected');
+							});
+						});
+
+						$compile(angular.element(row).contents())(obj.scope);
+					},
 					"language": returnLanguageDatatable()
 				});
 
-			}, 200);
+			}else{
+				obj.DATATABLE.clear();
+				if(obj.DADOS.length > 0){
+					angular.forEach(obj.DADOS, function (item, value){
+						obj.DATATABLE.row.add(item).draw();
+					});
+				}else{
+					obj.DATATABLE.draw();
+				}
+			}
 		}
 
 		return TiposDocumento;

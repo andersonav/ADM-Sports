@@ -77,11 +77,8 @@
 			},
 			onScrollEnd: function(event){
 				var obj = this;
-				//console.log('chegamos ao final');
 				if(obj.option.infinite_scroll == true && obj.option.infinite_end == false){
-					//console.log(event);
 					obj.option.consulta_pagina++;
-					console.log('pagina atual',obj.option.consulta_pagina);
 					obj.filtrar(true);
 				}
 				//var html = obj.htmlDecode(string);
@@ -105,7 +102,7 @@
 				html += '           <label for="consulta-descricao" '+( obj.option.ttitle.length > 0 ? 'ttitle="'+ obj.option.ttitle +'"' : '' )+'>'+obj.option.label_descricao+'</label>';
 				
 				html += '<div class="input-group '+obj.option.class+'" style="display: inline-flex;">';
-                html += '            <input type="text" style="'+ (obj.option.width > 0 ? 'width : '+obj.option.width+'px !important;' : '') + ' '+(typeof obj.option.text_transform_input != 'undefined' ? 'text-transform:'+ obj.option.text_transform_input + ';' : '')+''+(typeof obj.option.tamanho_minimo != 'undefined' ? ' min-width:'+ obj.option.tamanho_minimo : '')+''+(typeof obj.option.tamanho_maximo != 'undefined' ? '; max-width:'+ obj.option.tamanho_maximo : '')+'" ng-focus="'+obj.model+'.Input.focus" '+( obj.option.placeholder.length > 0 ? 'placeholder="'+obj.option.placeholder+'"' : '' )+' ng-blur="'+obj.model+'.InputBlur($event)" ng-keydown="'+obj.model+'.InputKeydown($event)" name="consulta_descricao" class="form-control consulta-descricao '+obj.option.tamanho_input+' objConsulta '+obj.getClassInput()+'" autocomplete="off" ng-required="'+obj.model+'.option.required" ng-readonly="'+obj.model+'.Input.readonly" ng-disabled="'+obj.model+'.Input.disabled" ng-model="'+obj.model+'.Input.value" '+( obj.option.input_width.length > 0 ? 'style="width: '+ obj.option.input_width +' !important"' : '' )+' '+(typeof obj.option.placeholder != undefined ? 'placeholder="'+ obj.option.placeholder +'"' : '' )+' class="form-control bg-light border-0 small"';
+                html += '            <input type="text" style="'+ (obj.option.width > 0 ? 'width : '+obj.option.width+'px !important;' : '') + ' '+(typeof obj.option.text_transform_input != 'undefined' ? 'text-transform:'+ obj.option.text_transform_input + ';' : '')+''+(typeof obj.option.tamanho_minimo != 'undefined' ? ' min-width:'+ obj.option.tamanho_minimo : '')+''+(typeof obj.option.tamanho_maximo != 'undefined' ? '; max-width:'+ obj.option.tamanho_maximo : '')+'" ng-focus="'+obj.model+'.Input.focus" '+( obj.option.placeholder.length > 0 ? 'placeholder="'+obj.option.placeholder+'"' : '' )+' ng-blur="'+obj.model+'.InputBlur($event)" ng-keydown="'+obj.model+'.InputKeydown($event)" name="consulta_descricao" class="form-control consulta-descricao '+obj.option.tamanho_input+' objConsulta '+obj.getClassInput()+'" autocomplete="off" ng-class="{\'required\': '+obj.model+'.option.required}" ng-required="'+obj.model+'.option.required" ng-readonly="'+obj.model+'.Input.readonly" ng-disabled="'+obj.model+'.Input.disabled" ng-model="'+obj.model+'.Input.value" '+( obj.option.input_width.length > 0 ? 'style="width: '+ obj.option.input_width +' !important"' : '' )+' '+(typeof obj.option.placeholder != undefined ? 'placeholder="'+ obj.option.placeholder +'"' : '' )+' class="form-control bg-light border-0 small"';
                 html += '                aria-label="" aria-describedby="basic-addon2" id="'+obj.option.class+'">';
                 html += '            <div class="input-group-append">';
                 html += '                <button style="border-radius: 0px 5px 5px 0px;" class="btn btn-primary '+obj.getClassButton()+'" type="button" ng-click="'+obj.model+'.setFocusInput(); '+obj.model+'.filtrar()" ng-if="'+obj.model+'.btn_filtro.visivel" ng-disabled="'+obj.model+'.btn_filtro.disabled" tabindex="-1">';
@@ -121,7 +118,7 @@
 					if(obj.option.infinite_scroll == true){
 						html += ' <div ng-if="'+obj.model+'.consultando" style="position: absolute; opacity: 0.75; width: 100%; height: 100%; z-index: 10; background-color: rgb(255, 255, 255);">';
 						html += ' <img style="width: 100px; height: 100px; top: calc(50% - 50px); left: calc(50% - 50px); position: relative;"';
-						html += ' src="'+urlhost+'/assets/images/loading.gif"/> </div>';
+						html += ' src="'+urlhost+'/assets/img/loading.gif"/> </div>';
 					}
 
                 // html += '        </div>';
@@ -131,7 +128,7 @@
 	            // html += '               <button type="button" ng-click="'+obj.model+'.apagar(true)" class="input-group-addon btn-filtro btn-apagar-filtro btn-apagar-filtro-consulta search-button" style="display: block !important;" ng-if="'+obj.model+'.btn_apagar_filtro.visivel" ng-disabled="'+obj.model+'.btn_apagar_filtro.disabled" tabindex="-1" ><span class="fas fa-times"></span></button>';
 	            // html += '               <button type="button" ng-click="'+obj.model+'.setFocusInput(); '+obj.model+'.filtrar()" class="input-group-addon btn-filtro btn-filtro-consulta search-button '+obj.getClassButton()+'" disabled tabindex="-1"  style="display: block !important;" ng-if="'+obj.model+'.btn_filtro.visivel" ng-disabled="'+obj.model+'.btn_filtro.disabled"><span class="fas fa-search"></span></button>';
 	            
-	            html += '                       <table id="tableConsulta" style="width: 100%;" class="table table-condensed table-striped table-bordered table-hover selectable '+obj.getClassTabela()+'">';
+	            html += '                       <table id="tableConsulta" style="width: 100%;" class="table table-condensed table-bordered table-hover selectable '+obj.getClassTabela()+'">';
 	            html += '                           <thead>';
 				html += '                               <tr ng-focus="'+obj.model+'.focus()" >';
 				
@@ -170,21 +167,18 @@
 					}
 
 					if(typeof obj.option.align_right != 'undefined'){
-						//console.log(iten[0]);
 						if(obj.option.align_right.indexOf(coluna) != (-1)){
 							alinha = 'right';
 						}
 					}
 
 					if(typeof obj.option.align_center != 'undefined'){
-						//console.log(iten[0]);
 						if(obj.option.align_center.indexOf(coluna) != (-1)){
 							alinha = 'center';
 						}
 					}
 
 					if(typeof obj.option.text_transform_none != 'undefined'){
-						//console.log(coluna);
 						if(obj.option.text_transform_none.indexOf(coluna) != (-1)){
 							textUpper = 'none';
 						}
@@ -458,7 +452,6 @@
                             that.Time1 = $timeout(function(){
 
                                 if(that.onFilter != null){
-									console.log('tem on filter');
                                     that.onFilter();
                                 }
 
@@ -533,13 +526,21 @@
                 }
 	        },
 	        selecionarKeydown: function($event,item){
+				var that = this;
+
 	            if($event.key == 'Enter'){
-	                this.selecionarItem(item);
-	            }   
+					$timeout(function (){
+						that.selecionarItem(item);
+					}, 100);
+
+	                
+				}   
 
 	            if($event.key == 'Escape'){
-	                this.tabela.visivel = false;
-	                this.setFocusInput();
+					$timeout(function (){
+						that.tabela.visivel = false;
+						that.setFocusInput();
+					}, 100);
 	            }
 	        },
 	        vincular:function(msg){
@@ -971,11 +972,11 @@
             },
 	        apagar : function (focus,withoutOnClear) {
 
-                // if ( focus ) {
-                //     if ( $(this.element_input).is(':focusable') ) {
-                //         $(this.element_input).focus();
-                //     }
-                // }
+                if ( focus ) {
+                    if ( $(this.element_input).is(':focusable') ) {
+                        $(this.element_input).focus();
+                    }
+                }
                 
                 var target = this.item.dados;
                 var selected = this.item.selected;
@@ -1200,7 +1201,6 @@
 			onSelect      : null,
 			onFindItem    : function(event){
 				var that = this;
-				//console.log(that.componente);
 				findNextField(that.componente,true);
 			},
 			onMerge       : null,
@@ -1292,6 +1292,155 @@
 
 	        	return item;
 			},
+			getConsultasPadrao : function(){
+
+				return [
+					{NOME : 'CIDADE'					, CAMPOS : ['ID','DESCRICAO','UF','CODIGOIBGE','CAPITAL','CEP']},
+					{NOME : 'CLIENTES'					, CAMPOS : ['ID','CODIGO','RAZAOSOCIAL','NOMEFANTASIA','CNPJ','CNPJ_F','BAIRRO','ENDERECO','INSCRICAO_ESTADUAL','CEP','CIDADE','NUMERO','DESC_ENDERECO','DESC_CIDADE','UF']},
+					{NOME : 'REPRESENTANTES'			, CAMPOS : ['CODIGO', 'ID', 'RAZAOSOCIAL', 'NOMEFANTASIA', 'CNPJ', 'CNPJ_F', 'BAIRRO', 'ENDERECO', 'INSCRICAO_ESTADUAL', 'CEP', 'CIDADE', 'NUMERO', 'DESC_ENDERECO', 'DESC_CIDADE', 'UF', 'STATUS', 'REPRESENTANTE_ID', 'VENDEDOR_ID', 'SUPERVISOR_ID', 'DESC_SUPERVISOR']},
+					{NOME : 'UF'						, CAMPOS : ['ID','DESCRICAO']},
+					{NOME : 'COLABORADOR'				, CAMPOS : ['ID', 'CODIGO', 'DESCRICAO']},
+					{NOME : 'TABELA_PRECO'				, CAMPOS : ['ID', 'DESC_ID', 'DESCRICAO','DESC_ESTAB']}
+				];
+				
+			},
+            getConsultaPadrao:function(TIPO, componente, descricao){
+                var that = this;
+				var consulta = that.getNew(true);				
+
+				switch(TIPO) {
+					case 'COLABORADOR':
+						//Consulta Colaboradores
+						consulta.componente                  = '.'+componente;
+						consulta.option.class                = componente+'-c';
+						//consulta.model                     = '';
+						// consulta.option.label_descricao      = 'Colaborador:   <a tabindex="-1" href="'+urlhost+'/_23180" target="_blank" rel="noopener noreferrer"><span class="fas fa-external-link-alt" title="23180 - Cadastro de Colaboradores"></span></a>';
+						consulta.option.label_descricao      = 'Colaborador: ';
+						consulta.option.tamanho_input        = 'input-maior';
+						consulta.option.tamanho_tabela       = '100%';
+						consulta.option.infinite_scroll      = true;
+						consulta.option.required             = true;
+						consulta.autoload                    = false;
+						consulta.cache                       = true;
+						consulta.option.consulta_tipo	     = 'ATIVO';
+						consulta.option.obj_ret              = ['ID','DESCRICAO'];
+						consulta.option.campos_tabela        = [['ID','MATRÍCULA'],['DESCRICAO','NOME']];
+						consulta.option.filtro_sql           = {STATUS: 1};
+					break;
+
+					case 'CLIENTES':
+						//Consulta Clientes
+						consulta.componente                  = '.'+componente;
+						consulta.option.class                = componente+'-c';
+						//consulta.model                     = '';
+						// consulta.option.label_descricao      = 'Cliente:   <a tabindex="-1" href="'+urlhost+'/_12360" target="_blank" rel="noopener noreferrer"><span class="fas fa-external-link-alt" title="12360 - Cadastro de Clientes"></span></a>';
+						consulta.option.label_descricao      = 'Cliente: ';
+						consulta.option.tamanho_input        = 'input-maior';
+						consulta.option.tamanho_tabela       = '100%';
+						consulta.option.infinite_scroll      = true;
+						consulta.option.required             = true;
+						consulta.autoload                    = false;
+						consulta.cache                       = true;
+						consulta.option.obj_ret              = ['ID','RAZAOSOCIAL'];
+						consulta.option.campos_tabela        = [['ID','ID'],['RAZAOSOCIAL','NOME'],['NOMEFANTASIA','CLIENTE'],['CNPJ_F','CNPJ/CPF'],['UF','UF']];
+						consulta.option.filtro_sql           = {STATUS: 1};
+					break;
+
+
+					case 'UF':
+						//Consulta UF's
+						consulta.componente                  = '.'+componente;
+						consulta.option.class                = componente+'-c';
+						//consulta.model                     = '';
+						consulta.option.label_descricao      = 'UF: ';
+						consulta.option.obj_consulta         = '/funcionalidades/consultas/UF';
+						consulta.option.tamanho_input        = 'input-maior';
+						consulta.option.tamanho_tabela       = '100%';
+						consulta.option.infinite_scroll      = true;
+						consulta.option.required             = true;
+						consulta.autoload                    = false;
+						consulta.cache                       = true;
+						consulta.option.obj_ret           	 = ['ID','DESCRICAO'];
+						consulta.option.campos_tabela     	 = [['ID','UF'],['DESCRICAO','DESCRIÇÃO']];
+					break;
+
+					case 'CIDADE':
+						//Consulta Cidades
+						consulta.componente                  = '.'+componente;
+						consulta.option.class                = componente+'-c';
+						//consulta.model                     = '';
+						// consulta.option.label_descricao      = 'Cidade:  <a tabindex="-1" href="'+urlhost+'/_21120" target="_blank" rel="noopener noreferrer"><span class="fas fa-external-link-alt" title="21120 - Cadastro de Cidades"></span></a>';
+						consulta.option.label_descricao      = 'Cidade: ';
+						consulta.option.obj_consulta         = '/funcionalidades/consultas/Cidade';
+						consulta.option.tamanho_input        = 'input-maior';
+						consulta.option.tamanho_tabela       = '100%';
+						consulta.option.infinite_scroll      = true;
+						consulta.option.required             = true;
+						consulta.autoload                    = false;
+						consulta.cache                       = true;
+						consulta.option.obj_ret              = ['ID','DESCRICAO'];
+						consulta.option.campos_tabela        = [['ID','ID'],['DESCRICAO','DESCRIÇÃO']];
+						consulta.option.filtro_sql           = {STATUS: 1};
+					break;
+
+					case 'REPRESENTANTES':
+						//Consulta Representantes
+						consulta.componente                  = '.'+componente;
+						consulta.option.class                = componente+'-c';
+						//consulta.model                     = '';
+						// consulta.option.label_descricao      = 'Representante:   <a tabindex="-1" href="'+urlhost+'/_12350" target="_blank" rel="noopener noreferrer"><span class="fas fa-external-link-alt" title="12350 - Cadastro de Representantes"></span></a>';
+						consulta.option.label_descricao      = 'Representante:';
+						consulta.option.obj_consulta         = '/funcionalidades/consultas/Representantes';
+						consulta.option.tamanho_input        = 'input-maior';
+						consulta.option.tamanho_tabela       = '100%';
+						consulta.option.infinite_scroll      = true;
+						consulta.option.required             = true;
+						consulta.autoload                    = false;
+						consulta.cache                       = true;
+						consulta.option.obj_ret              = ['ID','RAZAOSOCIAL'];
+						consulta.option.campos_tabela        = [['ID','ID'],['RAZAOSOCIAL','NOME'],['NOMEFANTASIA','NOME FANTASIA'],['CNPJ_F','CNPJ/CPF'],['UF','UF']];
+						consulta.option.filtro_sql           = {STATUS: 1};
+					break;
+
+					case 'TABELA_PRECO':
+						//Consulta Tabela de Preço
+						consulta.componente                  = '.'+componente;
+						consulta.option.class                = componente+'-c';
+						//consulta.model                     = '';
+						consulta.option.label_descricao      = 'Tabela de Preço: ';
+						consulta.option.obj_consulta         = '/funcionalidades/consultas/TabelaPreco';
+						consulta.option.tamanho_input        = 'input-medio';
+						consulta.option.tamanho_tabela       = '100%';
+						consulta.option.infinite_scroll      = true;
+						consulta.option.required             = true;
+						consulta.autoload                    = false;
+						consulta.cache                       = false;
+						consulta.option.obj_ret              = ['DESC_ID','DESCRICAO'];
+						consulta.option.campos_tabela        = [['DESC_ID','ID'],['DESCRICAO','DESCRICAO'], ['DESC_ESTAB','ESTABELECIMENTO']];
+
+					case '':
+
+						break;
+
+					default:
+					  // code block
+				}
+
+				var valido = false;
+				var list   = that.getConsultasPadrao();
+
+				angular.forEach(list,  function(item , key){
+					if(TIPO == item.NOME){
+						valido = true;
+					}
+				});
+
+				if(!valido){
+					showErro('Consulta "'+TIPO+'" não foi definida, defina em "getConsultasPadrao"' + (typeof descricao != 'undefined' ? ', Campo: '+descricao : '.'), true);
+				}
+
+                return consulta;
+            },
             component : function(componente,set_this){
                 
                 set_this = set_this != undefined ? set_this : true;

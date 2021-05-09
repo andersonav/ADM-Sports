@@ -10,7 +10,7 @@
     $('[data-toggle="tooltip"]').tooltip();
 
     // Enable Bootstrap popovers via data-attributes globally
-    $('[data-toggle="popover"]').popover();
+    $('[data-toggle="popover"]').popover({ html: true });
 
     $(".popover-dismiss").popover({
         trigger: "focus"
@@ -37,6 +37,13 @@
     $("body").scrollspy({
         target: "#stickyNav",
         offset: 82
+    });
+
+
+    $(window).on('load', function () {
+        $('#preloader .inner').fadeOut();
+        $('#preloader').delay(350).fadeOut('slow'); 
+        $('body').delay(350).css({'overflow': 'visible'});
     });
 
     // Scrolls to an offset anchor when a sticky nav link is clicked

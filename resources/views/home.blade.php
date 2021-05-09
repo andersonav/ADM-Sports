@@ -2,6 +2,8 @@
 
 @section('content')
 
+<input type="hidden" ng-init="vm.Dashboard.QTD_ALUNOS = {{$countAlunos}}">
+<input type="hidden" ng-init="vm.Dashboard.QTD_CLIENTES = {{$countClientes}}">
 <main>
     <header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
         <div class="container">
@@ -12,7 +14,7 @@
                             <div class="page-header-icon"><i data-feather="activity"></i></div>
                             Dashboard
                         </h1>
-                        <div class="page-header-subtitle">Resumo de Movimentações em ADM Sports</div>
+                        <div class="page-header-subtitle">Resumo de movimentações em ADM Sports</div>
                     </div>
                     <!-- <div class="col-12 col-xl-auto mt-4">
                         <button class="btn btn-white p-3" id="reportrange">
@@ -35,13 +37,13 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="mr-3">
                                 <div class="text-white-75 small">Quantidade de Alunos</div>
-                                <div class="text-lg font-weight-bold">50</div>
+                                <div class="text-lg font-weight-bold" ng-bind="vm.Dashboard.QTD_ALUNOS"></div>
                             </div>
                             <i class="feather-xl text-white-50" data-feather="users"></i>
                         </div>
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#" ng-click="vm.test();">Gerenciar</a>
+                        <a class="small text-white stretched-link" href="#">Gerenciar</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
@@ -53,7 +55,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="mr-3">
                                 <div class="text-white-75 small">Quantidade de Clientes</div>
-                                <div class="text-lg font-weight-bold">24</div>
+                                <div class="text-lg font-weight-bold" ng-bind="vm.Dashboard.QTD_CLIENTES"></div>
                             </div>
                             <i class="feather-xl text-white-50" data-feather="user"></i>
                         </div>
@@ -70,7 +72,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="mr-3">
-                                <div class="text-white-75 small">Contas a Receber</div>
+                                <div class="text-white-75 small">Contas a receber</div>
                                 <div class="text-lg font-weight-bold">R$ 1.238,00</div>
                             </div>
                             <i class="feather-xl text-white-50" data-feather="dollar-sign"></i>
@@ -88,7 +90,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="mr-3">
-                                <div class="text-white-75 small">Contas a Pagar</div>
+                                <div class="text-white-75 small">Contas a pagar</div>
                                 <div class="text-lg font-weight-bold">R$ 238,00</div>
                             </div>
                             <i class="feather-xl text-white-50" data-feather="dollar-sign"></i>

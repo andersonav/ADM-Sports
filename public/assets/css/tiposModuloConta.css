@@ -1,0 +1,31 @@
+#dataTableModuloConta {
+  width: inherit !important;
+}
+
+#dataTableModuloConta tr.row_selected,
+.selected {
+  background-color: #b5ccd2;
+  opacity: 0.95;
+  font-weight: 500;
+}
+
+.modal#modalModuloConta .modal-dialog {
+  width: 85%;
+  max-width: none;
+}
+
+#dataTableModuloContaItens {
+  width: inherit !important;
+}
+
+#dataTableModuloContaItens tr.row_selected,
+.selected {
+  background-color: #b5ccd2;
+  opacity: 0.95;
+  font-weight: 500;
+}
+
+.modal#modalModuloContaItens .modal-dialog {
+  width: 65%;
+  max-width: none;
+}

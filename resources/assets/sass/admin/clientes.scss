@@ -1,0 +1,20 @@
+#dataTableClientes {
+  width: inherit !important;
+}
+
+#dataTableClientes tr.row_selected,
+.selected {
+  background-color: #b5ccd2;
+  opacity: 0.95;
+  font-weight: 500;
+}
+
+.modal#modalClientes .modal-dialog {
+  width: 85%;
+  max-width: none;
+}
+
+
+// div.dataTables_wrapper div.dataTables_filter {
+//   display: none !important;
+// }

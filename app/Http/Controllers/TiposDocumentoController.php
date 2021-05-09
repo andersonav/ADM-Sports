@@ -2,22 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TiposDocumento;
 use Illuminate\Http\Request;
-use App\TipoDocumento;
+use Illuminate\Support\Facades\DB;
 
 class TiposDocumentoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        $tiposDocumento = TipoDocumento::get();
-
-        return view('tiposDocumento', compact('tiposDocumento'));
+        return view('tiposDocumento');
     }
 
     public function tiposDocumento()
     {
-        $tiposDocumento = TipoDocumento::get(['TBTIPO_DOCUMENTO.*'])
-            ->toArray();
+        $sql = "SELECT 
+                T.*,
+                LPAD(T.ID, 4, '0') AS DESC_ID
+            FROM TBTIPO_DOCUMENTO T
+            WHERE T.ID > 0";
+
+        $args = [
+        ];
+
+        $tiposDocumento = DB::select($sql, $args);
 
         return response()->json($tiposDocumento);
     }
@@ -33,18 +45,20 @@ class TiposDocumentoController extends Controller
         ];
 
         if(isset($dados->ID) && $dados->ID > 0){
-            $tipoDocumento = TipoDocumento::where('ID', $dados->ID)->update($arr);
+            $update = TiposDocumento::where('ID', $dados->ID)->update($arr);
+            $find = TiposDocumento::where('ID', $dados->ID)->get(); 
+            $tipoDocumento = $find[0];
         }else{
-            $tipoDocumento = TipoDocumento::create($arr);
+            $tipoDocumento = TiposDocumento::create($arr);
         }
 
         return response()->json($tipoDocumento);
     }
 
-    public function postTipoDocumentoDelete(Request $request){
+    public function postTiposDocumentoDelete(Request $request){
         $dados = (object) $request->DADOS;
 
-        $tipoDocumento = TipoDocumento::where('ID', $dados->ID)->delete();
+        $tipoDocumento = TiposDocumento::where('ID', $dados->ID)->delete();
 
         return response()->json($tipoDocumento);
     }

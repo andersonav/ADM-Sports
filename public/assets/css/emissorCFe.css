@@ -1,0 +1,119 @@
+#imageNoAberto {
+  position: fixed;
+  margin-top: -15px;
+  height: 415px;
+  background-position: center;
+  background-size: cover;
+}
+
+.spanConnect {
+  margin-left: 15px;
+}
+
+.spanDetailsSales {
+  float: right;
+}
+
+#divTableScrollItens {
+  height: 510px !important;
+  overflow: auto !important;
+}
+
+.table.tableBootstrap4 thead tr th {
+  position: sticky;
+  top: 0;
+  background-color: white;
+}
+
+#dataTableProducts {
+  width: inherit !important;
+}
+
+#dataTableProducts tr.row_selected,
+.selected {
+  background-color: #b5ccd2;
+  opacity: 0.95;
+  font-weight: 500;
+}
+
+div.dataTables_wrapper div.dataTables_filter {
+  display: none !important;
+}
+
+.input-group .input-group-addon {
+  padding: 14px !important;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  color: #555;
+  text-align: center;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.input-group.right-icon .input-group-addon {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.input-group.left-icon .input-group-addon {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.modal#modalFinalizarVenda {
+  padding: 0 !important;
+}
+
+.modal#modalFinalizarVenda .modal-dialog {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  margin: 0;
+}
+
+.modal#modalProdutos .modal-dialog {
+  width: 80%;
+  max-width: none;
+}
+
+.modal#modalFinalizarVenda .modal-content {
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+}
+
+.modal#modalFinalizarVenda .modal-body {
+  overflow-y: auto;
+}
+
+#stepCliente,
+#stepFormaPagamento,
+#stepResumoVenda {
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+}
+
+#stepper {
+  width: 100% !important;
+}
+
+#badgeValorFormaPagamento {
+  padding: 10px !important;
+  font-weight: bold;
+}
+
+.opacityFinal {
+  opacity: 0.3 !important;
+}
+
+#tdDescProduto {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.consulta-cliente-ini .consulta-cliente-ini-c_forme label {
+  color: white !important;
+}

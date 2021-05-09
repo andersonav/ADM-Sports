@@ -3,6 +3,7 @@
 angular
 	.module('app', [
         'ajax',
-		'ui.utils.masks'
+		'ui.utils.masks',
+		'gc-utils'
 	])
 ;

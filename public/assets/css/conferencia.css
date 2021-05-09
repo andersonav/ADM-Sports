@@ -1,0 +1,41 @@
+#dataTableConferencia {
+  width: inherit !important;
+}
+
+#dataTableConferencia tr.row_selected,
+.selected {
+  background-color: #b5ccd2;
+  opacity: 0.95;
+  font-weight: 500;
+}
+
+#dataTableConferenciaItens {
+  width: inherit !important;
+}
+
+#dataTableConferenciaItens tr.row_selected,
+.selected {
+  background-color: #b5ccd2;
+  opacity: 0.95;
+  font-weight: 500;
+}
+
+.modal#modalConferencia .modal-dialog {
+  width: 85%;
+  max-width: none;
+}
+
+#dataTableProducts {
+  width: inherit !important;
+}
+
+#dataTableProducts tr.row_selected,
+.selected {
+  background-color: #b5ccd2;
+  opacity: 0.95;
+  font-weight: 500;
+}
+
+div.dataTables_wrapper div.dataTables_filter {
+  display: none !important;
+}

@@ -15,7 +15,7 @@
     <script src="{{asset('assets/js/vendors.js')}}"></script>
 </head>
 
-<body class="bg-danger">
+<body class="">
 
     <div id="layoutAuthentication">
         <div id="layoutAuthentication_content">
@@ -26,7 +26,7 @@
             <footer class="footer mt-auto footer-dark">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-6 small">Copyright &copy; ADM Sports 2021 - Desenvolvido por Anderson Alves</div>
+                        <div class="col-md-6 small">Copyright &copy; ADM Sports - Desenvolvido por Anderson Alves</div>
                         <div class="col-md-6 text-md-right small">
                             <a href="#!">Política de Privacidade</a>
                             &middot;

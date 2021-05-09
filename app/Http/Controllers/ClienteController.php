@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Cliente;
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
@@ -14,9 +14,7 @@ class ClienteController extends Controller
 
     public function index()
     {
-        $clientes = Cliente::get();
-
-        return view('clientes', compact('clientes'));
+        return view('clientes');
     }
 
     public function clientes()
@@ -44,11 +42,15 @@ class ClienteController extends Controller
             'UF'                    => $dados->UF,
             'NUMERO'                => $dados->NUMERO,
             'TELEFONE'              => $dados->TELEFONE,
-            'CELULAR'               => $dados->CELULAR
+            'CELULAR'               => $dados->CELULAR,
+            'CONTATO'               => $dados->CONTATO,
+            'TIPO'                  => $dados->TIPO
         ];
 
         if(isset($dados->ID) && $dados->ID > 0){
-            $cliente = Cliente::where('ID', $dados->ID)->update($arr);
+            $update = Cliente::where('ID', $dados->ID)->update($arr);
+            $find = Cliente::where('ID', $dados->ID)->get(); 
+            $cliente = $find[0];
         }else{
             $cliente = Cliente::create($arr);
         }

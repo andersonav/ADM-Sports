@@ -2,22 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\TiposModuloConta;
+use App\Models\TiposModuloConta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TiposModuloContaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        $tiposModuloConta = TiposModuloConta::get();
-
-        return view('tiposModuloConta', compact('tiposModuloConta'));
+        return view('tiposModuloConta');
     }
 
     public function tiposModuloConta()
     {
-        $tiposModuloConta = TiposModuloConta::
-        selectRaw("LPAD(TBMODULO_CONTA_TIPO.ID, 5, '0') AS DESC_ID, TBMODULO_CONTA_TIPO.*")->get();
+
+        $sql = "SELECT 
+                    T.*,
+                    LPAD(T.ID, 4, '0') AS DESC_ID
+                FROM TBMODULO_CONTA_TIPO T
+                WHERE T.ID > 0";
+
+        $args = [
+        ];
+
+        $tiposModuloConta = DB::select($sql, $args);
+
 
         return response()->json($tiposModuloConta);
     }
@@ -29,22 +43,23 @@ class TiposModuloContaController extends Controller
         $tipoModuloConta = [];
 
         $arr = [
-            'DESCRICAO'             => $dados->DESCRICAO,
-            'DESC_RESUMIDA'         => $dados->DESC_RESUMIDA,
-            'OPERACAO'              => $dados->OPERACAO
+            'DESCRICAO'            => $dados->DESCRICAO,
+            'DESC_RESUMIDA'        => $dados->DESC_RESUMIDA,
+            'OPERACAO'             => $dados->OPERACAO
         ];
 
-        if (isset($dados->ID) && $dados->ID > 0) {
-            $tipoModuloConta = TiposModuloConta::where('ID', $dados->ID)->update($arr);
-        } else {
+        if(isset($dados->ID) && $dados->ID > 0){
+            $update = TiposModuloConta::where('ID', $dados->ID)->update($arr);
+            $find = TiposModuloConta::where('ID', $dados->ID)->get(); 
+            $tipoModuloConta = $find[0];
+        }else{
             $tipoModuloConta = TiposModuloConta::create($arr);
         }
 
         return response()->json($tipoModuloConta);
     }
 
-    public function postTipoModuloContaDelete(Request $request)
-    {
+    public function postTiposModuloContaDelete(Request $request){
         $dados = (object) $request->DADOS;
 
         $tipoModuloConta = TiposModuloConta::where('ID', $dados->ID)->delete();

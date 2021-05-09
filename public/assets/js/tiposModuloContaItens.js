@@ -57,31 +57,47 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 26);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 26:
+/***/ 14:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(27);
-module.exports = __webpack_require__(28);
+__webpack_require__(15);
+module.exports = __webpack_require__(16);
 
 
 /***/ }),
 
-/***/ 27:
+/***/ 15:
 /***/ (function(module, exports) {
 
-angular.module('app').value('gScope', {}).controller('Ctrl', Ctrl);
+angular.
+module('app').
+value('gScope', {}).
+controller('Ctrl', Ctrl);
 
-Ctrl.$inject = ['$scope', '$timeout', 'gScope', 'Consulta', 'TiposModuloContaItens'];
 
-function Ctrl($scope, $timeout, gScope, Consulta, TiposModuloContaItens) {
+Ctrl.$inject = [
+'$scope',
+'$timeout',
+'gScope',
+'Consulta',
+'TiposModuloContaItens'];
+
+
+function Ctrl(
+$scope,
+$timeout,
+gScope,
+Consulta,
+TiposModuloContaItens)
+{
 
 	var vm = this;
 	gScope.Ctrl = this;
@@ -90,6 +106,11 @@ function Ctrl($scope, $timeout, gScope, Consulta, TiposModuloContaItens) {
 	vm.TiposModuloContaItens = new TiposModuloContaItens();
 
 	vm.TiposModuloContaItens.getTiposModuloContaItens();
+
+
+
+
+
 
 	// Consulta Tipo Módulo de Conta
 
@@ -112,34 +133,47 @@ function Ctrl($scope, $timeout, gScope, Consulta, TiposModuloContaItens) {
 
 	vm.ConsultaTipoModuloConta.compile();
 
-	vm.ConsultaTipoModuloConta.onSelect = function (item) {};
+	vm.ConsultaTipoModuloConta.onSelect = function (item) {
 
-	vm.ConsultaTipoModuloConta.onClear = function (item) {};
+	};
+
+	vm.ConsultaTipoModuloConta.onClear = function (item) {
+
+	};
 
 	gScope.ConsultaTipoModuloConta = vm.ConsultaTipoModuloConta;
+
 
 	gScope.TiposModuloContaItens = vm.TiposModuloContaItens;
 }
 
 /***/ }),
 
-/***/ 28:
+/***/ 16:
 /***/ (function(module, exports) {
 
 (function (window, angular) {
 	'use strict';
 
-	angular.module('app').factory('TiposModuloContaItens', TiposModuloContaItens);
+	angular.
+	module('app').
+	factory('TiposModuloContaItens', TiposModuloContaItens);
 
-	TiposModuloContaItens.$inject = ['$ajax', '$q', '$rootScope', '$timeout', 'gScope'];
+	TiposModuloContaItens.$inject = [
+	'$ajax',
+	'$q',
+	'$rootScope',
+	'$timeout',
+	'gScope'];
+
 
 	function TiposModuloContaItens($ajax, $q, $rootScope, $timeout, gScope) {
 
 		var obj = null;
 
 		/**
-   * Constructor, with class name
-   */
+                   * Constructor, with class name
+                   */
 		function TiposModuloContaItens() {
 
 			obj = this;
@@ -171,14 +205,15 @@ function Ctrl($scope, $timeout, gScope, Consulta, TiposModuloContaItens) {
 			obj.recompileDatatable = recompileDatatable;
 
 			obj.DATATABLE = null;
+
 		}
 
 		function setDadosIncluir() {
 
 			var dados = {
 				DESCRICAO: '',
-				DESC_RESUMIDA: ''
-			};
+				DESC_RESUMIDA: '' };
+
 
 			return dados;
 		}
@@ -209,14 +244,15 @@ function Ctrl($scope, $timeout, gScope, Consulta, TiposModuloContaItens) {
 			if (check == true) {
 				sweetAlert(1, 'Deseja realmente gravar esse registro?', that);
 			}
+
 		}
 
 		function confirmarGravar() {
 			var that = this;
 
 			var dados = {
-				DADOS: obj.SELECTED
-			};
+				DADOS: obj.SELECTED };
+
 
 			return $q(function (resolve, reject) {
 
@@ -275,8 +311,8 @@ function Ctrl($scope, $timeout, gScope, Consulta, TiposModuloContaItens) {
 			var that = this;
 
 			var dados = {
-				DADOS: obj.SELECTED
-			};
+				DADOS: obj.SELECTED };
+
 
 			return $q(function (resolve, reject) {
 
@@ -308,6 +344,7 @@ function Ctrl($scope, $timeout, gScope, Consulta, TiposModuloContaItens) {
 					reject(e);
 				});
 			});
+
 		}
 
 		function cancelar() {
@@ -348,8 +385,10 @@ function Ctrl($scope, $timeout, gScope, Consulta, TiposModuloContaItens) {
 			var that = this;
 
 			var dados = {
-				DADOS: {}
-			};
+				DADOS: {} };
+
+
+
 
 			return $q(function (resolve, reject) {
 
@@ -368,6 +407,7 @@ function Ctrl($scope, $timeout, gScope, Consulta, TiposModuloContaItens) {
 					reject(e);
 				});
 			});
+
 		}
 
 		function recompileDatatable() {
@@ -377,13 +417,15 @@ function Ctrl($scope, $timeout, gScope, Consulta, TiposModuloContaItens) {
 
 				obj.DATATABLE = $('#dataTableTiposModuloContaItens').DataTable({
 					"order": [[0, 'asc']],
-					"language": returnLanguageDatatable()
-				});
+					"language": returnLanguageDatatable() });
+
+
 			}, 200);
 		}
 
 		return TiposModuloContaItens;
 	};
+
 })(window, window.angular);
 
 /***/ })

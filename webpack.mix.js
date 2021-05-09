@@ -6,8 +6,7 @@ let jsPathPublic = 'public/assets/js';
 let libPath = 'resources/assets/js/lib';
 
 mix.js([
-   libPath + '/angular.min.js',
-   libPath + '/numeral.min.js'
+   libPath + '/angular.min.js'
 ], jsPathPublic + '/vendors.js');
 
 mix.postCss('resources/assets/sass/main/styles.css', cssPathPublic + '/main/main.css').options({
@@ -18,7 +17,9 @@ mix.js(
    [
       libPath + '/modules.js',
       'resources/assets/js/admin/app.js',
-      libPath + '/componentes/Consulta.js'
+      libPath + '/componentes/Consulta.js',
+      libPath + '/componentes/Confirmacao.js',
+      libPath + '/componentes/Devices.js'
    ], jsPathPublic + '/master.js')
    .sass('resources/assets/sass/admin/app.scss', cssPathPublic);
 
@@ -38,6 +39,13 @@ mix.js(
 
 mix.js(
    [
+      'resources/assets/js/admin/AlunosController.js',
+      'resources/assets/js/admin/_adm.factory.Alunos.js'
+   ], jsPathPublic + '/alunos.js')
+   .sass('resources/assets/sass/admin/alunos.scss', cssPathPublic);
+
+mix.js(
+   [
       'resources/assets/js/admin/TiposDocumentoController.js',
       'resources/assets/js/admin/_adm.factory.TiposDocumento.js'
    ], jsPathPublic + '/tiposDocumento.js')
@@ -45,17 +53,29 @@ mix.js(
 
 mix.js(
    [
-      'resources/assets/js/admin/TiposModuloContaController.js',
-      'resources/assets/js/admin/_adm.factory.TiposModuloConta.js'
-   ], jsPathPublic + '/tiposModuloConta.js')
-   .sass('resources/assets/sass/admin/tiposModuloConta.scss', cssPathPublic);
+      'resources/assets/js/admin/ContasBancariasController.js',
+      'resources/assets/js/admin/_adm.factory.ContasBancarias.js'
+   ], jsPathPublic + '/contasBancarias.js')
+   .sass('resources/assets/sass/admin/contasBancarias.scss', cssPathPublic);
 
 mix.js(
    [
-      'resources/assets/js/admin/TiposModuloContaItensController.js',
-      'resources/assets/js/admin/_adm.factory.TiposModuloContaItens.js'
-   ], jsPathPublic + '/tiposModuloContaItens.js')
-   .sass('resources/assets/sass/admin/tiposModuloContaItens.scss', cssPathPublic);
+      'resources/assets/js/admin/ModuloContaController.js',
+      'resources/assets/js/admin/_adm.factory.ModuloConta.js',
+      'resources/assets/js/admin/_adm.factory.ModuloContaItens.js'
+   ], jsPathPublic + '/tiposModuloConta.js')
+   .sass('resources/assets/sass/admin/tiposModuloConta.scss', cssPathPublic);
+
+
+mix.js(
+   [
+      'resources/assets/js/admin/LancamentosController.js',
+      'resources/assets/js/admin/_adm.factory.Lancamentos.js',
+      'resources/assets/js/admin/_adm.factory.LancamentoItens.js',
+      'resources/assets/js/admin/_adm.factory.LancamentoAlunos.js'
+   ], jsPathPublic + '/lancamentos.js')
+   .sass('resources/assets/sass/admin/lancamentos.scss', cssPathPublic);
+
 
 
 if (mix.inProduction()) {

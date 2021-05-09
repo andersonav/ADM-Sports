@@ -1,0 +1,30 @@
+#dataTableLancamentos {
+  width: inherit !important;
+}
+
+#dataTableLancamentos tr.row_selected,
+.selected {
+  background-color: #b5ccd2;
+  opacity: 0.95;
+  font-weight: 500;
+}
+
+#dataTableLancamentoItens {
+  width: inherit !important;
+}
+
+#dataTableLancamentoItens tr.row_selected,
+.selected {
+  background-color: #b5ccd2;
+  opacity: 0.95;
+  font-weight: 500;
+}
+
+.modal#modalLancamentos .modal-dialog {
+  width: 85%;
+  max-width: none;
+}
+
+#dataTableLancamentoAlunos_filter {
+  display: none !important;
+}
