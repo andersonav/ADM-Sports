@@ -114,6 +114,41 @@ class ConsultasController extends Controller
         return response()->json($ret);
     }
     
+    public function ModuloConta()
+    {
+
+        $request = $this->request();
+        $param   = $request;
+
+        $desc = strtoupper($param->FILTRO);
+
+        if($desc != ''){
+			$desc = 'AND UPPER(T.ID||\'-\'||FN_LPAD(T.ID, 4, \'0\')||\'-\'||coalesce(T.DESCRICAO,\'\')) LIKE \'%'.str_replace(' ', '%', $desc).'%\'';
+		}else{
+			$desc = '';   
+		}
+
+        $sql = "SELECT 
+                    T.*,
+                    LPAD(T.ID, 4, '0') AS DESC_ID,
+                    CONCAT(LPAD(MCT.ID, 4, '0'), ' - ', MCT.DESCRICAO) AS DESC_MC_TIPO 
+                FROM TBMODULO_CONTA T
+                INNER JOIN TBMODULO_CONTA_TIPO MCT ON MCT.ID = T.MODULO_CONTA_TIPO_ID
+                WHERE T.ID > 0
+                $desc
+                ORDER BY T.DESCRICAO ASC
+                LIMIT :QTD OFFSET :PAGINA";
+
+        $args = [
+            'QTD'      => $param->CONSULTA->QTD,
+            'PAGINA'    => $param->CONSULTA->PAGINA
+        ];
+
+        $ret = DB::select($sql, $args);
+
+        return response()->json($ret);
+    }
+    
     public function ContaBancaria()
     {
 

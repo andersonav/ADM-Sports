@@ -66,6 +66,13 @@ mix.js(
    ], jsPathPublic + '/tiposModuloConta.js')
    .sass('resources/assets/sass/admin/tiposModuloConta.scss', cssPathPublic);
 
+mix.js(
+   [
+      'resources/assets/js/admin/ModuloContaItemController.js',
+      'resources/assets/js/admin/_adm.factory.ModuloContaItem.js'
+   ], jsPathPublic + '/moduloConta.js')
+   .sass('resources/assets/sass/admin/moduloConta.scss', cssPathPublic);
+
 
 mix.js(
    [

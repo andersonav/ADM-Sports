@@ -113,7 +113,7 @@
                                     <div class="collapse {{ (request()->is('admin/funcionalidades/modulos-conta*')) ? ' show' : '' }}" id="pagesCollapseAccount" data-parent="#accordionSidenavPagesMenu">
                                         <nav class="sidenav-menu-nested nav">
                                             <a class="nav-link{{ (request()->is('admin/funcionalidades/modulos-conta/tipos*')) ? ' active' : '' }}" href="{{route('tiposModuloConta')}}">Tipos</a>
-                                            <a class="nav-link{{ (request()->is('admin/funcionalidades/modulos-conta/itens*')) ? ' active' : '' }}" href="{{route('tiposModuloContaItens')}}">Itens</a>
+                                            <a class="nav-link{{ (request()->is('admin/funcionalidades/modulos-conta/contas*')) ? ' active' : '' }}" href="{{route('tiposModuloContaItens')}}">Contas</a>
                                         </nav>
                                     </div>
                                 </nav>

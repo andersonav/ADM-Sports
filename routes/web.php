@@ -34,6 +34,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
             Route::post('/Perfil', 'ConsultasController@Perfil')->name('perfil');
             Route::post('/TipoDocumento', 'ConsultasController@TipoDocumento')->name('tipoDocumento');
             Route::post('/ModuloContaItem', 'ConsultasController@ModuloContaItem')->name('moduloContaItem');
+            Route::post('/ModuloConta', 'ConsultasController@ModuloConta')->name('moduloConta');
             Route::post('/ContaBancaria', 'ConsultasController@ContaBancaria')->name('contaBancaria');
         });
        
@@ -79,6 +80,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
                 Route::any('/get', 'TiposModuloContaItensController@tiposModuloContaItens')->name('getTiposModuloContaItens');
                 Route::post('/post', 'TiposModuloContaItensController@postTiposModuloContaItens')->name('post-tipos-modulo-conta-item');
                 Route::post('/delete', 'TiposModuloContaItensController@postTiposModuloContaItensDelete')->name('delete-tipo-modulo-conta-item');
+            });
+            
+            Route::group(['prefix' => 'contas'], function () {
+                Route::get('/', 'ModuloContaController@index')->name('moduloConta');
+                Route::any('/get', 'ModuloContaController@moduloConta')->name('getModuloConta');
+                Route::post('/post', 'ModuloConta@postModuloConta')->name('post-modulo-conta');
+                Route::post('/delete', 'ModuloConta@postModuloContaDelete')->name('delete-modulo-conta');
             });
         });
 

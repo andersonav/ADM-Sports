@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 37);
+/******/ 	return __webpack_require__(__webpack_require__.s = 41);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -326,18 +326,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 37:
+/***/ 41:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(38);
-__webpack_require__(39);
-__webpack_require__(40);
-module.exports = __webpack_require__(41);
+__webpack_require__(42);
+__webpack_require__(43);
+__webpack_require__(44);
+module.exports = __webpack_require__(45);
 
 
 /***/ }),
 
-/***/ 38:
+/***/ 42:
 /***/ (function(module, exports) {
 
 angular.
@@ -708,7 +708,7 @@ Devices)
 
 /***/ }),
 
-/***/ 39:
+/***/ 43:
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (window, angular) {
@@ -1314,7 +1314,7 @@ Devices)
 
 /***/ }),
 
-/***/ 40:
+/***/ 44:
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (window, angular) {
@@ -1848,7 +1848,7 @@ Devices)
 
 /***/ }),
 
-/***/ 41:
+/***/ 45:
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (window, angular) {

@@ -1,63 +1,63 @@
 [
     {
         "type": "Directory",
-        "name": "c:\\xampp\\htdocs\\Projetos\\Adm\\app\\Http\\Controllers",
+        "name": "c:\\xampp\\htdocs\\Projetos\\AdmSports\\app\\Http\\Controllers",
         "parent_id": null,
-        "fsPath": "c:\\xampp\\htdocs\\Projetos\\Adm\\app\\Http\\Controllers",
+        "fsPath": "c:\\xampp\\htdocs\\Projetos\\AdmSports\\app\\Http\\Controllers",
         "workspaceRoot": null,
         "workspacePath": null,
         "id": "4GgwOMANkiHKWPZF"
     },
     {
         "type": "Directory",
-        "name": "c:\\xampp\\htdocs\\Projetos\\Adm\\routes",
+        "name": "c:\\xampp\\htdocs\\Projetos\\AdmSports\\routes",
         "parent_id": null,
-        "fsPath": "c:\\xampp\\htdocs\\Projetos\\Adm\\routes",
+        "fsPath": "c:\\xampp\\htdocs\\Projetos\\AdmSports\\routes",
         "workspaceRoot": null,
         "workspacePath": null,
         "id": "8PY2sf3FISCBpW6r"
     },
     {
         "type": "Directory",
-        "name": "c:\\xampp\\htdocs\\Projetos\\Adm\\resources\\assets\\js\\admin",
+        "name": "c:\\xampp\\htdocs\\Projetos\\AdmSports\\resources\\assets\\js\\admin",
         "parent_id": null,
-        "fsPath": "c:\\xampp\\htdocs\\Projetos\\Adm\\resources\\assets\\js\\admin",
+        "fsPath": "c:\\xampp\\htdocs\\Projetos\\AdmSports\\resources\\assets\\js\\admin",
         "workspaceRoot": null,
         "workspacePath": null,
         "id": "o4mlQ2DwgJdLV1tO"
     },
     {
         "type": "Directory",
-        "name": "c:\\xampp\\htdocs\\Projetos\\Adm\\resources\\assets\\sass",
+        "name": "c:\\xampp\\htdocs\\Projetos\\AdmSports\\resources\\assets\\sass",
         "parent_id": null,
-        "fsPath": "c:\\xampp\\htdocs\\Projetos\\Adm\\resources\\assets\\sass",
+        "fsPath": "c:\\xampp\\htdocs\\Projetos\\AdmSports\\resources\\assets\\sass",
         "workspaceRoot": null,
         "workspacePath": null,
         "id": "2pgsBSYJeIUiNXm8"
     },
     {
         "type": "Directory",
-        "name": "c:\\xampp\\htdocs\\Projetos\\Adm\\resources\\views",
+        "name": "c:\\xampp\\htdocs\\Projetos\\AdmSports\\resources\\views",
         "parent_id": null,
-        "fsPath": "c:\\xampp\\htdocs\\Projetos\\Adm\\resources\\views",
+        "fsPath": "c:\\xampp\\htdocs\\Projetos\\AdmSports\\resources\\views",
         "workspaceRoot": null,
         "workspacePath": null,
         "id": "O1beFCiSP0Z8cTVY"
     },
     {
         "type": "Directory",
-        "name": "c:\\xampp\\htdocs\\Projetos\\Adm\\app\\Models",
+        "name": "c:\\xampp\\htdocs\\Projetos\\AdmSports\\app\\Models",
         "parent_id": null,
-        "fsPath": "c:\\xampp\\htdocs\\Projetos\\Adm\\app\\Models",
+        "fsPath": "c:\\xampp\\htdocs\\Projetos\\AdmSports\\app\\Models",
         "workspaceRoot": null,
         "workspacePath": null,
         "id": "hNw5a1j3f2QVFoSK"
     },
     {
         "type": "File",
-        "name": "c:\\xampp\\htdocs\\Projetos\\Adm\\webpack.mix.js",
+        "name": "c:\\xampp\\htdocs\\Projetos\\AdmSports\\webpack.mix.js",
         "parent_id": null,
-        "fsPath": "c:\\xampp\\htdocs\\Projetos\\Adm\\webpack.mix.js",
+        "fsPath": "c:\\xampp\\htdocs\\Projetos\\AdmSports\\webpack.mix.js",
         "workspaceRoot": null,
         "workspacePath": null,
         "id": "Zi6WS8NuOt2BGqlR"

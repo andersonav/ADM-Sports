@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 25);
+/******/ 	return __webpack_require__(__webpack_require__.s = 38);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -326,16 +326,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 25:
+/***/ 38:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(26);
-module.exports = __webpack_require__(27);
+__webpack_require__(39);
+module.exports = __webpack_require__(40);
 
 
 /***/ }),
 
-/***/ 26:
+/***/ 39:
 /***/ (function(module, exports) {
 
 angular.
@@ -349,7 +349,7 @@ Ctrl.$inject = [
 '$timeout',
 'gScope',
 'Consulta',
-'Alunos',
+'ModuloContaItem',
 'Confirmacao',
 'Devices'];
 
@@ -359,7 +359,7 @@ $scope,
 $timeout,
 gScope,
 Consulta,
-Alunos,
+ModuloContaItem,
 Confirmacao,
 Devices)
 {
@@ -368,14 +368,45 @@ Devices)
 	gScope.Ctrl = this;
 
 	vm.Consulta = new Consulta();
-	vm.Alunos = new Alunos($scope);
+	vm.ModuloContaItem = new ModuloContaItem($scope);
 	vm.Confirmacao = new Confirmacao();
 	vm.Devices = new Devices();
 	vm.Confirme = vm.Confirmacao.getNew('vm.Confirme');
 	gScope.Confirme = vm.Confirme;
 	gScope.Devices = vm.Devices;
 
-	vm.Alunos.compileDatatable();
+	// Consulta Conta
+	vm.ConsultaModuloConta = vm.Consulta.getNew(true);
+	vm.ConsultaModuloConta.componente = '.consulta-modulo-conta-item';
+	vm.ConsultaModuloConta.option.class = 'consulta-modulo-conta-item-c';
+	vm.ConsultaModuloConta.model = 'vm.ConsultaModuloConta';
+	vm.ConsultaModuloConta.option.label_descricao = 'Módulo de Conta: ';
+	vm.ConsultaModuloConta.option.obj_consulta = '/admin/funcionalidades/consultas/ModuloConta';
+	vm.ConsultaModuloConta.option.tamanho_tabela = '100%';
+	vm.ConsultaModuloConta.option.required = true;
+	vm.ConsultaModuloConta.autoload = false;
+	vm.ConsultaModuloConta.cache = false;
+	vm.ConsultaModuloConta.option.infinite_scroll = true;
+	vm.ConsultaModuloConta.option.obj_ret = ['DESC_ID', 'DESCRICAO'];
+	vm.ConsultaModuloConta.option.campos_tabela = [['DESC_ID', 'ID'], ['DESCRICAO', 'DESCRIÇÃO'], ['DESC_MC_TIPO', 'TIPO']];
+	vm.ConsultaModuloConta.option.filtro_sql = {};
+
+	vm.ConsultaModuloConta.compile();
+
+	vm.ModuloContaItem.consultas.push({ OBJ: vm.ConsultaModuloConta, NOME: 'MODULO_CONTA' });
+
+
+	vm.ConsultaModuloConta.onSelect = function (item) {
+
+	};
+
+	vm.ConsultaModuloConta.onClear = function (item) {
+
+	};
+
+	gScope.ConsultaModuloConta = vm.ConsultaModuloConta;
+
+	vm.ModuloContaItem.consultar();
 
 	vm.calcularQuantidadeDecimais = function (number) {
 		var quantidadeDecimais = 0;
@@ -400,14 +431,14 @@ Devices)
 
 	gScope.calcularQuantidadeDecimais = vm.calcularQuantidadeDecimais;
 	gScope.countDecimals = vm.countDecimals;
-	gScope.Alunos = vm.Alunos;
+	gScope.ModuloContaItem = vm.ModuloContaItem;
 
 
 	$('.filter_on_enter').keyup(function (event) {
 		var key = event.keyCode;
 
 		if (key == 13) {
-			vm.Alunos.consultar();
+			vm.ModuloContaItem.consultar();
 		}
 	});
 
@@ -416,23 +447,23 @@ Devices)
 			e.stopImmediatePropagation();
 			e.stopPropagation();
 			e.preventDefault();
-			vm.Alunos.consultar();
+			vm.ModuloContaItem.consultar();
 		}
 	});
 
 	$.key("delete", function (e) {
 		if (!$(".modal").is(':visible')) {
-			if ($("#dataTableAlunos tbody tr.row_selected").length == 1 && $("#tableConsulta:visible").length == 0) {
+			if ($("#dataTableModuloContaItem tbody tr.row_selected").length == 1 && $("#tableConsulta:visible").length == 0) {
 				e.stopImmediatePropagation();
 				e.stopPropagation();
 				e.preventDefault();
 
-				var data = vm.Alunos.DATATABLE.row("#dataTableAlunos tbody tr.row_selected").data();
-				vm.Alunos.SELECTED = data;
+				var data = vm.ModuloContaItem.DATATABLE.row("#dataTableModuloContaItem tbody tr.row_selected").data();
+				vm.ModuloContaItem.SELECTED = data;
 
 				$timeout(function () {
 					$scope.$apply(function () {
-						vm.Alunos.excluir();
+						vm.ModuloContaItem.excluir();
 					});
 				});
 
@@ -468,7 +499,7 @@ Devices)
 			$(".modal.in.confirm button[data-hotkey=esc]:visible:enabled").first().trigger('click');
 
 			$timeout(function () {
-				onFocusInputModal("#modalAlunos");
+				onFocusInputModal("#modalModuloContaItem");
 			});
 		} else {
 			if ($(".modal:visible").length > 0) {
@@ -478,7 +509,7 @@ Devices)
 					$("#" + idModal + " [data-hotkey=esc]:visible:enabled").first().trigger('click');
 
 					$timeout(function () {
-						onFocusInputModal("#modalAlunos");
+						onFocusInputModal("#modalModuloContaItem");
 					});
 				}
 			}
@@ -573,7 +604,7 @@ Devices)
 
 /***/ }),
 
-/***/ 27:
+/***/ 40:
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (window, angular) {
@@ -581,9 +612,9 @@ Devices)
 
 	angular.
 	module('app').
-	factory('Alunos', Alunos);
+	factory('ModuloContaItem', ModuloContaItem);
 
-	Alunos.$inject = [
+	ModuloContaItem.$inject = [
 	'$ajax',
 	'$q',
 	'$compile',
@@ -592,22 +623,22 @@ Devices)
 	'gScope'];
 
 
-	function Alunos($ajax, $q, $compile, $rootScope, $timeout, gScope) {
+	function ModuloContaItem($ajax, $q, $compile, $rootScope, $timeout, gScope) {
 
 		var obj = null;
 
 		/**
                    * Constructor, with class name
                    */
-		function Alunos($scope) {
+		function ModuloContaItem($scope) {
 
 			obj = this;
 			obj.scope = $scope;
-			obj.model = 'vm.Alunos';
+			obj.model = 'vm.ModuloContaItem';
 
-			obj.url_consultar = urlhost + '/admin/funcionalidades/alunos/get';
-			obj.url_gravar = urlhost + '/admin/funcionalidades/alunos/post';
-			obj.url_excluir = urlhost + '/admin/funcionalidades/alunos/delete';
+			obj.url_consultar = urlhost + '/admin/funcionalidades/modulos-conta/contas/get';
+			obj.url_gravar = urlhost + '/admin/funcionalidades/modulos-conta/contas/post';
+			obj.url_excluir = urlhost + '/admin/funcionalidades/modulos-conta/contas/delete';
 
 			obj.SELECTED = {};
 			obj.BACKUP = {};
@@ -620,7 +651,7 @@ Devices)
 			obj.INCLUINDO = false;
 			obj.ALTERANDO = false;
 
-			obj.MODAL = "#modalAlunos";
+			obj.MODAL = "#modalModuloContaItem";
 
 			obj.setDadosIncluir = setDadosIncluir;
 			obj.incluir = incluir;
@@ -636,23 +667,12 @@ Devices)
 			obj.setDadosConsultar = setDadosConsultar;
 			obj.consultar = consultar;
 			obj.compileDatatable = compileDatatable;
-			obj.getEnderecoByCep = getEnderecoByCep;
 		}
 
 		function setDadosIncluir() {
 
 			var dados = {
-				MATRICULA: '',
-				NOME: '',
-				DATA_NASCIMENTO: null,
-				CEP: '',
-				ENDERECO: '',
-				BAIRRO: '',
-				CIDADE: '',
-				UF: '',
-				NUMERO: '',
-				TELEFONE: '',
-				CELULAR: '' };
+				DESCRICAO: '' };
 
 
 			return dados;
@@ -686,9 +706,15 @@ Devices)
 
 			var check = true;
 
-			if (that.SELECTED.NOME == '' || that.SELECTED.NOME == null) {
+			if (gScope.ConsultaModuloConta.item.selected == false) {
 				check = false;
-				showErro("Nome obrigatório");
+				showErro("Módulo de conta obrigatório");
+				gScope.ConsultaModuloConta.setFocusInput();
+			}
+
+			if (that.SELECTED.DESCRICAO == '' || that.SELECTED.DESCRICAO == null) {
+				check = false;
+				showErro("Descrição obrigatória");
 			}
 
 			if (check == true) {
@@ -711,8 +737,7 @@ Devices)
 		function confirmarGravar() {
 			var that = this;
 
-			obj.SELECTED.FDATA_NASCIMENTO = moment(obj.SELECTED.FDATA_NASCIMENTO).format('YYYY-MM-DD');
-			obj.SELECTED.FDATA_NASCIMENTO = obj.SELECTED.FDATA_NASCIMENTO == 'Invalid date' ? null : obj.SELECTED.FDATA_NASCIMENTO;
+			obj.SELECTED.MODULO_CONTA_ID = gScope.ConsultaModuloConta.item.dados.ID;
 
 			var dados = {
 				DADOS: obj.SELECTED,
@@ -996,7 +1021,7 @@ Devices)
 			var StringMask = __webpack_require__(0);
 
 			if (obj.DATATABLE == null) {
-				obj.DATATABLE = $('#dataTableAlunos').DataTable({
+				obj.DATATABLE = $('#dataTableModuloContaItem').DataTable({
 					"order": [[0, 'desc']],
 					"searching": false,
 					"data": obj.DADOS,
@@ -1013,56 +1038,9 @@ Devices)
 							return trim_null(row.ID).padStart(5, '0');
 						} },
 
-					{ "data": "MATRICULA", "title": 'Matrícula',
+					{ "data": "DESCRICAO", "title": 'Descrição',
 						render: function render(data, type, row) {
-							return row.MATRICULA;
-						} },
-
-					{ "data": "NOME", "title": 'Nome',
-						render: function render(data, type, row) {
-							return row.NOME;
-						} },
-
-					{ "data": "CEP", "title": 'CEP', "className": "text-center",
-						render: function render(data, type, row) {
-							var html = '';
-
-							var formatter = {};
-
-							formatter = new StringMask('00000-000');
-
-							var cep = formatter.apply(data);
-
-							if (data != '' && data != null) {
-								html = '<a class="popoverCFe" id="popEnderecoAluno' + row.ID + '" href="javascript:void(0);" tabindex="-1" data-toggle="popover" data-trigger="hover" title="" data-placement="bottom" data-content="<b>' + row.ENDERECO + ', N°: ' + row.NUMERO + ' - Bairro: ' + row.BAIRRO + ' (' + row.CIDADE + '/' + row.UF + ')' + '</b>">' + cep + '</a>';
-							}
-
-							return html;
-						} },
-
-					{ "data": "TELEFONE", "title": 'Telefone',
-						render: function render(data, type, row) {
-							var formatter = {};
-
-							formatter = new StringMask('(00) 00000-0000');
-
-							var telefone = formatter.apply(data);
-
-							return telefone;
-						} },
-
-					{ "data": "CELULAR", "title": 'Celular',
-						render: function render(data, type, row) {
-
-
-							var formatter = {};
-
-							formatter = new StringMask('(00) 00000-0000');
-
-							var celular = formatter.apply(data);
-
-							return celular;
-
+							return row.DESCRICAO;
 						} },
 
 					{ "data": "ACTIONS", "title": 'Opções',
@@ -1082,7 +1060,7 @@ Devices)
 							'					<ul class="dropdown-menu">	' +
 							'						<li class="dropdown-header" style="text-transform: initial; font-weight: bold;"> ' +
 							'							Ações Disponíveis </li>' +
-							'						<li class="dropdown-item" style="cursor: pointer;" ng-click="vm.Alunos.excluir(' + index + ');"> ' +
+							'						<li class="dropdown-item" style="cursor: pointer;" ng-click="vm.ModuloContaItem.excluir(' + index + ');"> ' +
 							'	 						<a style="text-transform: initial; cursor: pointer;"> ' +
 							' 								<span class="fas fa-trash"></span> Excluir</a> ' +
 							'						</li> ' +
@@ -1137,34 +1115,7 @@ Devices)
 			}
 		}
 
-		function getEnderecoByCep() {
-			var that = this;
-
-			if (typeof that.SELECTED.CEP != 'undefined') {
-				if (that.SELECTED.CEP.length == 8) {
-					getEnderecoByCepJS(that.SELECTED.CEP).then(function (dadosRetornados) {
-
-						$timeout(function () {
-							if (dadosRetornados.ERROR == true) {
-								showErro("Nenhum endereço encontrado para esse CEP");
-							} else {
-
-								$rootScope.$apply(function () {
-									that.SELECTED.ENDERECO = dadosRetornados.ENDERECO;
-									that.SELECTED.BAIRRO = dadosRetornados.BAIRRO;
-									that.SELECTED.CIDADE = dadosRetornados.CIDADE;
-									that.SELECTED.UF = dadosRetornados.UF;
-								});
-
-							}
-						}, 200);
-					});
-				}
-
-			}
-		}
-
-		return Alunos;
+		return ModuloContaItem;
 	};
 
 })(window, window.angular);
