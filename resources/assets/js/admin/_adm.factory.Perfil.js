@@ -3,9 +3,9 @@
 
 	angular
 		.module('app')
-		.factory('ContasBancarias', ContasBancarias);
+		.factory('Perfil', Perfil);
 
-	ContasBancarias.$inject = [
+	Perfil.$inject = [
 		'$ajax',
 		'$q',
 		'$compile',
@@ -14,22 +14,22 @@
 		'gScope'
 	];
 
-	function ContasBancarias($ajax, $q, $compile, $rootScope, $timeout, gScope) {
+	function Perfil($ajax, $q, $compile, $rootScope, $timeout, gScope) {
 
 		var obj = null;
 
 		/**
 		 * Constructor, with class name
 		 */
-		function ContasBancarias($scope) {
+		function Perfil($scope) {
 
 			obj = this;
 			obj.scope 									= $scope;
-			obj.model 									= 'vm.ContasBancarias';
+			obj.model 									= 'vm.Perfil';
 
-            obj.url_consultar 							= urlhost + '/admin/funcionalidades/contas-bancarias/get';
-			obj.url_gravar 								= urlhost + '/admin/funcionalidades/contas-bancarias/post';
-			obj.url_excluir 							= urlhost + '/admin/funcionalidades/contas-bancarias/delete';
+            obj.url_consultar 							= urlhost + '/admin/funcionalidades/modulos-conta/perfis/get';
+			obj.url_gravar 								= urlhost + '/admin/funcionalidades/modulos-conta/perfis/post';
+			obj.url_excluir 							= urlhost + '/admin/funcionalidades/modulos-conta/perfis/delete';
 
 			obj.SELECTED 								= {};
 			obj.BACKUP 									= {};
@@ -42,7 +42,7 @@
 			obj.INCLUINDO 								= false;
 			obj.ALTERANDO 								= false;
 
-			obj.MODAL									= "#modalContasBancarias";
+			obj.MODAL									= "#modalPerfil";
 
 			obj.setDadosIncluir 						= setDadosIncluir;
 			obj.incluir 								= incluir;
@@ -63,8 +63,13 @@
 		function setDadosIncluir() {
 
 			var dados = {
-				CONTA: 	'',
-				DESCRICAO: ''
+				VALOR					: 0,
+				DESCRICAO				: '',
+				DESCRICAO_PADRAO		: '',
+				MODULO_CONTA_ITEM_ID	: 0,
+				TIPO_DOCUMENTO_ID		: 0,
+				CONTA_BANCARIA_ID		: 0,
+				TIPO_LANCAMENTO			: 0
 			};
 
 			return dados;
@@ -122,6 +127,18 @@
 
 		function confirmarGravar() {
 			var that = this;
+
+			if(gScope.ConsultaModuloConta.item.selected == true){
+				obj.SELECTED.MODULO_CONTA_ITEM_ID = gScope.ConsultaModuloConta.item.dados.ID;
+			}
+			
+			if(gScope.ConsultaTipoDocumento.item.selected == true){
+				obj.SELECTED.TIPO_DOCUMENTO_ID = gScope.ConsultaTipoDocumento.item.dados.ID;
+			}
+			
+			if(gScope.ConsultaContaBancaria.item.selected == true){
+				obj.SELECTED.CONTA_BANCARIA_ID = gScope.ConsultaContaBancaria.item.dados.ID;
+			}
 
 			var dados = {
 				DADOS: obj.SELECTED,
@@ -379,6 +396,9 @@
 			var dados = {
 				FILTRO: {
 
+				},
+				DADOS: {
+					
 				}
 			};
 
@@ -407,7 +427,7 @@
 			var StringMask = require('string-mask');
 
 			if(obj.DATATABLE == null){
-				obj.DATATABLE = $('#dataTableContasBancarias').DataTable({
+				obj.DATATABLE = $('#dataTablePerfil').DataTable({
 					"order": [[0, 'desc']],
 					"searching": false,
 					"data": obj.DADOS,
@@ -424,11 +444,6 @@
 								return trim_null(row.ID).padStart(5, '0');
 							}
 						},
-						{ "data": "CONTA", "title": 'Conta', 
-							render : function(data, type, row) {
-								return row.CONTA;
-							} 
-						},
 						{ "data": "DESCRICAO", "title": 'Descrição', 
 							render : function(data, type, row) {
 								return row.DESCRICAO;
@@ -441,7 +456,7 @@
 								var index = meta.row;
 
 								html = html + `
-								<button type="button" class="btn btn-sm btn-danger" ng-click="vm.ContasBancarias.excluir(`+index+`);" ng-dblclick="$event.stopPropagation();">
+								<button type="button" class="btn btn-sm btn-danger" ng-click="vm.Perfil.excluir(`+index+`);" ng-dblclick="$event.stopPropagation();">
 									<span class="fas fa-trash"></span>
 								</button>`;
 
@@ -492,7 +507,7 @@
 			}
 		}
 
-		return ContasBancarias;
+		return Perfil;
 	};
 
 })(window, window.angular);

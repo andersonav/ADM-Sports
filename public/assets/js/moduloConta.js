@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 38);
+/******/ 	return __webpack_require__(__webpack_require__.s = 39);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -326,16 +326,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 38:
+/***/ 39:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(39);
-module.exports = __webpack_require__(40);
+__webpack_require__(40);
+module.exports = __webpack_require__(41);
 
 
 /***/ }),
 
-/***/ 39:
+/***/ 40:
 /***/ (function(module, exports) {
 
 angular.
@@ -377,8 +377,8 @@ Devices)
 
 	// Consulta Conta
 	vm.ConsultaModuloConta = vm.Consulta.getNew(true);
-	vm.ConsultaModuloConta.componente = '.consulta-modulo-conta-item';
-	vm.ConsultaModuloConta.option.class = 'consulta-modulo-conta-item-c';
+	vm.ConsultaModuloConta.componente = '.consulta-tipo-modulo-conta';
+	vm.ConsultaModuloConta.option.class = 'consulta-tipo-modulo-conta-c';
 	vm.ConsultaModuloConta.model = 'vm.ConsultaModuloConta';
 	vm.ConsultaModuloConta.option.label_descricao = 'Módulo de Conta: ';
 	vm.ConsultaModuloConta.option.obj_consulta = '/admin/funcionalidades/consultas/ModuloConta';
@@ -604,7 +604,7 @@ Devices)
 
 /***/ }),
 
-/***/ 40:
+/***/ 41:
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (window, angular) {
@@ -953,13 +953,15 @@ Devices)
 					var nome = consulta.NOME;
 
 					if (typeof that.SELECTED[nome + '_JSON'] != 'undefined' && that.SELECTED[nome + '_JSON'] != '' && that.SELECTED[nome + '_JSON'] != null) {
-						consulta.OBJ.setSelected(JSON.parse(that.SELECTED[nome + '_JSON']));
 
-						if (that.SELECTED[that.CAMPO_INDEX] <= 0) {
-							consulta.OBJ.btn_apagar_filtro.disabled = false;
-						} else {
-							consulta.OBJ.btn_apagar_filtro.disabled = true;
+						var jsonX = JSON.parse(that.SELECTED[nome + '_JSON']);
+
+						if (typeof jsonX.ID != 'undefined' && jsonX.ID != '' && jsonX.ID != null) {
+							consulta.OBJ.setSelected(jsonX);
 						}
+
+						consulta.OBJ.Input.disabled = true;
+						consulta.OBJ.btn_filtro.disabled = true;
 
 					} else {
 						if (that.SELECTED[that.CAMPO_INDEX] <= 0 && that.disabled_consulta_on_visualizar == false) {
@@ -991,7 +993,10 @@ Devices)
 			var that = this;
 
 			var dados = {
-				FILTRO: {} };
+				FILTRO: {},
+
+
+				DADOS: {} };
 
 
 
@@ -1043,30 +1048,16 @@ Devices)
 							return row.DESCRICAO;
 						} },
 
-					{ "data": "ACTIONS", "title": 'Opções',
+					{ "data": "ACTIONS", "title": 'Opções', 'className': 'text-center',
 						render: function render(data, type, full, meta) {
 							var html = '';
 
 							var index = meta.row;
 
-							html = html + ' <div class="form-group no-print" style="display: contents;"> ' +
-							'			<div class="dropdown acoes"> ' +
-							'				<button type="button" class="btn btn-sm btn-warning toggle" ' +
-							'					style="margin-left: 6px;" ' +
-							'					data-toggle="dropdown" ng-dblclick="$event.stopPropagation();" aria-expanded="false" ' + 'ng-readonly="false"> ' +
-							'					<span class="fas fa-th-list"></span> ' +
-							'					 ' +
-							' 				</button> ' +
-							'					<ul class="dropdown-menu">	' +
-							'						<li class="dropdown-header" style="text-transform: initial; font-weight: bold;"> ' +
-							'							Ações Disponíveis </li>' +
-							'						<li class="dropdown-item" style="cursor: pointer;" ng-click="vm.ModuloContaItem.excluir(' + index + ');"> ' +
-							'	 						<a style="text-transform: initial; cursor: pointer;"> ' +
-							' 								<span class="fas fa-trash"></span> Excluir</a> ' +
-							'						</li> ' +
-							'					</ul> ' +
-							'				</div> ' +
-							'			</div> ';
+							html = html + '\n\t\t\t\t\t\t\t\t<button type="button" class="btn btn-sm btn-danger" ng-click="vm.ModuloContaItem.excluir(' +
+							index + ');" ng-dblclick="$event.stopPropagation();">\n\t\t\t\t\t\t\t\t\t<span class="fas fa-trash"></span>\n\t\t\t\t\t\t\t\t</button>';
+
+
 
 							return html;
 						} }],
@@ -1074,14 +1065,14 @@ Devices)
 
 					createdRow: function createdRow(row, data, dataIndex) {
 
-						// $(row).on('click', function () {
-						// 	if ($(row).hasClass('row_selected') == false) {
-						// 		obj.DATATABLE.$('tr.row_selected').removeClass('row_selected');
-						// 		$(row).addClass('row_selected');
-						// 	} else {
-						// 		$(row).removeClass('row_selected');
-						// 	}
-						// });
+						$(row).on('click', function () {
+							if ($(row).hasClass('row_selected') == false) {
+								obj.DATATABLE.$('tr.row_selected').removeClass('row_selected');
+								$(row).addClass('row_selected');
+							} else {
+								$(row).removeClass('row_selected');
+							}
+						});
 
 						// if(data[obj.CAMPO_INDEX] == obj.SELECTED[obj.CAMPO_INDEX]){
 						// 	$(row).addClass('row_selected');

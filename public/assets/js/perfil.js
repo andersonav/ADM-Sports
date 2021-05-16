@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 23);
+/******/ 	return __webpack_require__(__webpack_require__.s = 42);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -326,16 +326,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 23:
+/***/ 42:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(24);
-module.exports = __webpack_require__(25);
+__webpack_require__(43);
+module.exports = __webpack_require__(44);
 
 
 /***/ }),
 
-/***/ 24:
+/***/ 43:
 /***/ (function(module, exports) {
 
 angular.
@@ -349,7 +349,7 @@ Ctrl.$inject = [
 '$timeout',
 'gScope',
 'Consulta',
-'Clientes',
+'Perfil',
 'Confirmacao',
 'Devices'];
 
@@ -359,7 +359,7 @@ $scope,
 $timeout,
 gScope,
 Consulta,
-Clientes,
+Perfil,
 Confirmacao,
 Devices)
 {
@@ -368,14 +368,105 @@ Devices)
 	gScope.Ctrl = this;
 
 	vm.Consulta = new Consulta();
-	vm.Clientes = new Clientes($scope);
+	vm.Perfil = new Perfil($scope);
 	vm.Confirmacao = new Confirmacao();
 	vm.Devices = new Devices();
 	vm.Confirme = vm.Confirmacao.getNew('vm.Confirme');
 	gScope.Confirme = vm.Confirme;
 	gScope.Devices = vm.Devices;
 
-	vm.Clientes.compileDatatable();
+	// Consulta Tipo Documento
+	vm.ConsultaTipoDocumento = vm.Consulta.getNew(true);
+	vm.ConsultaTipoDocumento.componente = '.consulta-tipo-documento';
+	vm.ConsultaTipoDocumento.option.class = 'consulta-tipo-documento-c';
+	vm.ConsultaTipoDocumento.model = 'vm.ConsultaTipoDocumento';
+	vm.ConsultaTipoDocumento.option.label_descricao = 'Tipo Documento: ';
+	vm.ConsultaTipoDocumento.option.obj_consulta = '/admin/funcionalidades/consultas/TipoDocumento';
+	vm.ConsultaTipoDocumento.option.tamanho_tabela = '100%';
+	vm.ConsultaTipoDocumento.option.required = false;
+	vm.ConsultaTipoDocumento.autoload = false;
+	vm.ConsultaTipoDocumento.cache = false;
+	vm.ConsultaTipoDocumento.option.infinite_scroll = true;
+	vm.ConsultaTipoDocumento.option.obj_ret = ['DESC_ID', 'DESCRICAO'];
+	vm.ConsultaTipoDocumento.option.campos_tabela = [['DESC_ID', 'ID'], ['DESCRICAO', 'DESCRIÇÃO']];
+	vm.ConsultaTipoDocumento.option.filtro_sql = {};
+
+	vm.ConsultaTipoDocumento.compile();
+	vm.Perfil.consultas.push({ OBJ: vm.ConsultaTipoDocumento, NOME: 'TIPO_DOCUMENTO' });
+
+	vm.ConsultaTipoDocumento.onSelect = function (item) {
+
+	};
+
+	vm.ConsultaTipoDocumento.onClear = function (item) {
+
+	};
+
+	gScope.ConsultaTipoDocumento = vm.ConsultaTipoDocumento;
+
+	// Consulta Conta
+	vm.ConsultaModuloConta = vm.Consulta.getNew(true);
+	vm.ConsultaModuloConta.componente = '.consulta-tipo-modulo-conta';
+	vm.ConsultaModuloConta.option.class = 'consulta-tipo-modulo-conta-c';
+	vm.ConsultaModuloConta.model = 'vm.ConsultaModuloConta';
+	vm.ConsultaModuloConta.option.label_descricao = 'Módulo de Conta: ';
+	vm.ConsultaModuloConta.option.obj_consulta = '/admin/funcionalidades/consultas/ModuloConta';
+	vm.ConsultaModuloConta.option.tamanho_tabela = '100%';
+	vm.ConsultaModuloConta.option.required = false;
+	vm.ConsultaModuloConta.autoload = false;
+	vm.ConsultaModuloConta.cache = false;
+	vm.ConsultaModuloConta.option.infinite_scroll = true;
+	vm.ConsultaModuloConta.option.obj_ret = ['DESC_ID', 'DESCRICAO'];
+	vm.ConsultaModuloConta.option.campos_tabela = [['DESC_ID', 'ID'], ['DESCRICAO', 'DESCRIÇÃO'], ['DESC_MC_TIPO', 'TIPO']];
+	vm.ConsultaModuloConta.option.filtro_sql = {};
+
+	vm.ConsultaModuloConta.compile();
+
+	vm.Perfil.consultas.push({ OBJ: vm.ConsultaModuloConta, NOME: 'MODULO_CONTA' });
+
+
+	vm.ConsultaModuloConta.onSelect = function (item) {
+
+	};
+
+	vm.ConsultaModuloConta.onClear = function (item) {
+
+	};
+
+	gScope.ConsultaModuloConta = vm.ConsultaModuloConta;
+
+	// Consulta Conta
+	vm.ConsultaContaBancaria = vm.Consulta.getNew(true);
+	vm.ConsultaContaBancaria.componente = '.consulta-conta-bancaria';
+	vm.ConsultaContaBancaria.option.class = 'consulta-conta-bancaria-c';
+	vm.ConsultaContaBancaria.model = 'vm.ConsultaContaBancaria';
+	vm.ConsultaContaBancaria.option.label_descricao = 'Conta bancária: ';
+	vm.ConsultaContaBancaria.option.obj_consulta = '/admin/funcionalidades/consultas/ContaBancaria';
+	vm.ConsultaContaBancaria.option.tamanho_tabela = '100%';
+	vm.ConsultaContaBancaria.option.required = false;
+	vm.ConsultaContaBancaria.autoload = false;
+	vm.ConsultaContaBancaria.cache = false;
+	vm.ConsultaContaBancaria.option.infinite_scroll = true;
+	vm.ConsultaContaBancaria.option.obj_ret = ['DESC_ID', 'DESCRICAO'];
+	vm.ConsultaContaBancaria.option.campos_tabela = [['DESC_ID', 'ID'], ['DESC_CONTA', 'DESCRIÇÃO']];
+	vm.ConsultaContaBancaria.option.filtro_sql = {};
+
+	vm.ConsultaContaBancaria.compile();
+
+	vm.Perfil.consultas.push({ OBJ: vm.ConsultaContaBancaria, NOME: 'CONTA_BANCARIA' });
+
+
+	vm.ConsultaContaBancaria.onSelect = function (item) {
+
+	};
+
+	vm.ConsultaContaBancaria.onClear = function (item) {
+
+	};
+
+	gScope.ConsultaContaBancaria = vm.ConsultaContaBancaria;
+
+	vm.Perfil.consultar();
 
 	vm.calcularQuantidadeDecimais = function (number) {
 		var quantidadeDecimais = 0;
@@ -400,14 +491,14 @@ Devices)
 
 	gScope.calcularQuantidadeDecimais = vm.calcularQuantidadeDecimais;
 	gScope.countDecimals = vm.countDecimals;
-	gScope.Clientes = vm.Clientes;
+	gScope.Perfil = vm.Perfil;
 
 
 	$('.filter_on_enter').keyup(function (event) {
 		var key = event.keyCode;
 
 		if (key == 13) {
-			vm.Clientes.consultar();
+			vm.Perfil.consultar();
 		}
 	});
 
@@ -416,23 +507,23 @@ Devices)
 			e.stopImmediatePropagation();
 			e.stopPropagation();
 			e.preventDefault();
-			vm.Clientes.consultar();
+			vm.Perfil.consultar();
 		}
 	});
 
 	$.key("delete", function (e) {
 		if (!$(".modal").is(':visible')) {
-			if ($("#dataTableClientes tbody tr.row_selected").length == 1 && $("#tableConsulta:visible").length == 0) {
+			if ($("#dataTablePerfil tbody tr.row_selected").length == 1 && $("#tableConsulta:visible").length == 0) {
 				e.stopImmediatePropagation();
 				e.stopPropagation();
 				e.preventDefault();
 
-				var data = vm.Clientes.DATATABLE.row("#dataTableClientes tbody tr.row_selected").data();
-				vm.Clientes.SELECTED = data;
+				var data = vm.Perfil.DATATABLE.row("#dataTablePerfil tbody tr.row_selected").data();
+				vm.Perfil.SELECTED = data;
 
 				$timeout(function () {
 					$scope.$apply(function () {
-						vm.Clientes.excluir();
+						vm.Perfil.excluir();
 					});
 				});
 
@@ -468,7 +559,7 @@ Devices)
 			$(".modal.in.confirm button[data-hotkey=esc]:visible:enabled").first().trigger('click');
 
 			$timeout(function () {
-				onFocusInputModal("#modalClientes");
+				onFocusInputModal("#modalPerfil");
 			});
 		} else {
 			if ($(".modal:visible").length > 0) {
@@ -478,7 +569,7 @@ Devices)
 					$("#" + idModal + " [data-hotkey=esc]:visible:enabled").first().trigger('click');
 
 					$timeout(function () {
-						onFocusInputModal("#modalClientes");
+						onFocusInputModal("#modalPerfil");
 					});
 				}
 			}
@@ -573,7 +664,7 @@ Devices)
 
 /***/ }),
 
-/***/ 25:
+/***/ 44:
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (window, angular) {
@@ -581,9 +672,9 @@ Devices)
 
 	angular.
 	module('app').
-	factory('Clientes', Clientes);
+	factory('Perfil', Perfil);
 
-	Clientes.$inject = [
+	Perfil.$inject = [
 	'$ajax',
 	'$q',
 	'$compile',
@@ -592,22 +683,22 @@ Devices)
 	'gScope'];
 
 
-	function Clientes($ajax, $q, $compile, $rootScope, $timeout, gScope) {
+	function Perfil($ajax, $q, $compile, $rootScope, $timeout, gScope) {
 
 		var obj = null;
 
 		/**
                    * Constructor, with class name
                    */
-		function Clientes($scope) {
+		function Perfil($scope) {
 
 			obj = this;
 			obj.scope = $scope;
-			obj.model = 'vm.Clientes';
+			obj.model = 'vm.Perfil';
 
-			obj.url_consultar = urlhost + '/admin/funcionalidades/clientes/get';
-			obj.url_gravar = urlhost + '/admin/funcionalidades/clientes/post';
-			obj.url_excluir = urlhost + '/admin/funcionalidades/clientes/delete';
+			obj.url_consultar = urlhost + '/admin/funcionalidades/modulos-conta/perfis/get';
+			obj.url_gravar = urlhost + '/admin/funcionalidades/modulos-conta/perfis/post';
+			obj.url_excluir = urlhost + '/admin/funcionalidades/modulos-conta/perfis/delete';
 
 			obj.SELECTED = {};
 			obj.BACKUP = {};
@@ -620,7 +711,7 @@ Devices)
 			obj.INCLUINDO = false;
 			obj.ALTERANDO = false;
 
-			obj.MODAL = "#modalClientes";
+			obj.MODAL = "#modalPerfil";
 
 			obj.setDadosIncluir = setDadosIncluir;
 			obj.incluir = incluir;
@@ -636,25 +727,18 @@ Devices)
 			obj.setDadosConsultar = setDadosConsultar;
 			obj.consultar = consultar;
 			obj.compileDatatable = compileDatatable;
-			obj.getEnderecoByCep = getEnderecoByCep;
 		}
 
 		function setDadosIncluir() {
 
 			var dados = {
-				IDENTIFICACAO: '',
-				RAZAOSOCIAL: '',
-				NOMEFANTASIA: '',
-				CEP: '',
-				ENDERECO: '',
-				BAIRRO: '',
-				CIDADE: '',
-				UF: '',
-				NUMERO: '',
-				TELEFONE: '',
-				CELULAR: '',
-				CONTATO: '',
-				TIPO: 1 };
+				VALOR: 0,
+				DESCRICAO: '',
+				DESCRICAO_PADRAO: '',
+				MODULO_CONTA_ITEM_ID: 0,
+				TIPO_DOCUMENTO_ID: 0,
+				CONTA_BANCARIA_ID: 0,
+				TIPO_LANCAMENTO: 0 };
 
 
 			return dados;
@@ -688,14 +772,9 @@ Devices)
 
 			var check = true;
 
-			if (typeof that.SELECTED.IDENTIFICACAO == 'undefined' || typeof that.SELECTED.IDENTIFICACAO != 'undefined' && that.SELECTED.IDENTIFICACAO == '') {
+			if (that.SELECTED.DESCRICAO == '' || that.SELECTED.DESCRICAO == null) {
 				check = false;
-				showErro("CNPJ/CPF obrigatório");
-			}
-
-			if (that.SELECTED.RAZAOSOCIAL == '' || that.SELECTED.RAZAOSOCIAL == null) {
-				check = false;
-				showErro("Razão Social obrigatória");
+				showErro("Descrição obrigatória");
 			}
 
 			if (check == true) {
@@ -717,6 +796,18 @@ Devices)
 
 		function confirmarGravar() {
 			var that = this;
+
+			if (gScope.ConsultaModuloConta.item.selected == true) {
+				obj.SELECTED.MODULO_CONTA_ITEM_ID = gScope.ConsultaModuloConta.item.dados.ID;
+			}
+
+			if (gScope.ConsultaTipoDocumento.item.selected == true) {
+				obj.SELECTED.TIPO_DOCUMENTO_ID = gScope.ConsultaTipoDocumento.item.dados.ID;
+			}
+
+			if (gScope.ConsultaContaBancaria.item.selected == true) {
+				obj.SELECTED.CONTA_BANCARIA_ID = gScope.ConsultaContaBancaria.item.dados.ID;
+			}
 
 			var dados = {
 				DADOS: obj.SELECTED,
@@ -972,7 +1063,10 @@ Devices)
 			var that = this;
 
 			var dados = {
-				FILTRO: {} };
+				FILTRO: {},
+
+
+				DADOS: {} };
 
 
 
@@ -1002,7 +1096,7 @@ Devices)
 			var StringMask = __webpack_require__(0);
 
 			if (obj.DATATABLE == null) {
-				obj.DATATABLE = $('#dataTableClientes').DataTable({
+				obj.DATATABLE = $('#dataTablePerfil').DataTable({
 					"order": [[0, 'desc']],
 					"searching": false,
 					"data": obj.DADOS,
@@ -1019,76 +1113,9 @@ Devices)
 							return trim_null(row.ID).padStart(5, '0');
 						} },
 
-					{ "data": "IDENTIFICACAO", "title": 'Identificação',
+					{ "data": "DESCRICAO", "title": 'Descrição',
 						render: function render(data, type, row) {
-							var formatter = {};
-
-							if (trim_null(row.IDENTIFICACAO).length == 14) {
-								formatter = new StringMask('00.000.000\/0000-00');
-							} else {
-								formatter = new StringMask('000.000.000-00');
-							}
-
-							var html = formatter.apply(data);
-
-							return html;
-						} },
-
-					{ "data": "RAZAOSOCIAL", "title": 'Cliente',
-						render: function render(data, type, row) {
-							var html = '';
-
-							if (data != '' && data != null) {
-								html = '<a class="popoverCFe" id="popCliente' + row.ID + '" href="javascript:void(0);" tabindex="-1" data-toggle="popover" data-trigger="hover" title="" data-placement="bottom" data-content="<b>' + row.NOMEFANTASIA + '</b>">' + row.RAZAOSOCIAL + '</a>';
-							}
-
-							return html;
-						} },
-
-					{ "data": "CEP", "title": 'CEP', "className": "text-center",
-						render: function render(data, type, row) {
-							var html = '';
-
-							var formatter = {};
-
-							formatter = new StringMask('00000-000');
-
-							var cep = formatter.apply(data);
-
-							if (data != '' && data != null) {
-								html = '<a class="popoverCFe" id="popEnderecoCliente' + row.ID + '" href="javascript:void(0);" tabindex="-1" data-toggle="popover" data-trigger="hover" title="" data-placement="bottom" data-content="<b>' + row.ENDERECO + ', N°: ' + row.NUMERO + ' - Bairro: ' + row.BAIRRO + ' (' + row.CIDADE + '/' + row.UF + ')' + '</b>">' + cep + '</a>';
-							}
-
-							return html;
-						} },
-
-					{ "data": "TELEFONE", "title": 'Telefone',
-						render: function render(data, type, row) {
-
-							var formatter = {};
-
-							formatter = new StringMask('(00) 00000-0000');
-
-							var telefone = formatter.apply(data);
-
-							return telefone;
-						} },
-
-					{ "data": "CELULAR", "title": 'Celular',
-						render: function render(data, type, row) {
-
-							var formatter = {};
-
-							formatter = new StringMask('(00) 00000-0000');
-
-							var celular = formatter.apply(data);
-
-							return celular;
-						} },
-
-					{ "data": "CONTATO", "title": 'Contato',
-						render: function render(data, type, row) {
-							return row.CONTATO;
+							return row.DESCRICAO;
 						} },
 
 					{ "data": "ACTIONS", "title": 'Opções', 'className': 'text-center',
@@ -1097,7 +1124,7 @@ Devices)
 
 							var index = meta.row;
 
-							html = html + '\n\t\t\t\t\t\t\t\t<button type="button" class="btn btn-sm btn-danger" ng-click="vm.Clientes.excluir(' +
+							html = html + '\n\t\t\t\t\t\t\t\t<button type="button" class="btn btn-sm btn-danger" ng-click="vm.Perfil.excluir(' +
 							index + ');" ng-dblclick="$event.stopPropagation();">\n\t\t\t\t\t\t\t\t\t<span class="fas fa-trash"></span>\n\t\t\t\t\t\t\t\t</button>';
 
 
@@ -1149,34 +1176,7 @@ Devices)
 			}
 		}
 
-		function getEnderecoByCep() {
-			var that = this;
-
-			if (typeof that.SELECTED.CEP != 'undefined') {
-				if (that.SELECTED.CEP.length == 8) {
-					getEnderecoByCepJS(that.SELECTED.CEP).then(function (dadosRetornados) {
-
-						$timeout(function () {
-							if (dadosRetornados.ERROR == true) {
-								showErro("Nenhum endereço encontrado para esse CEP");
-							} else {
-
-								$rootScope.$apply(function () {
-									that.SELECTED.ENDERECO = dadosRetornados.ENDERECO;
-									that.SELECTED.BAIRRO = dadosRetornados.BAIRRO;
-									that.SELECTED.CIDADE = dadosRetornados.CIDADE;
-									that.SELECTED.UF = dadosRetornados.UF;
-								});
-
-							}
-						}, 200);
-					});
-				}
-
-			}
-		}
-
-		return Clientes;
+		return Perfil;
 	};
 
 })(window, window.angular);

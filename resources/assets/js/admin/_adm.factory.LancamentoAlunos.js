@@ -318,13 +318,15 @@
 					var nome = consulta.NOME;
 
 					if(typeof that.SELECTED[nome+'_JSON'] != 'undefined' && that.SELECTED[nome+'_JSON'] != '' && that.SELECTED[nome+'_JSON'] != null){
-						consulta.OBJ.setSelected(JSON.parse(that.SELECTED[nome+'_JSON']));
 
-						if(that.SELECTED[that.CAMPO_INDEX] <= 0){
-							consulta.OBJ.btn_apagar_filtro.disabled = false;
-						}else{
-							consulta.OBJ.btn_apagar_filtro.disabled = true;
+						var jsonX = JSON.parse(that.SELECTED[nome+'_JSON']);
+
+						if(typeof jsonX.ID != 'undefined' && jsonX.ID != '' && jsonX.ID != null){
+							consulta.OBJ.setSelected(jsonX);
 						}
+
+						consulta.OBJ.Input.disabled = true;
+						consulta.OBJ.btn_filtro.disabled = true;   
 						
 					}else{
 						if(that.SELECTED[that.CAMPO_INDEX] <= 0 && that.disabled_consulta_on_visualizar == false){

@@ -404,13 +404,15 @@
 					var nome = consulta.NOME;
 
 					if(typeof that.SELECTED[nome+'_JSON'] != 'undefined' && that.SELECTED[nome+'_JSON'] != '' && that.SELECTED[nome+'_JSON'] != null){
-						consulta.OBJ.setSelected(JSON.parse(that.SELECTED[nome+'_JSON']));
 
-						if(that.SELECTED[that.CAMPO_INDEX] <= 0){
-							consulta.OBJ.btn_apagar_filtro.disabled = false;
-						}else{
-							consulta.OBJ.btn_apagar_filtro.disabled = true;
+						var jsonX = JSON.parse(that.SELECTED[nome+'_JSON']);
+
+						if(typeof jsonX.ID != 'undefined' && jsonX.ID != '' && jsonX.ID != null){
+							consulta.OBJ.setSelected(jsonX);
 						}
+
+						consulta.OBJ.Input.disabled = true;
+						consulta.OBJ.btn_filtro.disabled = true;   
 						
 					}else{
 						if(that.SELECTED[that.CAMPO_INDEX] <= 0 && that.disabled_consulta_on_visualizar == false){
@@ -522,34 +524,20 @@
 								return html;
 							} 
 						},
-						{ "data": "ACTIONS", "title": 'Opções',
+						{ "data": "ACTIONS", "title": 'Opções', 'className': 'text-center',
 							render : function(data, type, full, meta ) {
 								var html = '';
 
 								var index = meta.row;
 
-								html = html +' <div class="form-group no-print" style="display: contents;"> '+
-								'			<div class="dropdown acoes"> '+ 
-								'				<button type="button" class="btn btn-sm btn-warning toggle" '+
-								'					style="margin-left: 6px;" '+							
-								'					data-toggle="dropdown" ng-dblclick="$event.stopPropagation();" aria-expanded="false" '+ 'ng-readonly="false"> '+
-								'					<span class="fas fa-th-list"></span> '+
-								'					 '+
-								' 				</button> '+
-								'					<ul class="dropdown-menu">	'+
-								'						<li class="dropdown-header" style="text-transform: initial; font-weight: bold;"> '+
-								'							Ações Disponíveis </li>' +
-								'						<li class="dropdown-item" style="cursor: pointer;" ng-click="vm.Lancamentos.excluir('+index+');"> '+
-								'	 						<a style="text-transform: initial; cursor: pointer;"> '+
-								' 								<span class="fas fa-trash"></span> Excluir</a> ' +
-								'						</li> '+
-								'					</ul> '+
-								'				</div> '+
-								'			</div> ';
+								html = html + `
+								<button type="button" class="btn btn-sm btn-danger" ng-click="vm.Lancamentos.excluir(`+index+`);" ng-dblclick="$event.stopPropagation();">
+									<span class="fas fa-trash"></span>
+								</button>`;
 
 								return html;
 							}
-						},
+						}
 					],
 					createdRow: function(row, data, dataIndex) {
 

@@ -18,10 +18,10 @@ class ModuloContaController extends Controller
         return view('moduloContaItem');
     }
 
-    public function getModuloConta()
+    public function getModuloConta(Request $request)
     {
 
-        $request = $this->request();
+        // $request = $this->request();
         $param   = $request->DADOS;
 
         $moduloConta = '';
@@ -37,12 +37,10 @@ class ModuloContaController extends Controller
                 LPAD(T.ID, 4, '0') AS DESC_ID,
                 CONCAT(LPAD(MC.ID, 4, '0'), ' - ', MC.DESCRICAO) AS MODULO_CONTA_DESCRICAO,
 
-                FN_TO_JSON(
-                    FN_TO_PAR_JSON('DESC_ID', LPAD(MC.ID, 4, '0')),
-                    FN_TO_PAR_JSON('ID', MC.ID),
-                    FN_TO_PAR_JSON('DESCRICAO', MC.DESCRICAO)
-                ) MODULO_CONTA_JSON
 
+                JSON_OBJECT('DESC_ID', LPAD(MC.ID, 4, '0'), 'ID', MC.ID, 'DESCRICAO', MC.DESCRICAO) as MODULO_CONTA_JSON
+                
+               
             FROM TBMODULO_CONTA_ITEM T
             INNER JOIN TBMODULO_CONTA MC ON MC.ID = T.MODULO_CONTA_ID
             WHERE T.ID > 0

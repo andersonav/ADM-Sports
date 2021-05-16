@@ -84,9 +84,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
             
             Route::group(['prefix' => 'contas'], function () {
                 Route::get('/', 'ModuloContaController@index')->name('moduloConta');
-                Route::any('/get', 'ModuloContaController@moduloConta')->name('getModuloConta');
-                Route::post('/post', 'ModuloConta@postModuloConta')->name('post-modulo-conta');
-                Route::post('/delete', 'ModuloConta@postModuloContaDelete')->name('delete-modulo-conta');
+                Route::any('/get', 'ModuloContaController@getModuloConta')->name('getModuloConta');
+                Route::post('/post', 'ModuloContaController@postModuloConta')->name('post-modulo-conta');
+                Route::post('/delete', 'ModuloContaController@postModuloContaDelete')->name('delete-modulo-conta');
+            });
+            
+            Route::group(['prefix' => 'perfis'], function () {
+                Route::get('/', 'PerfilController@index')->name('perfis');
+                Route::any('/get', 'PerfilController@getPerfil')->name('getPerfil');
+                Route::post('/post', 'PerfilController@postPerfil')->name('post-perfil');
+                Route::post('/delete', 'PerfilController@postPerfilDelete')->name('delete-perfil');
             });
         });
 

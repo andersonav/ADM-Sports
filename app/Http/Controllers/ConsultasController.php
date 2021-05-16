@@ -25,9 +25,17 @@ class ConsultasController extends Controller
 
         $sql = "SELECT 
                     T.*,
-                    LPAD(T.ID, 4, '0') AS DESC_ID
-                    
+                    LPAD(T.ID, 4, '0') AS DESC_ID,
+                    JSON_OBJECT('DESC_ID', LPAD(MC.ID, 4, '0'), 'ID', MC.ID, 'DESCRICAO', MC.DESCRICAO) as MODULO_CONTA_JSON,
+                
+                    JSON_OBJECT('DESC_ID', LPAD(TIPO.ID, 4, '0'), 'ID', TIPO.ID, 'DESCRICAO', TIPO.DESCRICAO) AS TIPO_DOCUMENTO_JSON,
+
+                    JSON_OBJECT('DESC_ID', LPAD(C.ID, 4, '0'), 'ID', C.ID, 'DESCRICAO', C.DESCRICAO) AS CONTA_BANCARIA_JSON
+
                 FROM TBPERFIL T
+                LEFT JOIN TBMODULO_CONTA_ITEM MC ON MC.ID = T.MODULO_CONTA_ITEM_ID
+                LEFT JOIN TBTIPO_DOCUMENTO TIPO ON TIPO.ID = T.TIPO_DOCUMENTO_ID
+                LEFT JOIN TBCONTA_BANCARIA C ON C.ID = T.CONTA_BANCARIA_ID
                 WHERE T.ID > 0
                 $desc
                 ORDER BY T.DESCRICAO ASC

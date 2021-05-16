@@ -59,9 +59,9 @@ class LancamentosController extends Controller
         $arr = [
             'DESCRICAO'                 => $dados->DESCRICAO,
             'VALOR_TOTAL'               => $dados->VALOR_TOTAL,
-            'DATA'                      => $dados->DATA,
-            'DATA_VENCIMENTO'           => $dados->DATA_VENCIMENTO,
-            'DATA_RECEBIMENTO'          => $dados->DATA_RECEBIMENTO,
+            'DATA'                      => $dados->FDATA,
+            'DATA_VENCIMENTO'           => $dados->FDATA_VENCIMENTO,
+            'DATA_RECEBIMENTO'          => $dados->FDATA_RECEB_PAG,
             'STATUS'                    => $dados->STATUS,
             'TIPO'                      => $dados->TIPO,
             'PERFIL_ID'                 => $dados->PERFIL_ID,
@@ -107,7 +107,8 @@ class LancamentosController extends Controller
             }
         }
 
-        $ret = $this->getLancamentos($id);
+        $lancamento = $this->getLancamentos($id);
+        $ret = $lancamento[0];
 
         return response()->json($ret);
     }
@@ -133,30 +134,15 @@ class LancamentosController extends Controller
                 LPAD(T.ID, 4, '0') AS DESC_ID,
 
                 CONCAT(LPAD(MCI.ID, 4, '0'), ' - ', MCI.DESCRICAO) AS DESC_MODULO_CONTA,
-                
-                FN_TO_JSON(
-                    FN_TO_PAR_JSON('DESC_ID', LPAD(TIPO.ID, 4, '0')),
-                    FN_TO_PAR_JSON('ID', TIPO.ID),
-                    FN_TO_PAR_JSON('DESCRICAO', TIPO.DESCRICAO)
-                ) TIPO_DOCUMENTO,
-                
-                FN_TO_JSON(
-                    FN_TO_PAR_JSON('DESC_ID', LPAD(MCI.ID, 4, '0')),
-                    FN_TO_PAR_JSON('ID', MCI.ID),
-                    FN_TO_PAR_JSON('DESCRICAO', MCI.DESCRICAO)
-                ) MODULO_CONTA_ITEM_JSON,
 
-                FN_TO_JSON(
-                    FN_TO_PAR_JSON('DESC_ID', LPAD(P.ID, 4, '0')),
-                    FN_TO_PAR_JSON('ID', P.ID),
-                    FN_TO_PAR_JSON('DESCRICAO', P.DESCRICAO)
-                ) PERFIL_JSON,
+
+                JSON_OBJECT('DESC_ID', LPAD(MCI.ID, 4, '0'), 'ID', MCI.ID, 'DESCRICAO', MCI.DESCRICAO) as MODULO_CONTA_ITEM_JSON,
                 
-                FN_TO_JSON(
-                    FN_TO_PAR_JSON('DESC_ID', LPAD(C.ID, 4, '0')),
-                    FN_TO_PAR_JSON('ID', C.ID),
-                    FN_TO_PAR_JSON('DESCRICAO', C.DESCRICAO)
-                ) CONTA_BANCARIA_JSON
+                JSON_OBJECT('DESC_ID', LPAD(TIPO.ID, 4, '0'), 'ID', TIPO.ID, 'DESCRICAO', TIPO.DESCRICAO) AS TIPO_DOCUMENTO_JSON,
+
+                JSON_OBJECT('DESC_ID', LPAD(P.ID, 4, '0'), 'ID', P.ID, 'DESCRICAO', P.DESCRICAO) AS PERFIL_JSON,
+
+                JSON_OBJECT('DESC_ID', LPAD(C.ID, 4, '0'), 'ID', C.ID, 'DESCRICAO', C.DESCRICAO) AS CONTA_BANCARIA_JSON
 
             FROM TBLANCAMENTO T
             INNER JOIN TBMODULO_CONTA_ITEM MCI ON MCI.ID = T.MODULO_CONTA_ITEM_ID

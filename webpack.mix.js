@@ -73,6 +73,13 @@ mix.js(
    ], jsPathPublic + '/moduloConta.js')
    .sass('resources/assets/sass/admin/moduloConta.scss', cssPathPublic);
 
+mix.js(
+   [
+      'resources/assets/js/admin/PerfilController.js',
+      'resources/assets/js/admin/_adm.factory.Perfil.js'
+   ], jsPathPublic + '/perfil.js')
+   .sass('resources/assets/sass/admin/perfil.scss', cssPathPublic);
+
 
 mix.js(
    [

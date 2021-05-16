@@ -67,6 +67,42 @@ function Ctrl(
 
 	vm.ConsultaPerfil.onSelect = function (item) {
 
+		if(vm.ConsultaPerfil.item.selected == true){
+			if(Number(item.VALOR) > 0){
+				vm.Lancamentos.SELECTED.VALOR_TOTAL = item.VALOR;
+			}
+
+			if(item.DESCRICAO_PADRAO != '' && item.DESCRICAO_PADRAO != null){
+				vm.Lancamentos.SELECTED.DESCRICAO = item.DESCRICAO_PADRAO;
+			}
+
+			vm.Lancamentos.SELECTED.TIPO = Number(item.TIPO_LANCAMENTO);
+
+			if(item.MODULO_CONTA_JSON != ''){
+				var jsonModuloConta = JSON.parse(item.MODULO_CONTA_JSON);
+
+				if(typeof jsonModuloConta.DESC_ID != 'undefined' && jsonModuloConta.ID != ''){
+					gScope.ConsultaModuloContaItem.setSelected(jsonModuloConta);
+				}
+			}
+			
+			if(item.TIPO_DOCUMENTO_JSON != ''){
+				var jsonTipoDocumento = JSON.parse(item.TIPO_DOCUMENTO_JSON);
+
+				if(typeof jsonTipoDocumento.DESC_ID != 'undefined' && jsonTipoDocumento.ID != ''){
+					gScope.ConsultaTipoDocumento.setSelected(jsonTipoDocumento);
+				}
+			}
+			
+			if(item.CONTA_BANCARIA_JSON != ''){
+				var jsonContaBancaria = JSON.parse(item.CONTA_BANCARIA_JSON);
+
+				if(typeof jsonContaBancaria.DESC_ID != 'undefined' && jsonContaBancaria.ID != ''){
+					gScope.ConsultaContaBancaria.setSelected(jsonContaBancaria);
+				}
+			}
+		}
+
 	};
 
 	vm.ConsultaPerfil.onClear = function (item) {

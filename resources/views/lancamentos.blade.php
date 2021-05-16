@@ -137,7 +137,7 @@
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label for="status">Status:</label>
-                                <select class="form-control" id="status" ng-model="vm.Lancamentos.SELECTED.STATUS">
+                                <select class="form-control" id="status" ng-model="vm.Lancamentos.SELECTED.STATUS" ng-disabled="vm.Lancamentos.INCLUINDO == false && vm.Lancamentos.ALTERANDO == false">
                                     <option ng-value="0">Pago</option>
                                     <option ng-value="1">Recebido</option>
                                 </select>
@@ -147,7 +147,7 @@
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label for="status">Tipo:</label>
-                                <select class="form-control" id="status" ng-model="vm.Lancamentos.SELECTED.TIPO">
+                                <select class="form-control" id="status" ng-model="vm.Lancamentos.SELECTED.TIPO" ng-disabled="vm.Lancamentos.INCLUINDO == false && vm.Lancamentos.ALTERANDO == false">
                                     <option ng-value="0">Avulso</option>
                                     <option ng-value="1">Vincular alunos</option>
                                     <option ng-value="2">Vincular clientes</option>
