@@ -67,13 +67,19 @@
                 <h5 class="modal-title" id="exampleModalLabel" ng-if="vm.ModuloContaItem.ALTERANDO">Alteração</h5>
                 <h5 class="modal-title" id="exampleModalLabel" ng-if="vm.ModuloContaItem.INCLUINDO == false && vm.ModuloContaItem.ALTERANDO == false">Visualização</h5>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="height: calc(100vh - 490px);">
                 <form>
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <label for="identificador">ID:</label>
                                 <input class="form-control" id="identificador" type="text" ng-disabled="true" ng-model="vm.ModuloContaItem.SELECTED.DESC_ID">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label for="descricaoResumida">Descrição Resumida:</label>
+                                <input class="form-control" id="descricaoResumida" type="text" ng-disabled="vm.ModuloContaItem.INCLUINDO == false && vm.ModuloContaItem.ALTERANDO == false" ng-model="vm.ModuloContaItem.SELECTED.DESC_RESUMIDA">
                             </div>
                         </div>
                         <div class="col-sm-4">

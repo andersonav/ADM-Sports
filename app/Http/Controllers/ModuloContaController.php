@@ -21,14 +21,54 @@ class ModuloContaController extends Controller
     public function getModuloConta(Request $request)
     {
 
-        // $request = $this->request();
-        $param   = $request->DADOS;
+        $modulosConta = $this->getModuloContas(0);
+
+        return response()->json($modulosConta);
+    }
+
+    public function postModuloConta(Request $request)
+    {
+        $dados = (object) $request->DADOS;
+
+        $moduloConta = [];
+
+        $arr = [
+            'MODULO_CONTA_ID'       => $dados->MODULO_CONTA_ID,
+            'DESC_RESUMIDA'         => $dados->DESC_RESUMIDA,
+            'DESCRICAO'             => $dados->DESCRICAO
+        ];
+
+        $id = 0;
+
+        if(isset($dados->ID) && $dados->ID > 0){
+            $update = ModuloContaItem::where('ID', $dados->ID)->update($arr);
+            $id = $dados->ID;
+        }else{
+            $moduloConta = ModuloContaItem::create($arr);
+            $id = $moduloConta['ID'];
+        }
+
+        $modulosConta = $this->getModuloContas($id);
+        $ret = $modulosConta[0];
+
+        return response()->json($ret);
+    }
+
+    public function postModuloContaDelete(Request $request){
+        $dados = (object) $request->DADOS;
+
+        $moduloConta = ModuloContaItem::where('ID', $dados->ID)->delete();
+
+        return response()->json($moduloConta);
+    }
+
+    public function getModuloContas($id){
 
         $moduloConta = '';
-        if(isset($param->MODULO_CONTA) && $param->MODULO_CONTA > 0){
-            $moduloContaId = $param->MODULO_CONTA;
+        if(isset($id) && $id > 0){
+            $moduloContaId = $id;
 
-            $moduloConta = 'AND T.MODULO_CONTA_ID = ' . $moduloContaId;
+            $moduloConta = 'AND T.ID = ' . $moduloContaId;
 
         }
 
@@ -49,39 +89,6 @@ class ModuloContaController extends Controller
         $args = [
         ];
 
-        $modulosConta = DB::select($sql, $args);
-
-        return response()->json($modulosConta);
-    }
-
-    public function postModuloConta(Request $request)
-    {
-        $dados = (object) $request->DADOS;
-
-        $moduloConta = [];
-
-        $arr = [
-            'MODULO_CONTA_ID'       => $dados->MODULO_CONTA_ID,
-            'DESC_RESUMIDA'         => $dados->DESC_RESUMIDA,
-            'DESCRICAO'             => $dados->DESCRICAO
-        ];
-
-        if(isset($dados->ID) && $dados->ID > 0){
-            $update = ModuloContaItem::where('ID', $dados->ID)->update($arr);
-            $find = ModuloContaItem::where('ID', $dados->ID)->get(); 
-            $moduloConta = $find[0];
-        }else{
-            $moduloConta = ModuloContaItem::create($arr);
-        }
-
-        return response()->json($moduloConta);
-    }
-
-    public function postModuloContaDelete(Request $request){
-        $dados = (object) $request->DADOS;
-
-        $moduloConta = ModuloContaItem::where('ID', $dados->ID)->delete();
-
-        return response()->json($moduloConta);
+        return DB::select($sql, $args);
     }
 }

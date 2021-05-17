@@ -105,6 +105,8 @@
 
                                     <a class="nav-link{{ (request()->is('admin/funcionalidades/contas-bancarias*')) ? ' active' : '' }}" href="{{route('contasBancarias')}}">Contas Bancárias</a>
 
+                                    <a class="nav-link{{ (request()->is('admin/funcionalidades/perfis*')) ? ' active' : '' }}" href="{{route('perfis')}}">Perfis</a>
+
                                     <!-- Nested Sidenav Accordion (Pages -> Account)-->
                                     <a class="nav-link{{ (request()->is('admin/funcionalidades/modulos-conta*')) ? '' : ' collapsed' }}" href="javascript:void(0);" data-toggle="collapse" data-target="#pagesCollapseAccount" aria-expanded="false" aria-controls="pagesCollapseAccount">
                                         Módulos de Conta
@@ -112,7 +114,6 @@
                                     </a>
                                     <div class="collapse {{ (request()->is('admin/funcionalidades/modulos-conta*')) ? ' show' : '' }}" id="pagesCollapseAccount" data-parent="#accordionSidenavPagesMenu">
                                         <nav class="sidenav-menu-nested nav">
-                                            <a class="nav-link{{ (request()->is('admin/funcionalidades/modulos-conta/perfis*')) ? ' active' : '' }}" href="{{route('perfis')}}">Perfis</a>
                                             <a class="nav-link{{ (request()->is('admin/funcionalidades/modulos-conta/tipos*')) ? ' active' : '' }}" href="{{route('tiposModuloConta')}}">Tipos</a>
                                             <a class="nav-link{{ (request()->is('admin/funcionalidades/modulos-conta/contas*')) ? ' active' : '' }}" href="{{route('moduloConta')}}">Contas</a>
                                         </nav>
@@ -128,21 +129,21 @@
                             <!-- Sidenav Heading (Addons)-->
                             <div class="sidenav-menu-heading">Relatórios</div>
                             <!-- Sidenav Link (Charts)-->
-                            <a class="nav-link{{ (request()->is('admin/relatorios/fluxo-caixa-diario*')) ? ' active' : '' }}" href="#!">
+                            <a class="nav-link{{ (request()->is('admin/relatorios/diario*')) ? ' active' : '' }}" href="{{route('fluxoCaixaDiario')}}">
                                 <div class="nav-link-icon"><i data-feather="database"></i></div>
                                 Fluxo de Caixa Diário
                             </a>
                             <!-- Sidenav Link (Tables)-->
-                            <a class="nav-link{{ (request()->is('admin/relatorios/fluxo-caixa-mensal*')) ? ' active' : '' }}" href="#!">
+                            <a class="nav-link{{ (request()->is('admin/relatorios/mensal*')) ? ' active' : '' }}" href="{{route('fluxoCaixaMensal')}}">
                                 <div class="nav-link-icon"><i data-feather="database"></i></div>
                                 Fluxo de Caixa Mensal
                             </a>
                             <!-- Sidenav Link (Tables)-->
-                            <a class="nav-link{{ (request()->is('admin/relatorios/capital-giro*')) ? ' active' : '' }}" href="#!">
+                            <a class="nav-link{{ (request()->is('admin/relatorios/capital-giro*')) ? ' active' : '' }}" href="{{route('capitalDeGiro')}}">
                                 <div class="nav-link-icon"><i data-feather="database"></i></div>
                                 Capital de Giro
                             </a>
-                            <a class="nav-link{{ (request()->is('admin/relatorios/dre*')) ? ' active' : '' }}" href="#!">
+                            <a class="nav-link{{ (request()->is('admin/relatorios/dre*')) ? ' active' : '' }}" href="{{route('dre')}}">
                                 <div class="nav-link-icon"><i data-feather="database"></i></div>
                                 DRE
                             </a>

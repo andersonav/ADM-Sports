@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 45);
+/******/ 	return __webpack_require__(__webpack_require__.s = 46);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -326,18 +326,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 45:
+/***/ 46:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(46);
 __webpack_require__(47);
 __webpack_require__(48);
-module.exports = __webpack_require__(49);
+__webpack_require__(49);
+module.exports = __webpack_require__(50);
 
 
 /***/ }),
 
-/***/ 46:
+/***/ 47:
 /***/ (function(module, exports) {
 
 angular.
@@ -744,7 +744,7 @@ Devices)
 
 /***/ }),
 
-/***/ 47:
+/***/ 48:
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (window, angular) {
@@ -920,6 +920,7 @@ Devices)
 
 			obj.SELECTED.PERFIL_ID = perfilID;
 			obj.SELECTED.MODULO_CONTA_ITEM_ID = moduloContaItem;
+			obj.SELECTED.MODULO_CONTA_TIPO_ID = gScope.ConsultaModuloContaItem.item.dados.MODULO_CONTA_TIPO_ID;
 			obj.SELECTED.TIPO_DOCUMENTO_ID = tipoDocumento;
 			obj.SELECTED.CONTA_BANCARIA_ID = contaBancaria;
 
@@ -1338,7 +1339,7 @@ Devices)
 
 /***/ }),
 
-/***/ 48:
+/***/ 49:
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (window, angular) {
@@ -1860,7 +1861,7 @@ Devices)
 
 /***/ }),
 
-/***/ 49:
+/***/ 50:
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (window, angular) {

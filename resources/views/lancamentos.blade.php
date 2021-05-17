@@ -67,7 +67,7 @@
                 <h5 class="modal-title" id="exampleModalLabel" ng-if="vm.Lancamentos.ALTERANDO">Alteração</h5>
                 <h5 class="modal-title" id="exampleModalLabel" ng-if="vm.Lancamentos.INCLUINDO == false && vm.Lancamentos.ALTERANDO == false">Visualização</h5>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="height: calc(100vh - 230px);">
                 <form>
                     <div class="row">
                         <div class="col-sm-2">

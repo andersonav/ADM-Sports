@@ -10,6 +10,7 @@
     "/assets/css/moduloConta.css": "/assets/css/moduloConta.css",
     "/assets/css/perfil.css": "/assets/css/perfil.css",
     "/assets/css/lancamentos.css": "/assets/css/lancamentos.css",
+    "/assets/css/fluxoCaixaDiario.css": "/assets/css/fluxoCaixaDiario.css",
     "/assets/css/main/main.css": "/assets/css/main/main.css",
     "/assets/js/master.js": "/assets/js/master.js",
     "/assets/js/lancamentos.js": "/assets/js/lancamentos.js",
@@ -20,5 +21,6 @@
     "/assets/js/contasBancarias.js": "/assets/js/contasBancarias.js",
     "/assets/js/clientes.js": "/assets/js/clientes.js",
     "/assets/js/alunos.js": "/assets/js/alunos.js",
+    "/assets/js/fluxoCaixaDiario.js": "/assets/js/fluxoCaixaDiario.js",
     "/assets/js/dashboard.js": "/assets/js/dashboard.js"
 }

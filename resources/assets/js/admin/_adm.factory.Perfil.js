@@ -27,9 +27,9 @@
 			obj.scope 									= $scope;
 			obj.model 									= 'vm.Perfil';
 
-            obj.url_consultar 							= urlhost + '/admin/funcionalidades/modulos-conta/perfis/get';
-			obj.url_gravar 								= urlhost + '/admin/funcionalidades/modulos-conta/perfis/post';
-			obj.url_excluir 							= urlhost + '/admin/funcionalidades/modulos-conta/perfis/delete';
+            obj.url_consultar 							= urlhost + '/admin/funcionalidades/perfis/get';
+			obj.url_gravar 								= urlhost + '/admin/funcionalidades/perfis/post';
+			obj.url_excluir 							= urlhost + '/admin/funcionalidades/perfis/delete';
 
 			obj.SELECTED 								= {};
 			obj.BACKUP 									= {};

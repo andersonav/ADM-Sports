@@ -171,6 +171,7 @@
 
 			obj.SELECTED.PERFIL_ID 					= perfilID;
 			obj.SELECTED.MODULO_CONTA_ITEM_ID 		= moduloContaItem;
+			obj.SELECTED.MODULO_CONTA_TIPO_ID 		= gScope.ConsultaModuloContaItem.item.dados.MODULO_CONTA_TIPO_ID;
 			obj.SELECTED.TIPO_DOCUMENTO_ID 			= tipoDocumento;
 			obj.SELECTED.CONTA_BANCARIA_ID 			= contaBancaria;
 

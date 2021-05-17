@@ -66,6 +66,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
             Route::post('/delete', 'ContasBancariasController@postContasBancariasDelete')->name('delete-contas-bancarias');
         });
 
+        Route::group(['prefix' => 'perfis'], function () {
+            Route::get('/', 'PerfilController@index')->name('perfis');
+            Route::any('/get', 'PerfilController@getPerfil')->name('getPerfil');
+            Route::post('/post', 'PerfilController@postPerfil')->name('post-perfil');
+            Route::post('/delete', 'PerfilController@postPerfilDelete')->name('delete-perfil');
+        });
+
         Route::group(['prefix' => 'modulos-conta'], function () {
 
             Route::group(['prefix' => 'tipos'], function () {
@@ -89,12 +96,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
                 Route::post('/delete', 'ModuloContaController@postModuloContaDelete')->name('delete-modulo-conta');
             });
             
-            Route::group(['prefix' => 'perfis'], function () {
-                Route::get('/', 'PerfilController@index')->name('perfis');
-                Route::any('/get', 'PerfilController@getPerfil')->name('getPerfil');
-                Route::post('/post', 'PerfilController@postPerfil')->name('post-perfil');
-                Route::post('/delete', 'PerfilController@postPerfilDelete')->name('delete-perfil');
-            });
         });
 
         Route::group(['prefix' => 'lancamentos'], function () {
@@ -107,6 +108,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::group(['prefix' => 'lancamento-itens'], function () {
             Route::any('/get', 'LancamentosController@getLancamentoItens')->name('getLancamentoItens');
         });
+
+    });
+
+    Route::group(['prefix' => 'relatorios'], function () {
+        Route::any('/diario', 'RelatorioController@fluxoCaixaDiario')->name('fluxoCaixaDiario');
+        Route::any('/diario/get', 'RelatorioController@getFluxoCaixaDiario')->name('getFluxoCaixaDiario');
+        Route::any('/mensal', 'RelatorioController@fluxoCaixaMensal')->name('fluxoCaixaMensal');
+        Route::any('/mensal/get', 'RelatorioController@getFluxoCaixaMensal')->name('getFluxoCaixaMensal');
+        Route::any('/capital-giro', 'RelatorioController@capitalDeGiro')->name('capitalDeGiro');
+        Route::any('/capital-giro/get', 'RelatorioController@getCapitalDeGiro')->name('getCapitalDeGiro');
+        Route::any('/dre', 'RelatorioController@dre')->name('dre');
+        Route::any('/dre/get', 'RelatorioController@getDre')->name('dre');
     });
 
 });

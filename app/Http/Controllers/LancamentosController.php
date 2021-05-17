@@ -67,6 +67,7 @@ class LancamentosController extends Controller
             'PERFIL_ID'                 => $dados->PERFIL_ID,
             'CONTA_BANCARIA_ID'         => $dados->CONTA_BANCARIA_ID,
             'MODULO_CONTA_ITEM_ID'      => $dados->MODULO_CONTA_ITEM_ID,
+            'MODULO_CONTA_TIPO_ID'      => $dados->MODULO_CONTA_TIPO_ID,
             'TIPO_DOCUMENTO_ID'         => $dados->TIPO_DOCUMENTO_ID
         ];
 
@@ -136,7 +137,7 @@ class LancamentosController extends Controller
                 CONCAT(LPAD(MCI.ID, 4, '0'), ' - ', MCI.DESCRICAO) AS DESC_MODULO_CONTA,
 
 
-                JSON_OBJECT('DESC_ID', LPAD(MCI.ID, 4, '0'), 'ID', MCI.ID, 'DESCRICAO', MCI.DESCRICAO) as MODULO_CONTA_ITEM_JSON,
+                JSON_OBJECT('DESC_ID', LPAD(MCI.ID, 4, '0'), 'ID', MCI.ID, 'DESCRICAO', MCI.DESCRICAO, 'MODULO_CONTA_TIPO_ID', T.MODULO_CONTA_TIPO_ID) as MODULO_CONTA_ITEM_JSON,
                 
                 JSON_OBJECT('DESC_ID', LPAD(TIPO.ID, 4, '0'), 'ID', TIPO.ID, 'DESCRICAO', TIPO.DESCRICAO) AS TIPO_DOCUMENTO_JSON,
 

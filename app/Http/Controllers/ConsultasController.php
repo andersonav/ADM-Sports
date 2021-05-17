@@ -103,7 +103,8 @@ class ConsultasController extends Controller
                     T.*,
                     LPAD(T.ID, 4, '0') AS DESC_ID,
                     CONCAT(LPAD(MC.ID, 4, '0'), ' - ', MC.DESCRICAO) AS DESC_MC,
-                    CONCAT(LPAD(MCT.ID, 4, '0'), ' - ', MCT.DESCRICAO) AS DESC_MC_TIPO 
+                    CONCAT(LPAD(MCT.ID, 4, '0'), ' - ', MCT.DESCRICAO) AS DESC_MC_TIPO,
+                    MC.MODULO_CONTA_TIPO_ID
                 FROM TBMODULO_CONTA_ITEM T
                 INNER JOIN TBMODULO_CONTA MC ON MC.ID = T.MODULO_CONTA_ID
                 INNER JOIN TBMODULO_CONTA_TIPO MCT ON MCT.ID = MC.MODULO_CONTA_TIPO_ID

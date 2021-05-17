@@ -90,6 +90,13 @@ mix.js(
    ], jsPathPublic + '/lancamentos.js')
    .sass('resources/assets/sass/admin/lancamentos.scss', cssPathPublic);
 
+mix.js(
+   [
+      'resources/assets/js/admin/FluxoCaixaDiarioController.js',
+      'resources/assets/js/admin/_adm.factory.FluxoCaixaDiario.js'
+   ], jsPathPublic + '/fluxoCaixaDiario.js')
+   .sass('resources/assets/sass/admin/fluxoCaixaDiario.scss', cssPathPublic);
+
 
 
 if (mix.inProduction()) {

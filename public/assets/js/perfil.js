@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 42);
+/******/ 	return __webpack_require__(__webpack_require__.s = 43);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -326,16 +326,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 42:
+/***/ 43:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(43);
-module.exports = __webpack_require__(44);
+__webpack_require__(44);
+module.exports = __webpack_require__(45);
 
 
 /***/ }),
 
-/***/ 43:
+/***/ 44:
 /***/ (function(module, exports) {
 
 angular.
@@ -664,7 +664,7 @@ Devices)
 
 /***/ }),
 
-/***/ 44:
+/***/ 45:
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (window, angular) {
@@ -696,9 +696,9 @@ Devices)
 			obj.scope = $scope;
 			obj.model = 'vm.Perfil';
 
-			obj.url_consultar = urlhost + '/admin/funcionalidades/modulos-conta/perfis/get';
-			obj.url_gravar = urlhost + '/admin/funcionalidades/modulos-conta/perfis/post';
-			obj.url_excluir = urlhost + '/admin/funcionalidades/modulos-conta/perfis/delete';
+			obj.url_consultar = urlhost + '/admin/funcionalidades/perfis/get';
+			obj.url_gravar = urlhost + '/admin/funcionalidades/perfis/post';
+			obj.url_excluir = urlhost + '/admin/funcionalidades/perfis/delete';
 
 			obj.SELECTED = {};
 			obj.BACKUP = {};

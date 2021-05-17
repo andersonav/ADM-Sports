@@ -63,7 +63,8 @@
 		function setDadosIncluir() {
 
 			var dados = {
-				DESCRICAO: ''
+				DESCRICAO		: '',
+				DESC_RESUMIDA	: ''
 			};
 
 			return dados;
