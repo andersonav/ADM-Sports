@@ -60,21 +60,21 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 21);
+/******/ 	return __webpack_require__(__webpack_require__.s = 23);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 21:
+/***/ 23:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(22);
-module.exports = __webpack_require__(23);
+__webpack_require__(24);
+module.exports = __webpack_require__(25);
 
 
 /***/ }),
 
-/***/ 22:
+/***/ 24:
 /***/ (function(module, exports) {
 
 angular.
@@ -523,7 +523,7 @@ Dashboard)
 
 /***/ }),
 
-/***/ 23:
+/***/ 25:
 /***/ (function(module, exports) {
 
 (function (window, angular) {

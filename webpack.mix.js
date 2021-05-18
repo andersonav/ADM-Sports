@@ -97,6 +97,20 @@ mix.js(
    ], jsPathPublic + '/fluxoCaixaDiario.js')
    .sass('resources/assets/sass/admin/fluxoCaixaDiario.scss', cssPathPublic);
 
+mix.js(
+   [
+      'resources/assets/js/admin/CapitalGiroController.js',
+      'resources/assets/js/admin/_adm.factory.CapitalGiro.js'
+   ], jsPathPublic + '/capitalGiro.js')
+   .sass('resources/assets/sass/admin/capitalGiro.scss', cssPathPublic);
+
+mix.js(
+   [
+      'resources/assets/js/admin/FluxoCaixaMensalController.js',
+      'resources/assets/js/admin/_adm.factory.FluxoCaixaMensal.js'
+   ], jsPathPublic + '/fluxoCaixaMensal.js')
+   .sass('resources/assets/sass/admin/fluxoCaixaMensal.scss', cssPathPublic);
+
 
 
 if (mix.inProduction()) {

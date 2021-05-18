@@ -3,7 +3,7 @@
 
 @section('css')
 
-<link href="{{asset('assets/css/fluxoCaixaDiario.css')}}" rel="stylesheet" />
+<link href="{{asset('assets/css/fluxoCaixaMensal.css')}}" rel="stylesheet" />
 
 @endsection
 
@@ -16,7 +16,7 @@
                     <div class="col-auto mt-4">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><i data-feather="database"></i></div>
-                            Fluxo de Caixa Diário
+                            Fluxo de Caixa Mensal
                         </h1>
                         <div class="page-header-subtitle"></div>
                     </div>
@@ -35,17 +35,8 @@
                     <div class="col-xl-2 col-lg-6 col-sm-12 col-md-12">
                         <div class="form-group">
                             <label>Ano:</label>
-                            <select class="custom-select" ng-model="vm.FluxoCaixaDiario.ANO" ng-change="vm.FluxoCaixaDiario.consultar();">
+                            <select class="custom-select" ng-model="vm.FluxoCaixaMensal.ANO" ng-change="vm.FluxoCaixaMensal.consultar();">
                                 <option ng-repeat="item in vm.ARRAY_ANOS track by $index" ng-value="item.ANO">@{{item.ANO}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="col-xl-2 col-lg-6 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <label>Mês:</label>
-                            <select class="custom-select" ng-model="vm.FluxoCaixaDiario.MES" ng-change="vm.FluxoCaixaDiario.consultar();">
-                                <option ng-repeat="item in vm.ARRAY_MESES track by $index" ng-value="item.VALOR">@{{item.MES}}</option>
                             </select>
                         </div>
                     </div>
@@ -77,5 +68,5 @@
 
 
 @section('script')
-<script src="{{ asset('assets/js/fluxoCaixaDiario.js') }}"></script>
+<script src="{{ asset('assets/js/fluxoCaixaMensal.js') }}"></script>
 @endsection

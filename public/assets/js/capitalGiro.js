@@ -60,21 +60,21 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 53);
+/******/ 	return __webpack_require__(__webpack_require__.s = 56);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 53:
+/***/ 56:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(54);
-module.exports = __webpack_require__(55);
+__webpack_require__(57);
+module.exports = __webpack_require__(58);
 
 
 /***/ }),
 
-/***/ 54:
+/***/ 57:
 /***/ (function(module, exports) {
 
 angular.
@@ -88,7 +88,7 @@ Ctrl.$inject = [
 '$timeout',
 'gScope',
 'Consulta',
-'FluxoCaixaDiario',
+'CapitalGiro',
 'Confirmacao',
 'Devices'];
 
@@ -98,7 +98,7 @@ $scope,
 $timeout,
 gScope,
 Consulta,
-FluxoCaixaDiario,
+CapitalGiro,
 Confirmacao,
 Devices)
 {
@@ -107,7 +107,7 @@ Devices)
 	gScope.Ctrl = this;
 
 	vm.Consulta = new Consulta();
-	vm.FluxoCaixaDiario = new FluxoCaixaDiario($scope);
+	vm.CapitalGiro = new CapitalGiro($scope);
 	vm.Confirmacao = new Confirmacao();
 	vm.Devices = new Devices();
 	vm.Confirme = vm.Confirmacao.getNew('vm.Confirme');
@@ -145,11 +145,11 @@ Devices)
 
 	gScope.ARRAY_ANOS = vm.ARRAY_ANOS;
 
-	vm.FluxoCaixaDiario.MES = actual_month;
-	vm.FluxoCaixaDiario.ANO = actual_year;
+	vm.CapitalGiro.MES = actual_month;
+	vm.CapitalGiro.ANO = actual_year;
 
 
-	vm.FluxoCaixaDiario.consultar();
+	vm.CapitalGiro.consultar();
 
 	vm.calcularQuantidadeDecimais = function (number) {
 		var quantidadeDecimais = 0;
@@ -174,14 +174,14 @@ Devices)
 
 	gScope.calcularQuantidadeDecimais = vm.calcularQuantidadeDecimais;
 	gScope.countDecimals = vm.countDecimals;
-	gScope.FluxoCaixaDiario = vm.FluxoCaixaDiario;
+	gScope.CapitalGiro = vm.CapitalGiro;
 
 
 	$('.filter_on_enter').keyup(function (event) {
 		var key = event.keyCode;
 
 		if (key == 13) {
-			vm.FluxoCaixaDiario.consultar();
+			vm.CapitalGiro.consultar();
 		}
 	});
 
@@ -190,7 +190,7 @@ Devices)
 			e.stopImmediatePropagation();
 			e.stopPropagation();
 			e.preventDefault();
-			vm.FluxoCaixaDiario.consultar();
+			vm.CapitalGiro.consultar();
 		}
 	});
 
@@ -198,7 +198,7 @@ Devices)
 
 /***/ }),
 
-/***/ 55:
+/***/ 58:
 /***/ (function(module, exports) {
 
 (function (window, angular) {
@@ -206,9 +206,9 @@ Devices)
 
 	angular.
 	module('app').
-	factory('FluxoCaixaDiario', FluxoCaixaDiario);
+	factory('CapitalGiro', CapitalGiro);
 
-	FluxoCaixaDiario.$inject = [
+	CapitalGiro.$inject = [
 	'$ajax',
 	'$q',
 	'$compile',
@@ -217,22 +217,22 @@ Devices)
 	'gScope'];
 
 
-	function FluxoCaixaDiario($ajax, $q, $compile, $rootScope, $timeout, gScope) {
+	function CapitalGiro($ajax, $q, $compile, $rootScope, $timeout, gScope) {
 
 		var obj = null;
 
 		/**
                    * Constructor, with class name
                    */
-		function FluxoCaixaDiario($scope) {
+		function CapitalGiro($scope) {
 
 			obj = this;
 			obj.scope = $scope;
-			obj.model = 'vm.FluxoCaixaDiario';
+			obj.model = 'vm.CapitalGiro';
 
-			obj.url_consultar = urlhost + '/admin/relatorios/diario/get';
-			obj.url_gravar = urlhost + '/admin/relatorios/diario/post';
-			obj.url_excluir = urlhost + '/admin/relatorios/diario/delete';
+			obj.url_consultar = urlhost + '/admin/relatorios/capital-giro/get';
+			obj.url_gravar = urlhost + '/admin/relatorios/capital-giro/post';
+			obj.url_excluir = urlhost + '/admin/relatorios/capital-giro/delete';
 
 			obj.SELECTED = {};
 			obj.BACKUP = {};
@@ -248,7 +248,7 @@ Devices)
 			obj.ALTERANDO = false;
 			obj.CHART = null;
 
-			obj.MODAL = "#modalFluxoCaixaDiario";
+			obj.MODAL = "#modalCapitalGiro";
 
 			obj.setDadosConsultar = setDadosConsultar;
 			obj.consultar = consultar;
@@ -324,14 +324,14 @@ Devices)
 
 					if (obj.DATASET.length > 0) {
 						var jsonSaldoDiaro = {
-							label: 'Saldo diário',
+							label: 'Saldo caixa',
 							data: [],
 							backgroundColor: '#4bc0c0',
 							pointRadius: 3 };
 
 
-						angular.forEach(response.SALDO_DIARIO, function (item, value) {
-							jsonSaldoDiaro.data.push(Number(item.SALDO_DIARIO));
+						angular.forEach(response.SALDO_CAIXA, function (item, value) {
+							jsonSaldoDiaro.data.push(Number(item.SALDO_CAIXA));
 						});
 
 						obj.DATASET.push(angular.copy(jsonSaldoDiaro));
@@ -364,7 +364,7 @@ Devices)
 						plugins: {
 							title: {
 								display: true,
-								text: 'Fluxo diário' } },
+								text: 'Capital de Giro' } },
 
 
 						responsive: true,
@@ -403,7 +403,7 @@ Devices)
 
 		}
 
-		return FluxoCaixaDiario;
+		return CapitalGiro;
 	};
 
 })(window, window.angular);
