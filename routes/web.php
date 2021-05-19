@@ -28,6 +28,11 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
+
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::any('/last-movimentacoes', 'HomeController@getLastMovimentacoes')->name('getLastMovimentacoes');
+    });
+
     Route::group(['prefix' => 'funcionalidades'], function () {
 
         Route::group(['prefix' => 'consultas'], function () {
