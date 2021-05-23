@@ -81,8 +81,8 @@ class ModuloContaController extends Controller
                 JSON_OBJECT('DESC_ID', LPAD(MC.ID, 4, '0'), 'ID', MC.ID, 'DESCRICAO', MC.DESCRICAO) as MODULO_CONTA_JSON
                 
                
-            FROM TBMODULO_CONTA_ITEM T
-            INNER JOIN TBMODULO_CONTA MC ON MC.ID = T.MODULO_CONTA_ID
+            FROM tbmodulo_conta_item T
+            INNER JOIN tbmodulo_conta MC ON MC.ID = T.MODULO_CONTA_ID
             WHERE T.ID > 0
             $moduloConta";
 

@@ -23,7 +23,7 @@ class ContasBancariasController extends Controller
         $sql = "SELECT 
                     T.*,
                     LPAD(T.ID, 4, '0') AS DESC_ID
-                FROM TBCONTA_BANCARIA T
+                FROM tbconta_bancaria T
                 WHERE T.ID > 0";
 
         $args = [];

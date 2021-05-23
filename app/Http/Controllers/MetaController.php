@@ -99,7 +99,7 @@ class MetaController extends Controller
                         '')))))))))))) AS MES_F
                         
                         
-                    FROM TBMETA T
+                    FROM tbmeta T
                     WHERE T.ID > 0
                 $idStr) X";
 

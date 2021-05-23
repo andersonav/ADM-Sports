@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TiposModuloConta extends Model
 {
-    protected $table = 'TBMODULO_CONTA_TIPO';
+    protected $table = 'tbmodulo_conta_tipo';
 
     protected $primaryKey = "ID";
 

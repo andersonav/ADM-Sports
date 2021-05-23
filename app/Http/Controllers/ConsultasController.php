@@ -33,10 +33,10 @@ class ConsultasController extends Controller
                     JSON_OBJECT('DESC_ID', LPAD(C.ID, 4, '0'), 'ID', C.ID, 'DESCRICAO', C.DESCRICAO) AS CONTA_BANCARIA_JSON
 
                 FROM TBPERFIL T
-                LEFT JOIN TBMODULO_CONTA_ITEM MC ON MC.ID = T.MODULO_CONTA_ITEM_ID
-                LEFT JOIN TBMODULO_CONTA MCC ON MCC.ID = MC.MODULO_CONTA_ID
-                LEFT JOIN TBTIPO_DOCUMENTO TIPO ON TIPO.ID = T.TIPO_DOCUMENTO_ID
-                LEFT JOIN TBCONTA_BANCARIA C ON C.ID = T.CONTA_BANCARIA_ID
+                LEFT JOIN tbmodulo_conta_item MC ON MC.ID = T.MODULO_CONTA_ITEM_ID
+                LEFT JOIN tbmodulo_conta MCC ON MCC.ID = MC.MODULO_CONTA_ID
+                LEFT JOIN tbtipo_documento TIPO ON TIPO.ID = T.TIPO_DOCUMENTO_ID
+                LEFT JOIN tbconta_bancaria C ON C.ID = T.CONTA_BANCARIA_ID
                 WHERE T.ID > 0
                 $desc
                 ORDER BY T.DESCRICAO ASC
@@ -70,7 +70,7 @@ class ConsultasController extends Controller
                     T.*,
                     LPAD(T.ID, 4, '0') AS DESC_ID
                     
-                FROM TBTIPO_DOCUMENTO T
+                FROM tbtipo_documento T
                 WHERE T.ID > 0
                 $desc
                 ORDER BY T.DESCRICAO ASC
@@ -106,9 +106,9 @@ class ConsultasController extends Controller
                     CONCAT(LPAD(MC.ID, 4, '0'), ' - ', MC.DESCRICAO) AS DESC_MC,
                     CONCAT(LPAD(MCT.ID, 4, '0'), ' - ', MCT.DESCRICAO) AS DESC_MC_TIPO,
                     MC.MODULO_CONTA_TIPO_ID
-                FROM TBMODULO_CONTA_ITEM T
-                INNER JOIN TBMODULO_CONTA MC ON MC.ID = T.MODULO_CONTA_ID
-                INNER JOIN TBMODULO_CONTA_TIPO MCT ON MCT.ID = MC.MODULO_CONTA_TIPO_ID
+                FROM tbmodulo_conta_item T
+                INNER JOIN tbmodulo_conta MC ON MC.ID = T.MODULO_CONTA_ID
+                INNER JOIN tbmodulo_conta_tipo MCT ON MCT.ID = MC.MODULO_CONTA_TIPO_ID
                 WHERE T.ID > 0
                 $desc
                 ORDER BY T.DESCRICAO ASC
@@ -142,8 +142,8 @@ class ConsultasController extends Controller
                     T.*,
                     LPAD(T.ID, 4, '0') AS DESC_ID,
                     CONCAT(LPAD(MCT.ID, 4, '0'), ' - ', MCT.DESCRICAO) AS DESC_MC_TIPO 
-                FROM TBMODULO_CONTA T
-                INNER JOIN TBMODULO_CONTA_TIPO MCT ON MCT.ID = T.MODULO_CONTA_TIPO_ID
+                FROM tbmodulo_conta T
+                INNER JOIN tbmodulo_conta_tipo MCT ON MCT.ID = T.MODULO_CONTA_TIPO_ID
                 WHERE T.ID > 0
                 $desc
                 ORDER BY T.DESCRICAO ASC
@@ -177,7 +177,7 @@ class ConsultasController extends Controller
                     T.*,
                     LPAD(T.ID, 4, '0') AS DESC_ID,
                     CONCAT(T.CONTA, ' - ', T.DESCRICAO) AS DESC_CONTA
-                FROM TBCONTA_BANCARIA T
+                FROM tbconta_bancaria T
                 WHERE T.ID > 0
                 $desc
                 ORDER BY T.DESCRICAO ASC

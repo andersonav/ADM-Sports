@@ -86,10 +86,10 @@ class PerfilController extends Controller
 
                     JSON_OBJECT('DESC_ID', LPAD(C.ID, 4, '0'), 'ID', C.ID, 'DESCRICAO', C.DESCRICAO) AS CONTA_BANCARIA_JSON
 
-                FROM TBPERFIL T
-                LEFT JOIN TBMODULO_CONTA_ITEM MC ON MC.ID = T.MODULO_CONTA_ITEM_ID
-                LEFT JOIN TBTIPO_DOCUMENTO TIPO ON TIPO.ID = T.TIPO_DOCUMENTO_ID
-                LEFT JOIN TBCONTA_BANCARIA C ON C.ID = T.CONTA_BANCARIA_ID
+                FROM tbperfil T
+                LEFT JOIN tbmodulo_conta_item MC ON MC.ID = T.MODULO_CONTA_ITEM_ID
+                LEFT JOIN tbtipo_documento TIPO ON TIPO.ID = T.TIPO_DOCUMENTO_ID
+                LEFT JOIN tbconta_bancaria C ON C.ID = T.CONTA_BANCARIA_ID
                 WHERE T.ID > 0
             $idStr";
 

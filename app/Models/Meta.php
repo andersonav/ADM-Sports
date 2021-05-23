@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Meta extends Model
 {
-    protected $table = 'TBMETA';
+    protected $table = 'tbmeta';
 
     protected $primaryKey = "ID";
 

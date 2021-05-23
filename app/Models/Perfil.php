@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Perfil extends Model
 {
-    protected $table = 'TBPERFIL';
+    protected $table = 'tbperfil';
 
     protected $primaryKey = "ID";
 

@@ -25,7 +25,7 @@ class TiposModuloContaItensController extends Controller
         $sql = "SELECT 
                     T.*,
                     LPAD(T.ID, 4, '0') AS DESC_ID
-                FROM TBMODULO_CONTA T
+                FROM tbmodulo_conta T
                 WHERE T.MODULO_CONTA_TIPO_ID = :MODULO_CONTA_TIPO_ID";
 
         $args = [

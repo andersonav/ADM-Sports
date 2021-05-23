@@ -29,7 +29,7 @@ class RelatorioController extends Controller
                         T.DATA,
                         SUM(T.VALOR_TOTAL) AS VALOR,
                         CONCAT(LPAD(EXTRACT(DAY FROM T.DATA), 2, '0'), '/', LPAD(EXTRACT(MONTH FROM T.DATA), 2, '0')) AS LABEL
-                    FROM TBLANCAMENTO T
+                    FROM tblancamento T
                     WHERE 
                     T.MODULO_CONTA_TIPO_ID = :TIPO_ID
                     AND EXTRACT(MONTH FROM T.DATA) = :MES
@@ -53,10 +53,10 @@ class RelatorioController extends Controller
                     FROM (
                         SELECT DISTINCT
                             T.DATA,
-                            COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM TBLANCAMENTO X INNER JOIN TBMODULO_CONTA_TIPO TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 0 AND X.DATA = T.DATA), 0) AS ENTRADAS,
+                            COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM tblancamento X INNER JOIN tbmodulo_conta_tipo TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 0 AND X.DATA = T.DATA), 0) AS ENTRADAS,
                             
-                            COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM TBLANCAMENTO X INNER JOIN TBMODULO_CONTA_TIPO TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 1 AND X.DATA = T.DATA), 0) AS SAIDAS
-                        FROM TBLANCAMENTO T
+                            COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM tblancamento X INNER JOIN tbmodulo_conta_tipo TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 1 AND X.DATA = T.DATA), 0) AS SAIDAS
+                        FROM tblancamento T
                         WHERE 
                         EXTRACT(MONTH FROM T.DATA) = :MES
                         AND EXTRACT(YEAR FROM T.DATA) = :ANO
@@ -88,9 +88,9 @@ class RelatorioController extends Controller
                     T.ID,
                     T.DESCRICAO,
                     MCT.OPERACAO
-                FROM TBMODULO_CONTA_ITEM T
-                INNER JOIN TBMODULO_CONTA MC ON MC.ID = T.MODULO_CONTA_ID
-                INNER JOIN TBMODULO_CONTA_TIPO MCT ON MCT.ID = MC.MODULO_CONTA_TIPO_ID");
+                FROM tbmodulo_conta_item T
+                INNER JOIN tbmodulo_conta MC ON MC.ID = T.MODULO_CONTA_ID
+                INNER JOIN tbmodulo_conta_tipo MCT ON MCT.ID = MC.MODULO_CONTA_TIPO_ID");
 
         foreach($ret->LANCAMENTOS as $item){
             
@@ -99,11 +99,11 @@ class RelatorioController extends Controller
                         
                         SUM(T.VALOR_TOTAL) AS VALOR,
 
-                        COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM TBLANCAMENTO X INNER JOIN TBMODULO_CONTA_TIPO TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 0 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS ENTRADAS,
+                        COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM tblancamento X INNER JOIN tbmodulo_conta_tipo TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 0 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS ENTRADAS,
                             
-                        COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM TBLANCAMENTO X INNER JOIN TBMODULO_CONTA_TIPO TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 1 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS SAIDAS
+                        COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM tblancamento X INNER JOIN tbmodulo_conta_tipo TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 1 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS SAIDAS
 
-                    FROM TBLANCAMENTO T
+                    FROM tblancamento T
                     WHERE 
                     T.MODULO_CONTA_ITEM_ID = :ITEM_ID
                     AND EXTRACT(YEAR FROM T.DATA) = :ANO
@@ -146,15 +146,15 @@ class RelatorioController extends Controller
                         
                         SUM(T.VALOR_TOTAL) AS VALOR,
 
-                        COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM TBLANCAMENTO X INNER JOIN TBMODULO_CONTA_TIPO TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 0 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS ENTRADAS,
+                        COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM tblancamento X INNER JOIN tbmodulo_conta_tipo TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 0 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS ENTRADAS,
                             
-                        COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM TBLANCAMENTO X INNER JOIN TBMODULO_CONTA_TIPO TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 1 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS SAIDAS,
+                        COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM tblancamento X INNER JOIN tbmodulo_conta_tipo TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 1 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS SAIDAS,
 
                         COALESCE((SELECT X.VALOR FROM TBMETA X WHERE X.MES = EXTRACT(MONTH FROM T.DATA) AND X.TIPO = 0), 0) AS SALDO_CAIXA,
 
                         COALESCE((SELECT X.VALOR FROM TBMETA X WHERE X.MES = EXTRACT(MONTH FROM T.DATA) AND X.TIPO = 1), 0) AS MARGEM
 
-                    FROM TBLANCAMENTO T
+                    FROM tblancamento T
                     WHERE 
                     T.MODULO_CONTA_TIPO_ID = :TIPO_ID
                     AND EXTRACT(YEAR FROM T.DATA) = :ANO";

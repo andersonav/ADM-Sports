@@ -23,7 +23,7 @@ class TiposDocumentoController extends Controller
         $sql = "SELECT 
                 T.*,
                 LPAD(T.ID, 4, '0') AS DESC_ID
-            FROM TBTIPO_DOCUMENTO T
+            FROM tbtipo_documento T
             WHERE T.ID > 0";
 
         $args = [

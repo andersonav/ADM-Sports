@@ -37,7 +37,7 @@ class LancamentosController extends Controller
                 T.CLIENTE_ID,
                 T.NOME,
                 LPAD(T.ID, 4, '0') AS DESC_LANC_ID
-            FROM TBLANCAMENTO_ITEM T
+            FROM tblancamento_item T
             WHERE T.ID > 0
             AND T.LANCAMENTO_ID = :LANCAMENTO_ID";
 
@@ -145,11 +145,11 @@ class LancamentosController extends Controller
 
                 JSON_OBJECT('DESC_ID', LPAD(C.ID, 4, '0'), 'ID', C.ID, 'DESCRICAO', C.DESCRICAO) AS CONTA_BANCARIA_JSON
 
-            FROM TBLANCAMENTO T
-            INNER JOIN TBMODULO_CONTA_ITEM MCI ON MCI.ID = T.MODULO_CONTA_ITEM_ID
-            INNER JOIN TBTIPO_DOCUMENTO TIPO ON TIPO.ID = T.TIPO_DOCUMENTO_ID
-            LEFT JOIN TBPERFIL P ON P.ID = T.PERFIL_ID
-            LEFT JOIN TBCONTA_BANCARIA C ON C.ID = T.CONTA_BANCARIA_ID
+            FROM tblancamento T
+            INNER JOIN tbmodulo_conta_item MCI ON MCI.ID = T.MODULO_CONTA_ITEM_ID
+            INNER JOIN tbtipo_documento TIPO ON TIPO.ID = T.TIPO_DOCUMENTO_ID
+            LEFT JOIN tbperfil P ON P.ID = T.PERFIL_ID
+            LEFT JOIN tbconta_bancaria C ON C.ID = T.CONTA_BANCARIA_ID
             WHERE T.ID > 0
             $idStr";
 

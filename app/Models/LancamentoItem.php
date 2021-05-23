@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LancamentoItem extends Model
 {
-    protected $table = 'TBLANCAMENTO_ITEM';
+    protected $table = 'tblancamento_item';
 
     protected $primaryKey = "ID";
 
