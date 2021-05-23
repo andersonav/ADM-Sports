@@ -12,6 +12,7 @@ Ctrl.$inject = [
 	'Lancamentos',
 	'LancamentoItens',
 	'LancamentoAlunos',
+	'LancamentoClientes',
 	'Confirmacao',
 	'Devices'
 ];
@@ -24,6 +25,7 @@ function Ctrl(
 	Lancamentos,
 	LancamentoItens,
 	LancamentoAlunos,
+	LancamentoClientes,
 	Confirmacao,
 	Devices
 ) {
@@ -35,6 +37,7 @@ function Ctrl(
 	vm.Lancamentos 										= new Lancamentos($scope);
 	vm.LancamentoItens 									= new LancamentoItens($scope);
 	vm.LancamentoAlunos 								= new LancamentoAlunos($scope);
+	vm.LancamentoClientes 								= new LancamentoClientes($scope);
 	vm.Confirmacao  									= new Confirmacao();
 	vm.Devices  										= new Devices();
 	vm.Confirme     									= vm.Confirmacao.getNew('vm.Confirme');
@@ -230,6 +233,7 @@ function Ctrl(
 	gScope.Lancamentos 					= vm.Lancamentos;
 	gScope.LancamentoItens 				= vm.LancamentoItens;
 	gScope.LancamentoAlunos 			= vm.LancamentoAlunos;
+	gScope.LancamentoClientes 			= vm.LancamentoClientes;
 
 
 	$('.filter_on_enter').keyup(function(event){

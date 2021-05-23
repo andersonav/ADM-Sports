@@ -28,3 +28,7 @@
 #dataTableLancamentoAlunos_filter {
   display: none !important;
 }
+
+#dataTableLancamentoClientes_filter {
+  display: none !important;
+}

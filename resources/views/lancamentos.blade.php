@@ -172,7 +172,7 @@
                                             <span class="badge badge-counter">F6</span>
                                         </button>
 
-                                        <button ng-if="vm.Lancamentos.SELECTED.TIPO == 2" class="btn btn-primary btn-sm" type="button" data-hotkey="f6" ng-click="vm.LancamentosClientes.incluir();" ng-disabled="vm.Lancamentos.INCLUINDO == false && vm.Lancamentos.ALTERANDO == false">
+                                        <button ng-if="vm.Lancamentos.SELECTED.TIPO == 2" class="btn btn-primary btn-sm" type="button" data-hotkey="f6" ng-click="vm.LancamentoClientes.incluir();" ng-disabled="vm.Lancamentos.INCLUINDO == false && vm.Lancamentos.ALTERANDO == false">
                                             <i class="mr-2 text-white" data-feather="plus-circle"></i>
                                             Incluir
                                             <span class="badge badge-counter">F6</span>
@@ -285,6 +285,71 @@
                 </button>
 
                 <button class="btn btn-danger p-3" type="button" ng-click="vm.LancamentoAlunos.cancelar();" data-hotkey="esc" ng-if="vm.Lancamentos.INCLUINDO == true || vm.Lancamentos.ALTERANDO == true">
+                    <i class="mr-2 text-white" data-feather="slash"></i>
+                    Cancelar
+                    <span class="badge badge-counter">ESC</span>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalLancamentoClientes" role="dialog" tabindex="0" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Vinculando clientes ao lançamento</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-sm-8" style="margin-bottom: 20px;">
+                            <label for="">Filtragem rápida:</label>
+                            <div class="input-group input-group-joined">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i data-feather="search"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" id="filtroCliente" ng-model="vm.LancamentoClientes.FILTRO_CLIENTE" autocomplete="off" ng-change="vm.LancamentoClientes.keyUPSearchClientes($event);">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4" style="margin-bottom: 20px;">
+                            <label for="">Valor Padrão:</label>
+                            <div class="input-group input-group-joined">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i data-feather="dollar-sign"></i>
+                                    </span>
+                                </div>
+
+                                <input ng-number-format="2" class="form-control required" id="valorPadrao" type="text" ng-model="vm.LancamentoClientes.VALOR_PADRAO">
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table mb-0" id="dataTableLancamentoClientes">
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary p-3" type="button" data-hotkey="f9" ng-click="vm.LancamentoClientes.gravar();">
+                    <i class="mr-2 text-white" data-feather="check-circle"></i>
+                    Confirmar
+                    <span class="badge badge-counter">F9</span>
+                </button>
+
+                <button class="btn btn-danger p-3" type="button" ng-click="vm.LancamentoClientes.cancelar();" data-hotkey="esc" ng-if="vm.Lancamentos.INCLUINDO == true || vm.Lancamentos.ALTERANDO == true">
                     <i class="mr-2 text-white" data-feather="slash"></i>
                     Cancelar
                     <span class="badge badge-counter">ESC</span>

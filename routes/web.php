@@ -77,6 +77,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
             Route::post('/post', 'PerfilController@postPerfil')->name('post-perfil');
             Route::post('/delete', 'PerfilController@postPerfilDelete')->name('delete-perfil');
         });
+        
+        Route::group(['prefix' => 'meta'], function () {
+            Route::get('/', 'MetaController@index')->name('meta');
+            Route::any('/get', 'MetaController@getMeta')->name('getMeta');
+            Route::post('/post', 'MetaController@postMeta')->name('post-meta');
+            Route::post('/delete', 'MetaController@postMetaDelete')->name('delete-meta');
+        });
 
         Route::group(['prefix' => 'modulos-conta'], function () {
 

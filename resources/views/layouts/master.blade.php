@@ -107,6 +107,8 @@
 
                                     <a class="nav-link{{ (request()->is('admin/funcionalidades/perfis*')) ? ' active' : '' }}" href="{{route('perfis')}}">Perfis</a>
 
+                                    <a class="nav-link{{ (request()->is('admin/funcionalidades/meta*')) ? ' active' : '' }}" href="{{route('meta')}}">Metas</a>
+
                                     <!-- Nested Sidenav Accordion (Pages -> Account)-->
                                     <a class="nav-link{{ (request()->is('admin/funcionalidades/modulos-conta*')) ? '' : ' collapsed' }}" href="javascript:void(0);" data-toggle="collapse" data-target="#pagesCollapseAccount" aria-expanded="false" aria-controls="pagesCollapseAccount">
                                         Módulos de Conta

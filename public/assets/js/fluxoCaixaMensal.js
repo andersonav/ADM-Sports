@@ -60,21 +60,21 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 59);
+/******/ 	return __webpack_require__(__webpack_require__.s = 63);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 59:
+/***/ 63:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(60);
-module.exports = __webpack_require__(61);
+__webpack_require__(64);
+module.exports = __webpack_require__(65);
 
 
 /***/ }),
 
-/***/ 60:
+/***/ 64:
 /***/ (function(module, exports) {
 
 angular.
@@ -198,7 +198,7 @@ Devices)
 
 /***/ }),
 
-/***/ 61:
+/***/ 65:
 /***/ (function(module, exports) {
 
 (function (window, angular) {
@@ -289,6 +289,13 @@ Devices)
 
 					var arrLabel = [];
 
+					var jsonSaldoDiaro = {
+						label: 'Saldo caixa',
+						data: [],
+						backgroundColor: '#4bc0c0',
+						pointRadius: 3 };
+
+
 					angular.forEach(response.LANCAMENTOS, function (item, value) {
 
 						var json = {
@@ -311,6 +318,10 @@ Devices)
 
 							json.data.push(valor);
 
+							var subtract = Number(element.ENTRADAS) - Number(element.SAIDAS);
+
+							jsonSaldoDiaro.data.push(Number(Number(subtract).toFixed(2)));
+
 							arrLabel.push(label);
 						}
 
@@ -323,17 +334,6 @@ Devices)
 					});
 
 					if (obj.DATASET.length > 0) {
-						var jsonSaldoDiaro = {
-							label: 'Saldo caixa',
-							data: [],
-							backgroundColor: '#4bc0c0',
-							pointRadius: 3 };
-
-
-						angular.forEach(response.SALDO_CAIXA, function (item, value) {
-							jsonSaldoDiaro.data.push(Number(item.SALDO_CAIXA));
-						});
-
 						obj.DATASET.push(angular.copy(jsonSaldoDiaro));
 					}
 

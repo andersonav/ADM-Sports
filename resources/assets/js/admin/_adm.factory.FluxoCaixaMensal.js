@@ -86,6 +86,13 @@
 
 					var arrLabel = [];
 
+					var jsonSaldoDiaro = {
+						label			: 'Saldo caixa',
+						data			: [],
+						backgroundColor	: '#4bc0c0',
+						pointRadius		: 3
+					};
+
 					angular.forEach(response.LANCAMENTOS, function (item, value){
 
 						var json = {
@@ -108,6 +115,10 @@
 
 							json.data.push(valor);
 
+							var subtract = Number(element.ENTRADAS) - Number(element.SAIDAS);
+
+							jsonSaldoDiaro.data.push(Number(Number(subtract).toFixed(2)));
+
 							arrLabel.push(label);
 						}
 
@@ -120,17 +131,6 @@
 					});
 
 					if(obj.DATASET.length > 0){
-						var jsonSaldoDiaro = {
-							label			: 'Saldo caixa',
-							data			: [],
-							backgroundColor	: '#4bc0c0',
-							pointRadius		: 3
-						};
-	
-						angular.forEach(response.SALDO_CAIXA, function (item, value){
-							jsonSaldoDiaro.data.push(Number(item.SALDO_CAIXA));
-						});
-	
 						obj.DATASET.push(angular.copy(jsonSaldoDiaro));
 					}
 

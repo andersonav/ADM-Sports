@@ -127,12 +127,12 @@
 
 					}
 					
-					if(response.ALUNOS.length > 0){
-						var arrAlunos = response.ALUNOS[0];
+					if(response.ALUNOS_MATRICULADOS.length > 0){
+						var arrAlunos = response.ALUNOS_MATRICULADOS[0];
+						var arrAlunosD = response.ALUNOS_DESISTENTES[0];
 
-						obj.LABELS_ALUNOS 	= arrAlunos.LABEL.split(',');
-						obj.DATASET_ALUNOS 	= arrAlunos.VALOR.split(',');
-
+						obj.LABELS_ALUNOS 	= ['Alunos matriculados', 'Alunos desistentes'];
+						obj.DATASET_ALUNOS 	= [arrAlunos.QTD_MATRICULAS, arrAlunosD.QTD_DESISTENTES];
 					}
 					
 					if(response.CONTAS.length > 0){

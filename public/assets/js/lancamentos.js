@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 48);
+/******/ 	return __webpack_require__(__webpack_require__.s = 52);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -326,18 +326,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 48:
+/***/ 52:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(49);
-__webpack_require__(50);
-__webpack_require__(51);
-module.exports = __webpack_require__(52);
+__webpack_require__(53);
+__webpack_require__(54);
+__webpack_require__(55);
+module.exports = __webpack_require__(56);
 
 
 /***/ }),
 
-/***/ 49:
+/***/ 53:
 /***/ (function(module, exports) {
 
 angular.
@@ -354,6 +354,7 @@ Ctrl.$inject = [
 'Lancamentos',
 'LancamentoItens',
 'LancamentoAlunos',
+'LancamentoClientes',
 'Confirmacao',
 'Devices'];
 
@@ -366,6 +367,7 @@ Consulta,
 Lancamentos,
 LancamentoItens,
 LancamentoAlunos,
+LancamentoClientes,
 Confirmacao,
 Devices)
 {
@@ -377,6 +379,7 @@ Devices)
 	vm.Lancamentos = new Lancamentos($scope);
 	vm.LancamentoItens = new LancamentoItens($scope);
 	vm.LancamentoAlunos = new LancamentoAlunos($scope);
+	vm.LancamentoClientes = new LancamentoClientes($scope);
 	vm.Confirmacao = new Confirmacao();
 	vm.Devices = new Devices();
 	vm.Confirme = vm.Confirmacao.getNew('vm.Confirme');
@@ -572,6 +575,7 @@ Devices)
 	gScope.Lancamentos = vm.Lancamentos;
 	gScope.LancamentoItens = vm.LancamentoItens;
 	gScope.LancamentoAlunos = vm.LancamentoAlunos;
+	gScope.LancamentoClientes = vm.LancamentoClientes;
 
 
 	$('.filter_on_enter').keyup(function (event) {
@@ -744,7 +748,7 @@ Devices)
 
 /***/ }),
 
-/***/ 50:
+/***/ 54:
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (window, angular) {
@@ -1339,7 +1343,7 @@ Devices)
 
 /***/ }),
 
-/***/ 51:
+/***/ 55:
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (window, angular) {
@@ -1861,7 +1865,7 @@ Devices)
 
 /***/ }),
 
-/***/ 52:
+/***/ 56:
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (window, angular) {

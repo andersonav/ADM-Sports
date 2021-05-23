@@ -80,6 +80,13 @@ mix.js(
    ], jsPathPublic + '/perfil.js')
    .sass('resources/assets/sass/admin/perfil.scss', cssPathPublic);
 
+mix.js(
+   [
+      'resources/assets/js/admin/MetaController.js',
+      'resources/assets/js/admin/_adm.factory.Meta.js'
+   ], jsPathPublic + '/meta.js')
+   .sass('resources/assets/sass/admin/meta.scss', cssPathPublic);
+
 
 mix.js(
    [

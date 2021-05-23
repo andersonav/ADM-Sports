@@ -67,27 +67,33 @@ class HomeController extends Controller
                     
                 FROM TBCONTA_BANCARIA T";
         
-        $sqlAlunos = "SELECT DISTINCT
-        SUM(COALESCE(A.ID, 0)) AS QTD_MATRICULAS
-    FROM TBLANCAMENTO_ITEM T
-    INNER JOIN TBLANCAMENTO L ON L.ID = T.LANCAMENTO_ID
-    INNER JOIN TBALUNO A ON A.ID = T.ALUNO_ID
-    WHERE 
-        (EXTRACT(MONTH FROM L.DATA) = MONTH(CURDATE()) AND EXTRACT(YEAR FROM L.DATA) = YEAR(CURDATE()))
-    OR
-        (EXTRACT(MONTH FROM DATE_SUB(L.DATA, INTERVAL 1 MONTH)) = EXTRACT(MONTH FROM DATE_SUB(CURDATE(), INTERVAL 1 MONTH)) AND EXTRACT(YEAR FROM L.DATA) = YEAR(CURDATE()))";
+        $sqlAlunosMatriculas = "SELECT DISTINCT
+                        COUNT(A.ID) AS QTD_MATRICULAS
+                    FROM tblancamento_item T
+                    INNER JOIN TBLANCAMENTO L ON L.ID = T.LANCAMENTO_ID
+                    INNER JOIN TBALUNO A ON A.ID = T.ALUNO_ID
+                    WHERE L.DATA BETWEEN :DATA_INICIAL AND :DATA_FINAL";
         
-
+        $sqlAlunosDesistentes = "SELECT 
+                                    COUNT(T.ID) AS QTD_DESISTENTES
+                                FROM TBALUNO T
+                                LEFT JOIN TBLANCAMENTO_ITEM LI ON LI.ALUNO_ID = T.ID
+                                LEFT JOIN TBLANCAMENTO L ON L.ID = LI.LANCAMENTO_ID
+                        WHERE 
+                            L.DATA NOT BETWEEN :DATA_INICIAL AND :DATA_FINAL
+                        OR (LI.ID IS NULL)";
+        
         $args = [
             'DATA_INICIAL'      => $param->DATA_INICIAL,
             'DATA_FINAL'        => $param->DATA_FINAL
         ];
 
-        $ret->CONTAS_DESPESAS   = DB::select($sqlContasReceberPagar, $args);
-        $ret->MOVIMENTACOES     = DB::select($sqlMovimentacoes, $args);
-        $ret->SALDOS            = DB::select($sqlSaldos, $args);
-        $ret->CONTAS            = DB::select($sqlContas, $args);
-        $ret->ALUNOS            = [];
+        $ret->CONTAS_DESPESAS       = DB::select($sqlContasReceberPagar, $args);
+        $ret->MOVIMENTACOES         = DB::select($sqlMovimentacoes, $args);
+        $ret->SALDOS                = DB::select($sqlSaldos, $args);
+        $ret->CONTAS                = DB::select($sqlContas, $args);
+        $ret->ALUNOS_MATRICULADOS   = DB::select($sqlAlunosMatriculas, $args);
+        $ret->ALUNOS_DESISTENTES    = DB::select($sqlAlunosDesistentes, $args);
 
 
         return response()->json($ret);

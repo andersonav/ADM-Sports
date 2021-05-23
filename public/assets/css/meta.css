@@ -1,0 +1,15 @@
+#dataTableMeta {
+  width: inherit !important;
+}
+
+#dataTableMeta tr.row_selected,
+.selected {
+  background-color: #b5ccd2;
+  opacity: 0.95;
+  font-weight: 500;
+}
+
+.modal#modalMeta .modal-dialog {
+  width: 85%;
+  max-width: none;
+}

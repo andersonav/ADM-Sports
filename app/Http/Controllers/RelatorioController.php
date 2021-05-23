@@ -97,7 +97,12 @@ class RelatorioController extends Controller
             $sql = "SELECT DISTINCT
                         CONCAT(UPPER(SUBSTRING(DATE_FORMAT(t.data, '%M'),1,1)),LOWER(SUBSTRING(DATE_FORMAT(t.data, '%M'),2))) AS LABEL,
                         
-                        SUM(T.VALOR_TOTAL) AS VALOR
+                        SUM(T.VALOR_TOTAL) AS VALOR,
+
+                        COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM TBLANCAMENTO X INNER JOIN TBMODULO_CONTA_TIPO TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 0 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS ENTRADAS,
+                            
+                        COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM TBLANCAMENTO X INNER JOIN TBMODULO_CONTA_TIPO TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 1 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS SAIDAS
+
                     FROM TBLANCAMENTO T
                     WHERE 
                     T.MODULO_CONTA_ITEM_ID = :ITEM_ID
@@ -112,28 +117,6 @@ class RelatorioController extends Controller
             $item->LANCAMENTOS = DB::select($sql, $args);
 
         }
-
-        $sqlSaldo = "SELECT 
-                        K.*,
-                        K.ENTRADAS - K.SAIDAS AS SALDO_CAIXA
-                    FROM (
-                        SELECT DISTINCT
-                            T.DATA,
-                            COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM TBLANCAMENTO X INNER JOIN TBMODULO_CONTA_TIPO TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 0 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS ENTRADAS,
-                            
-                            COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM TBLANCAMENTO X INNER JOIN TBMODULO_CONTA_TIPO TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 1 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS SAIDAS
-                        FROM TBLANCAMENTO T
-                        WHERE 
-                        EXTRACT(MONTH FROM T.DATA) = :MES
-                        AND EXTRACT(YEAR FROM T.DATA) = :ANO
-                        ORDER BY T.DATA ASC) K";
-
-        $argsSaldo = [
-            'MES'       => $param->MES,
-            'ANO'       => $param->ANO
-        ];
-
-        $ret->SALDO_CAIXA = DB::select($sqlSaldo, $argsSaldo);
 
         return response()->json($ret);
     }
@@ -161,12 +144,20 @@ class RelatorioController extends Controller
             $sql = "SELECT DISTINCT
                         CONCAT(UPPER(SUBSTRING(DATE_FORMAT(t.data, '%M'),1,1)),LOWER(SUBSTRING(DATE_FORMAT(t.data, '%M'),2))) AS LABEL,
                         
-                        SUM(T.VALOR_TOTAL) AS VALOR
+                        SUM(T.VALOR_TOTAL) AS VALOR,
+
+                        COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM TBLANCAMENTO X INNER JOIN TBMODULO_CONTA_TIPO TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 0 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS ENTRADAS,
+                            
+                        COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM TBLANCAMENTO X INNER JOIN TBMODULO_CONTA_TIPO TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 1 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS SAIDAS,
+
+                        COALESCE((SELECT X.VALOR FROM TBMETA X WHERE X.MES = EXTRACT(MONTH FROM T.DATA) AND X.TIPO = 0), 0) AS SALDO_CAIXA,
+
+                        COALESCE((SELECT X.VALOR FROM TBMETA X WHERE X.MES = EXTRACT(MONTH FROM T.DATA) AND X.TIPO = 1), 0) AS MARGEM
+
                     FROM TBLANCAMENTO T
                     WHERE 
                     T.MODULO_CONTA_TIPO_ID = :TIPO_ID
-                    AND EXTRACT(YEAR FROM T.DATA) = :ANO
-                    GROUP BY CONCAT(UPPER(SUBSTRING(DATE_FORMAT(t.data, '%M'),1,1)),LOWER(SUBSTRING(DATE_FORMAT(t.data, '%M'),2)))";
+                    AND EXTRACT(YEAR FROM T.DATA) = :ANO";
 
             $args = [
                 'TIPO_ID'   => $tipo->ID,
@@ -176,28 +167,6 @@ class RelatorioController extends Controller
             $tipo->LANCAMENTOS = DB::select($sql, $args);
 
         }
-
-        $sqlSaldo = "SELECT 
-                        K.*,
-                        K.ENTRADAS - K.SAIDAS AS SALDO_CAIXA
-                    FROM (
-                        SELECT DISTINCT
-                            T.DATA,
-                            COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM TBLANCAMENTO X INNER JOIN TBMODULO_CONTA_TIPO TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 0 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS ENTRADAS,
-                            
-                            COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM TBLANCAMENTO X INNER JOIN TBMODULO_CONTA_TIPO TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 1 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS SAIDAS
-                        FROM TBLANCAMENTO T
-                        WHERE 
-                        EXTRACT(MONTH FROM T.DATA) = :MES
-                        AND EXTRACT(YEAR FROM T.DATA) = :ANO
-                        ORDER BY T.DATA ASC) K";
-
-        $argsSaldo = [
-            'MES'       => $param->MES,
-            'ANO'       => $param->ANO
-        ];
-
-        $ret->SALDO_CAIXA = DB::select($sqlSaldo, $argsSaldo);
 
         return response()->json($ret);
     }

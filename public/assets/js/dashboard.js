@@ -60,21 +60,21 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 23);
+/******/ 	return __webpack_require__(__webpack_require__.s = 24);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 23:
+/***/ 24:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(24);
-module.exports = __webpack_require__(25);
+__webpack_require__(25);
+module.exports = __webpack_require__(26);
 
 
 /***/ }),
 
-/***/ 24:
+/***/ 25:
 /***/ (function(module, exports) {
 
 angular.
@@ -184,7 +184,7 @@ Dashboard)
 
 /***/ }),
 
-/***/ 25:
+/***/ 26:
 /***/ (function(module, exports) {
 
 (function (window, angular) {
@@ -316,12 +316,12 @@ Dashboard)
 
 					}
 
-					if (response.ALUNOS.length > 0) {
-						var arrAlunos = response.ALUNOS[0];
+					if (response.ALUNOS_MATRICULADOS.length > 0) {
+						var arrAlunos = response.ALUNOS_MATRICULADOS[0];
+						var arrAlunosD = response.ALUNOS_DESISTENTES[0];
 
-						obj.LABELS_ALUNOS = arrAlunos.LABEL.split(',');
-						obj.DATASET_ALUNOS = arrAlunos.VALOR.split(',');
-
+						obj.LABELS_ALUNOS = ['Alunos matriculados', 'Alunos desistentes'];
+						obj.DATASET_ALUNOS = [arrAlunos.QTD_MATRICULAS, arrAlunosD.QTD_DESISTENTES];
 					}
 
 					if (response.CONTAS.length > 0) {
