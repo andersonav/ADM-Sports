@@ -93,7 +93,8 @@ mix.js(
       'resources/assets/js/admin/LancamentosController.js',
       'resources/assets/js/admin/_adm.factory.Lancamentos.js',
       'resources/assets/js/admin/_adm.factory.LancamentoItens.js',
-      'resources/assets/js/admin/_adm.factory.LancamentoAlunos.js'
+      'resources/assets/js/admin/_adm.factory.LancamentoAlunos.js',
+      'resources/assets/js/admin/_adm.factory.LancamentoClientes.js'
    ], jsPathPublic + '/lancamentos.js')
    .sass('resources/assets/sass/admin/lancamentos.scss', cssPathPublic);
 

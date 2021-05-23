@@ -145,10 +145,7 @@
                                 <div class="nav-link-icon"><i data-feather="database"></i></div>
                                 Capital de Giro
                             </a>
-                            <a class="nav-link{{ (request()->is('admin/relatorios/dre*')) ? ' active' : '' }}" href="{{route('dre')}}">
-                                <div class="nav-link-icon"><i data-feather="database"></i></div>
-                                DRE
-                            </a>
+                         
 
                         </div>
                     </div>
