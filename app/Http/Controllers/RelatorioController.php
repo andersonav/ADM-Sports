@@ -82,8 +82,6 @@ class RelatorioController extends Controller
 
         $ret = (object) [];
 
-        DB::statement("SET GLOBAL lc_time_names=pt_BR;");
-
         $ret->LANCAMENTOS = DB::select("SELECT 
                     T.ID,
                     T.DESCRICAO,
@@ -94,20 +92,37 @@ class RelatorioController extends Controller
 
         foreach($ret->LANCAMENTOS as $item){
             
-            $sql = "SELECT DISTINCT
-                        CONCAT(UPPER(SUBSTRING(DATE_FORMAT(t.data, '%M'),1,1)),LOWER(SUBSTRING(DATE_FORMAT(t.data, '%M'),2))) AS LABEL,
-                        
-                        SUM(T.VALOR_TOTAL) AS VALOR,
+            $sql = "SELECT 
+                        X.*,
+                        IF(X.MES = 1, 'JANEIRO', 
+                        IF(X.MES = 2, 'FEVEREIRO', 
+                        IF(X.MES = 3, 'MARÇO', 
+                        IF(X.MES = 4, 'ABRIL', 
+                        IF(X.MES = 5, 'MAIO', 
+                        IF(X.MES = 6, 'JUNHO', 
+                        IF(X.MES = 7, 'JULHO', 
+                        IF(X.MES = 8, 'AGOSTO', 
+                        IF(X.MES = 9, 'SETEMBRO', 
+                        IF(X.MES = 10, 'OUTUBRO', 
+                        IF(X.MES = 11, 'NOVEMBRO', 
+                        IF(X.MES = 12, 'DEZEMBRO', 
+                        '')))))))))))) AS MES_F
+                        FROM 
+                        (
+                            SELECT DISTINCT
+                                EXTRACT(MONTH FROM T.DATA) AS MES,
+                                
+                                SUM(T.VALOR_TOTAL) AS VALOR,
 
-                        COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM tblancamento X INNER JOIN tbmodulo_conta_tipo TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 0 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS ENTRADAS,
-                            
-                        COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM tblancamento X INNER JOIN tbmodulo_conta_tipo TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 1 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS SAIDAS
+                                COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM tblancamento X INNER JOIN tbmodulo_conta_tipo TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 0 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS ENTRADAS,
+                                    
+                                COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM tblancamento X INNER JOIN tbmodulo_conta_tipo TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 1 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS SAIDAS
 
-                    FROM tblancamento T
-                    WHERE 
-                    T.MODULO_CONTA_ITEM_ID = :ITEM_ID
-                    AND EXTRACT(YEAR FROM T.DATA) = :ANO
-                    GROUP BY CONCAT(UPPER(SUBSTRING(DATE_FORMAT(t.data, '%M'),1,1)),LOWER(SUBSTRING(DATE_FORMAT(t.data, '%M'),2)))";
+                            FROM tblancamento T
+                            WHERE 
+                            T.MODULO_CONTA_ITEM_ID = :ITEM_ID
+                            AND EXTRACT(YEAR FROM T.DATA) = :ANO) X
+                        ";
 
             $args = [
                 'ITEM_ID'   => $item->ID,
@@ -130,8 +145,6 @@ class RelatorioController extends Controller
         $param = $request->FILTRO;
 
         $ret = (object) [];
-
-        DB::statement("SET GLOBAL lc_time_names=pt_BR;");
 
         $ret->LANCAMENTOS = DB::select("SELECT 
                     T.ID,

@@ -74,8 +74,6 @@ class MetaController extends Controller
             $idStr = 'AND T.ID = ' . $id;
         }
 
-        DB::statement("SET GLOBAL lc_time_names=pt_BR;");
-
         $sql = "SELECT 
                     X.*,
                     CONCAT(X.MES_F, '/', X.ANO) AS DESC_META
