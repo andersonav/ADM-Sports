@@ -491,19 +491,24 @@
 						});
 					},
 					"columns": [
-						{ "data": "ID", "title": 'ID', 
-							render : function(data, type, row) {
-								return trim_null(row.ID).padStart(5, '0');
-							}
-						},
+						// { "data": "ID", "title": 'ID', 
+						// 	render : function(data, type, row) {
+						// 		return trim_null(row.ID).padStart(5, '0');
+						// 	}
+						// },
 						{ "data": "DESCRICAO", "title": 'Descrição', 
 							render : function(data, type, row) {
 								return row.DESCRICAO;
 							} 
 						},
-						{ "data": "MODULO_CONTA_ITEM_ID", "title": 'Conta', 
+						{ "data": "MODULO_CONTA_ITEM_ID", "title": 'Módulo de Conta', 
 							render : function(data, type, row) {
 								return row.DESC_MODULO_CONTA;
+							} 
+						},
+						{ "data": "CONTA_BANCARIA_ID", "title": 'Conta Bancária', 
+							render : function(data, type, row) {
+								return row.DESC_CONTA;
 							} 
 						},
 						{ "data": "VALOR_TOTAL", "title": 'Valor Total', 
