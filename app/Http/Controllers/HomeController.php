@@ -42,7 +42,7 @@ class HomeController extends Controller
 
         $sqlContasReceberPagar = "SELECT 
                                     T.OPERACAO,
-                                    COALESCE((SELECT SUM(X.VALOR_TOTAL) FROM tblancamento X INNER JOIN tbmodulo_conta_tipo MCT ON MCT.ID = X.MODULO_CONTA_TIPO_ID WHERE MCT.OPERACAO = T.OPERACAO AND X.DATA BETWEEN '2021-05-01' AND '2021-05-30'), 0) AS VALOR 
+                                    COALESCE((SELECT SUM(X.VALOR_TOTAL) FROM tblancamento X INNER JOIN tbmodulo_conta_tipo MCT ON MCT.ID = X.MODULO_CONTA_TIPO_ID WHERE MCT.OPERACAO = T.OPERACAO AND X.DATA BETWEEN :DATA_INICIAL AND :DATA_FINAL), 0) AS VALOR 
                                     
                                 FROM tbmodulo_conta_tipo T";
 
@@ -54,18 +54,20 @@ class HomeController extends Controller
                 FROM tbmodulo_conta_tipo T";
         
         $sqlSaldos = "SELECT 
-                    GROUP_CONCAT(DISTINCT T.DESCRICAO ORDER BY T.ID ASC) AS LABEL,
+                    GROUP_CONCAT(DISTINCT T.DESCRICAO) AS LABEL,
                     
-                    GROUP_CONCAT(COALESCE((SELECT SUM(X.VALOR_TOTAL) FROM tblancamento X WHERE X.TIPO_DOCUMENTO_ID = T.ID AND X.DATA BETWEEN :DATA_INICIAL AND :DATA_FINAL), 0)) AS VALOR 
+                    GROUP_CONCAT(COALESCE((SELECT SUM(X.VALOR_TOTAL) FROM tblancamento X WHERE X.TIPO_DOCUMENTO_ID = T.ID AND X.DATA BETWEEN :DATA_INICIAL AND :DATA_FINAL ORDER BY X.TIPO_DOCUMENTO_ID ASC), 0)) AS VALOR 
                     
-                FROM tbtipo_documento T";
+                FROM tbtipo_documento T
+                ORDER BY T.ID ASC";
         
         $sqlContas = "SELECT 
-                    GROUP_CONCAT(DISTINCT T.DESCRICAO ORDER BY T.ID ASC) AS LABEL,
+                    GROUP_CONCAT(DISTINCT CONCAT(T.CONTA, ' - ', T.DESCRICAO) ORDER BY T.ID ASC) AS LABEL,
                     
-                    GROUP_CONCAT(COALESCE((SELECT SUM(X.VALOR_TOTAL) FROM tblancamento X WHERE X.CONTA_BANCARIA_ID = T.ID AND X.DATA BETWEEN :DATA_INICIAL AND :DATA_FINAL), 0)) AS VALOR 
+                    GROUP_CONCAT(COALESCE((SELECT SUM(X.VALOR_TOTAL) FROM tblancamento X WHERE X.CONTA_BANCARIA_ID = T.ID AND X.DATA BETWEEN :DATA_INICIAL AND :DATA_FINAL ORDER BY X.CONTA_BANCARIA_ID ASC), 0)) AS VALOR 
                     
-                FROM tbconta_bancaria T";
+                FROM tbconta_bancaria T
+                ORDER BY T.ID ASC";
         
         $sqlAlunosMatriculas = "SELECT DISTINCT
                         COUNT(A.ID) AS QTD_MATRICULAS

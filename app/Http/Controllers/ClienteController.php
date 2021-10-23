@@ -19,7 +19,7 @@ class ClienteController extends Controller
 
     public function clientes()
     {
-        $clientes = Cliente::get(['TBCLIENTE.*'])
+        $clientes = Cliente::get(['tbcliente.*'])
             ->toArray();
 
         return response()->json($clientes);

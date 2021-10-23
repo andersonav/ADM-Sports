@@ -19,7 +19,7 @@ class AlunoController extends Controller
 
     public function alunos()
     {
-        $alunos = Aluno::get(['TBALUNO.*'])
+        $alunos = Aluno::get(['tbaluno.*'])
             ->toArray();
 
         return response()->json($alunos);

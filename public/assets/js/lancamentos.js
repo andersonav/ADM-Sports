@@ -1142,6 +1142,10 @@ Devices)
 
 			obj.SELECTED = item;
 
+			obj.SELECTED.DATA = moment(obj.SELECTED.DATA).toDate();
+			obj.SELECTED.DATA_VENCIMENTO = moment(obj.SELECTED.DATA_VENCIMENTO).toDate();
+			obj.SELECTED.DATA_RECEB_PAG = moment(obj.SELECTED.DATA_RECEB_PAG).toDate();
+
 			obj.insertConsultas();
 
 			if (obj.SELECTED.TIPO != 0) {
@@ -1263,7 +1267,7 @@ Devices)
 
 					{ "data": "DATA", "title": 'Data',
 						render: function render(data, type, row) {
-							return moment(row.DATA).format('DD/MM/YYYY');
+							return moment(angular.copy(row.DATA)).format('DD/MM/YYYY');
 						} },
 
 					{ "data": "STATUS", "title": 'Status',

@@ -155,7 +155,7 @@ class RelatorioController extends Controller
         foreach($ret->LANCAMENTOS as $tipo){
             
             $sql = "SELECT DISTINCT
-                        CONCAT(UPPER(SUBSTRING(DATE_FORMAT(t.data, '%M'),1,1)),LOWER(SUBSTRING(DATE_FORMAT(t.data, '%M'),2))) AS LABEL,
+                        CONCAT(UPPER(SUBSTRING(DATE_FORMAT(T.data, '%M'),1,1)),LOWER(SUBSTRING(DATE_FORMAT(T.data, '%M'),2))) AS LABEL,
                         
                         SUM(T.VALOR_TOTAL) AS VALOR,
 
@@ -163,9 +163,9 @@ class RelatorioController extends Controller
                             
                         COALESCE((SELECT SUM(X.VALOR_TOTAL) X FROM tblancamento X INNER JOIN tbmodulo_conta_tipo TP ON TP.ID = X.MODULO_CONTA_TIPO_ID WHERE TP.OPERACAO = 1 AND EXTRACT(MONTH FROM X.DATA) = EXTRACT(MONTH FROM T.DATA)), 0) AS SAIDAS,
 
-                        COALESCE((SELECT X.VALOR FROM TBMETA X WHERE X.MES = EXTRACT(MONTH FROM T.DATA) AND X.TIPO = 0), 0) AS SALDO_CAIXA,
+                        COALESCE((SELECT X.VALOR FROM tbmeta X WHERE X.MES = EXTRACT(MONTH FROM T.DATA) AND X.TIPO = 0), 0) AS SALDO_CAIXA,
 
-                        COALESCE((SELECT X.VALOR FROM TBMETA X WHERE X.MES = EXTRACT(MONTH FROM T.DATA) AND X.TIPO = 1), 0) AS MARGEM
+                        COALESCE((SELECT X.VALOR FROM tbmeta X WHERE X.MES = EXTRACT(MONTH FROM T.DATA) AND X.TIPO = 1), 0) AS MARGEM
 
                     FROM tblancamento T
                     WHERE 

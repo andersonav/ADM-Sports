@@ -18,7 +18,7 @@ class ConsultasController extends Controller
         $desc = strtoupper($param->FILTRO);
 
         if($desc != ''){
-			$desc = 'AND UPPER(T.ID||\'-\'||FN_LPAD(T.ID, 4, \'0\')||\'-\'||coalesce(T.DESCRICAO,\'\')) LIKE \'%'.str_replace(' ', '%', $desc).'%\'';
+			$desc = 'AND UPPER(coalesce(T.DESCRICAO,\'\')) LIKE \'%'.str_replace(' ', '%', $desc).'%\'';
 		}else{
 			$desc = '';   
 		}
@@ -32,7 +32,7 @@ class ConsultasController extends Controller
 
                     JSON_OBJECT('DESC_ID', LPAD(C.ID, 4, '0'), 'ID', C.ID, 'DESCRICAO', C.DESCRICAO) AS CONTA_BANCARIA_JSON
 
-                FROM TBPERFIL T
+                FROM tbperfil T
                 LEFT JOIN tbmodulo_conta_item MC ON MC.ID = T.MODULO_CONTA_ITEM_ID
                 LEFT JOIN tbmodulo_conta MCC ON MCC.ID = MC.MODULO_CONTA_ID
                 LEFT JOIN tbtipo_documento TIPO ON TIPO.ID = T.TIPO_DOCUMENTO_ID
@@ -61,7 +61,7 @@ class ConsultasController extends Controller
         $desc = strtoupper($param->FILTRO);
 
         if($desc != ''){
-			$desc = 'AND UPPER(T.ID||\'-\'||FN_LPAD(T.ID, 4, \'0\')||\'-\'||coalesce(T.DESCRICAO,\'\')) LIKE \'%'.str_replace(' ', '%', $desc).'%\'';
+			$desc = 'AND UPPER(coalesce(T.DESCRICAO,\'\')) LIKE \'%'.str_replace(' ', '%', $desc).'%\'';
 		}else{
 			$desc = '';   
 		}
@@ -95,7 +95,7 @@ class ConsultasController extends Controller
         $desc = strtoupper($param->FILTRO);
 
         if($desc != ''){
-			$desc = 'AND UPPER(T.ID||\'-\'||FN_LPAD(T.ID, 4, \'0\')||\'-\'||coalesce(T.DESCRICAO,\'\')) LIKE \'%'.str_replace(' ', '%', $desc).'%\'';
+			$desc = 'AND UPPER(coalesce(T.DESCRICAO,\'\')) LIKE \'%'.str_replace(' ', '%', $desc).'%\'';
 		}else{
 			$desc = '';   
 		}
@@ -133,7 +133,7 @@ class ConsultasController extends Controller
         $desc = strtoupper($param->FILTRO);
 
         if($desc != ''){
-			$desc = 'AND UPPER(T.ID||\'-\'||FN_LPAD(T.ID, 4, \'0\')||\'-\'||coalesce(T.DESCRICAO,\'\')) LIKE \'%'.str_replace(' ', '%', $desc).'%\'';
+			$desc = 'AND UPPER(coalesce(T.DESCRICAO,\'\')) LIKE \'%'.str_replace(' ', '%', $desc).'%\'';
 		}else{
 			$desc = '';   
 		}
@@ -168,7 +168,7 @@ class ConsultasController extends Controller
         $desc = strtoupper($param->FILTRO);
 
         if($desc != ''){
-			$desc = 'AND UPPER(T.ID||\'-\'||FN_LPAD(T.ID, 4, \'0\')||\'-\'||coalesce(T.DESCRICAO,\'\')) LIKE \'%'.str_replace(' ', '%', $desc).'%\'';
+			$desc = 'AND UPPER(coalesce(T.DESCRICAO,\'\')) LIKE \'%'.str_replace(' ', '%', $desc).'%\'';
 		}else{
 			$desc = '';   
 		}

@@ -59,7 +59,7 @@ class TiposModuloContaController extends Controller
         return response()->json($tipoModuloConta);
     }
 
-    public function postTiposModuloContaDelete(Request $request){
+    public function postTipoModuloContaDelete(Request $request){
         $dados = (object) $request->DADOS;
 
         $tipoModuloConta = TiposModuloConta::where('ID', $dados->ID)->delete();
