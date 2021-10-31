@@ -111,7 +111,7 @@
 						for (var index = 0; index < item.LANCAMENTOS.length; index++) {
 							var element = item.LANCAMENTOS[index];
 							var valor = element.VALOR;
-							var label = element.LABEL;
+							var label = element.MES_F;
 
 							json.data.push(valor);
 

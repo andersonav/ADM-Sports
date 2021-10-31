@@ -438,8 +438,20 @@
 		function setDadosConsultar(dados){
 			var that = this;
 			
-			// dados.FILTRO.FILTRO_TABELA_PRECO			= gScope.ConsultaTabelaPrecoFiltro.item.dados.ID;
-			// dados.FILTRO.FILTRO_CLIENTE					= gScope.ConsultaClienteFiltro.item.dados.CODIGO;
+
+			dados.FILTRO.FDATA_INICIO 					= moment(obj.DATA_INICIAL).format('YYYY-MM-DD');
+			dados.FILTRO.FDATA_INICIO 					= dados.FILTRO.FDATA_INICIO == 'Invalid date' ? null :dados.FILTRO.FDATA_INICIO;
+			
+			dados.FILTRO.FDATA_FINAL 					= moment(obj.DATA_FINAL).format('YYYY-MM-DD');
+			dados.FILTRO.FDATA_FINAL 					= dados.FILTRO.FDATA_FINAL == 'Invalid date' ? null :dados.FILTRO.FDATA_FINAL;
+
+			dados.FILTRO.TIPO_DATA_FILTRO				= obj.TIPO_DATA_FILTRO;
+			dados.FILTRO.FILTRO_STATUS					= obj.FILTRO_STATUS;
+			
+
+			dados.FILTRO.FILTRO_CONTA_BANCARIA			= gScope.ConsultaContaBancariaFiltro.item.dados.ID;
+			dados.FILTRO.FILTRO_TIPO_DOCUMENTO			= gScope.ConsultaTipoDocumentoFiltro.item.dados.ID;
+			dados.FILTRO.FILTRO_MODULO_CONTA			= gScope.ConsultaModuloContaItemFiltro.item.dados.ID;
 			
 			return dados;
 		}
@@ -506,14 +518,19 @@
 								return row.DESC_MODULO_CONTA;
 							} 
 						},
+						{ "data": "TIPO_DOCUMENTO_ID", "title": 'Tipo Documento', 
+							render : function(data, type, row) {
+								return row.DESC_TIPO_DOCUMENTO;
+							} 
+						},
 						{ "data": "CONTA_BANCARIA_ID", "title": 'Conta Bancária', 
 							render : function(data, type, row) {
 								return row.DESC_CONTA;
 							} 
 						},
-						{ "data": "VALOR_TOTAL", "title": 'Valor Total', 
+						{ "data": "VALOR_TOTAL", "title": 'Valor Total', "className": "text-right",
 							render : function(data, type, row) {
-								return number_format(row.VALOR_TOTAL, 2, ',', '.');
+								return 'R$ ' + number_format(row.VALOR_TOTAL, 2, ',', '.');
 							} 
 						},
 						{ "data": "DATA", "title": 'Data', 
@@ -521,14 +538,34 @@
 								return moment(angular.copy(row.DATA)).format('DD/MM/YYYY');
 							} 
 						},
-						{ "data": "STATUS", "title": 'Status', 
+						{ "data": "DATA_VENCIMENTO", "title": 'Data Vencimento', 
+							render : function(data, type, row) {
+								return moment(angular.copy(row.DATA_VENCIMENTO)).format('DD/MM/YYYY');
+							} 
+						},
+						{ "data": "STATUS", "title": 'Status', "className": "text-center", 
 							render : function(data, type, row) {
 								var html = '';
 
+								var valor1   	= new Date();
+								var admission 	= moment(moment(valor1).toDate(), 'DD-MM-YYYY'); 
+								var dataUtilizada = moment(row.DATA_VENCIMENTO).toDate();
+
+								if(data == 1 || data == 2){
+									dataUtilizada = moment(row.DATA_RECEBIMENTO).toDate();
+								}
+
+								var discharge 	= moment(dataUtilizada, 'DD-MM-YYYY');
+								var result		= discharge.diff(admission, 'days');
+								result 			= Math.abs(result);
+
 								if(data == 0){
-									html = '<div class="badge badge-green mr-3 text-small">PAGO</div>';
+									// html = '<div class="badge badge-default mr-3 text-small">NÃO EFETIVADO</div>';
+									html = html + '<div class="badge badge-danger mr-3 text-small">VENCE EM ' + result + ' DIAS</div>';
 								}else if(data == 1){
-									html = '<div class="badge badge-danger mr-3 text-small">RECEBIDO</div>';
+									html = '<div class="badge badge-green mr-3 text-small">PAGO HÁ ' + result + ' DIAS</div>';
+								}else if(data == 2){
+									html = '<div class="badge badge-primary mr-3 text-small">RECEBIDO HÁ ' + result + ' DIAS</div>';
 								}
 
 								return html;

@@ -38,6 +38,72 @@
 
         <div class="card">
             <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-xl-4 col-lg-6 col-sm-12 col-md-12" style="display: contents !important;">
+
+                        <div class="form-group" style="margin-right: 0px !important;">
+                            <div class="form-group" id="formGroutMotherData">
+                                <select class="form-control" ng-model="vm.Lancamentos.TIPO_DATA_FILTRO" id="selectFormGroup">
+                                    <option style="font-weight: 600;" ng-value="1">Data Lançamento</option>
+                                    <option style="font-weight: 600;" ng-value="2">Data Vencimento</option>
+                                    <option style="font-weight: 600;" ng-value="3">Data Recebimento</option>
+                                </select>
+                                <input type="date" style="width: 170px;" class="form-control filter_main" ng-model="vm.Lancamentos.DATA_INICIAL" ng-atalho>
+                                <label style="padding-top: 8px; padding-right: 5px; padding-left: 5px;"> à </label>
+                                <input type="date" style="width: 170px;" class="form-control filter_main" ng-model="vm.Lancamentos.DATA_FINAL" ng-atalho>
+                            </div>
+                        </div>
+
+                        <!-- <div class="form-group">
+                            <label>Data do Lançamento:</label>
+                            <div class="form-group" style="display: flex;">
+                                <input type="date" class="form-control filter_on_enter" ng-atalho ng-model="vm.Lancamentos.DATA_INICIAL">
+                                <label style="padding-top: 10px; padding-right: 5px; padding-left: 5px; font-weight: bold;"> à </label>
+                                <input type="date" class="form-control filter_on_enter" ng-atalho ng-model="vm.Lancamentos.DATA_FINAL">
+                            </div>
+                        </div> -->
+                    </div>
+
+                    <div class="col-xl-2 col-lg-6 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <label>Status:</label>
+                            <select class="custom-select" ng-model="vm.Lancamentos.FILTRO_STATUS">
+                                <option value="">Todos</option>
+                                <option value="0">Não efetivado</option>
+                                <option value="1">Não recebido/Não pago</option>
+                                <option value="2">Recebido/Pago</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="consulta-modulo-conta-item-filtro"></div>
+                    </div>
+                   
+                    <div class="col-sm-3">
+                        <div class="consulta-tipo-documento-filtro"></div>
+                    </div>
+                    
+                    <div class="col-sm-3">
+                        <div class="consulta-conta-bancaria-filtro"></div>
+                    </div>
+
+                    <div class="col-xl-2 col-lg-6 col-sm-12 col-md-12">
+                        <div class="form-group" style="margin-top: 29px;">
+                            <button class="btn btn-primary p-3" ng-click="vm.Lancamentos.consultar();">
+                                <i class="mr-2 text-white" data-feather="filter"></i>
+                                <span>Filtrar</span>
+
+                                <span class="badge badge-counter">ALT + F</span>
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
                 <div class="row">
 
                     <div class="col-sm-12" style="margin-top: 25px !important;">
@@ -111,7 +177,7 @@
 
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label for="data">Data:</label>
+                                <label for="data">Data Lançamento:</label>
                                 <input class="form-control required" id="data" type="date" ng-disabled="vm.Lancamentos.INCLUINDO == false && vm.Lancamentos.ALTERANDO == false" ng-model="vm.Lancamentos.SELECTED.DATA">
                             </div>
                         </div>
@@ -138,8 +204,9 @@
                             <div class="form-group">
                                 <label for="status">Status:</label>
                                 <select class="form-control" id="status" ng-model="vm.Lancamentos.SELECTED.STATUS" ng-disabled="vm.Lancamentos.INCLUINDO == false && vm.Lancamentos.ALTERANDO == false">
-                                    <option ng-value="0">Pago</option>
-                                    <option ng-value="1">Recebido</option>
+                                    <option ng-value="0">Não efetivado</option>
+                                    <option ng-value="1">Pago</option>
+                                    <option ng-value="2">Recebido</option>
                                 </select>
                             </div>
                         </div>

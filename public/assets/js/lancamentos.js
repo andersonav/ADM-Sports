@@ -387,8 +387,92 @@ Devices)
 	gScope.Confirme = vm.Confirme;
 	gScope.Devices = vm.Devices;
 
-	vm.Lancamentos.consultar();
+
 	vm.LancamentoItens.compileDatatable();
+
+	// Consulta Conta para Filtro
+	vm.ConsultaContaBancariaFiltro = vm.Consulta.getNew(true);
+	vm.ConsultaContaBancariaFiltro.componente = '.consulta-conta-bancaria-filtro';
+	vm.ConsultaContaBancariaFiltro.option.class = 'consulta-conta-bancaria-filtro-c';
+	vm.ConsultaContaBancariaFiltro.model = 'vm.ConsultaContaBancariaFiltro';
+	vm.ConsultaContaBancariaFiltro.option.label_descricao = 'Conta bancária: ';
+	vm.ConsultaContaBancariaFiltro.option.obj_consulta = '/admin/funcionalidades/consultas/ContaBancaria';
+	vm.ConsultaContaBancariaFiltro.option.tamanho_tabela = '100%';
+	vm.ConsultaContaBancariaFiltro.option.required = false;
+	vm.ConsultaContaBancariaFiltro.autoload = false;
+	vm.ConsultaContaBancariaFiltro.cache = false;
+	vm.ConsultaContaBancariaFiltro.option.infinite_scroll = true;
+	vm.ConsultaContaBancariaFiltro.option.obj_ret = ['DESC_ID', 'DESCRICAO'];
+	vm.ConsultaContaBancariaFiltro.option.campos_tabela = [['DESC_ID', 'ID'], ['DESC_CONTA', 'DESCRIÇÃO']];
+	vm.ConsultaContaBancariaFiltro.option.filtro_sql = {};
+
+	vm.ConsultaContaBancariaFiltro.compile();
+
+	vm.ConsultaContaBancariaFiltro.onSelect = function (item) {
+
+	};
+
+	vm.ConsultaContaBancariaFiltro.onClear = function (item) {
+
+	};
+
+	gScope.ConsultaContaBancariaFiltro = vm.ConsultaContaBancariaFiltro;
+
+	// Consulta Tipo Documento para filtro
+	vm.ConsultaTipoDocumentoFiltro = vm.Consulta.getNew(true);
+	vm.ConsultaTipoDocumentoFiltro.componente = '.consulta-tipo-documento-filtro';
+	vm.ConsultaTipoDocumentoFiltro.option.class = 'consulta-tipo-documento-filtro-c';
+	vm.ConsultaTipoDocumentoFiltro.model = 'vm.ConsultaTipoDocumentoFiltro';
+	vm.ConsultaTipoDocumentoFiltro.option.label_descricao = 'Tipo Documento: ';
+	vm.ConsultaTipoDocumentoFiltro.option.obj_consulta = '/admin/funcionalidades/consultas/TipoDocumento';
+	vm.ConsultaTipoDocumentoFiltro.option.tamanho_tabela = '100%';
+	vm.ConsultaTipoDocumentoFiltro.option.required = false;
+	vm.ConsultaTipoDocumentoFiltro.autoload = false;
+	vm.ConsultaTipoDocumentoFiltro.cache = false;
+	vm.ConsultaTipoDocumentoFiltro.option.infinite_scroll = true;
+	vm.ConsultaTipoDocumentoFiltro.option.obj_ret = ['DESC_ID', 'DESCRICAO'];
+	vm.ConsultaTipoDocumentoFiltro.option.campos_tabela = [['DESC_ID', 'ID'], ['DESCRICAO', 'DESCRIÇÃO']];
+	vm.ConsultaTipoDocumentoFiltro.option.filtro_sql = {};
+
+	vm.ConsultaTipoDocumentoFiltro.compile();
+
+	vm.ConsultaTipoDocumentoFiltro.onSelect = function (item) {
+
+	};
+
+	vm.ConsultaTipoDocumentoFiltro.onClear = function (item) {
+
+	};
+
+	gScope.ConsultaTipoDocumentoFiltro = vm.ConsultaTipoDocumentoFiltro;
+
+	// Consulta Conta para Filtro
+	vm.ConsultaModuloContaItemFiltro = vm.Consulta.getNew(true);
+	vm.ConsultaModuloContaItemFiltro.componente = '.consulta-modulo-conta-item-filtro';
+	vm.ConsultaModuloContaItemFiltro.option.class = 'consulta-modulo-conta-item-filtro-c';
+	vm.ConsultaModuloContaItemFiltro.model = 'vm.ConsultaModuloContaItemFiltro';
+	vm.ConsultaModuloContaItemFiltro.option.label_descricao = 'Módulo de Conta: ';
+	vm.ConsultaModuloContaItemFiltro.option.obj_consulta = '/admin/funcionalidades/consultas/ModuloContaItem';
+	vm.ConsultaModuloContaItemFiltro.option.tamanho_tabela = '100%';
+	vm.ConsultaModuloContaItemFiltro.option.required = false;
+	vm.ConsultaModuloContaItemFiltro.autoload = false;
+	vm.ConsultaModuloContaItemFiltro.cache = false;
+	vm.ConsultaModuloContaItemFiltro.option.infinite_scroll = true;
+	vm.ConsultaModuloContaItemFiltro.option.obj_ret = ['DESC_ID', 'DESCRICAO'];
+	vm.ConsultaModuloContaItemFiltro.option.campos_tabela = [['DESC_ID', 'ID'], ['DESCRICAO', 'DESCRIÇÃO'], ['DESC_MC', 'MODELO'], ['DESC_MC_TIPO', 'TIPO']];
+	vm.ConsultaModuloContaItemFiltro.option.filtro_sql = {};
+
+	vm.ConsultaModuloContaItemFiltro.compile();
+
+	vm.ConsultaModuloContaItemFiltro.onSelect = function (item) {
+
+	};
+
+	vm.ConsultaModuloContaItemFiltro.onClear = function (item) {
+
+	};
+
+	gScope.ConsultaModuloContaItemFiltro = vm.ConsultaModuloContaItemFiltro;
 
 	// Consulta Perfil
 	vm.ConsultaPerfil = vm.Consulta.getNew(true);
@@ -570,6 +654,18 @@ Devices)
 
 		return number.toString().split(".")[1].length || 0;
 	};
+
+
+	var data_atual = new Date();
+	var data_final = data_atual;
+	data_final = moment(moment(data_atual).subtract(1, 'week')).toDate();
+
+	vm.Lancamentos.DATA_INICIAL = data_final;
+	vm.Lancamentos.DATA_FINAL = data_atual;
+	vm.Lancamentos.FILTRO_STATUS = '';
+	vm.Lancamentos.TIPO_DATA_FILTRO = 1;
+
+	vm.Lancamentos.consultar();
 
 	gScope.calcularQuantidadeDecimais = vm.calcularQuantidadeDecimais;
 	gScope.countDecimals = vm.countDecimals;
@@ -1192,8 +1288,20 @@ Devices)
 		function setDadosConsultar(dados) {
 			var that = this;
 
-			// dados.FILTRO.FILTRO_TABELA_PRECO			= gScope.ConsultaTabelaPrecoFiltro.item.dados.ID;
-			// dados.FILTRO.FILTRO_CLIENTE					= gScope.ConsultaClienteFiltro.item.dados.CODIGO;
+
+			dados.FILTRO.FDATA_INICIO = moment(obj.DATA_INICIAL).format('YYYY-MM-DD');
+			dados.FILTRO.FDATA_INICIO = dados.FILTRO.FDATA_INICIO == 'Invalid date' ? null : dados.FILTRO.FDATA_INICIO;
+
+			dados.FILTRO.FDATA_FINAL = moment(obj.DATA_FINAL).format('YYYY-MM-DD');
+			dados.FILTRO.FDATA_FINAL = dados.FILTRO.FDATA_FINAL == 'Invalid date' ? null : dados.FILTRO.FDATA_FINAL;
+
+			dados.FILTRO.TIPO_DATA_FILTRO = obj.TIPO_DATA_FILTRO;
+			dados.FILTRO.FILTRO_STATUS = obj.FILTRO_STATUS;
+
+
+			dados.FILTRO.FILTRO_CONTA_BANCARIA = gScope.ConsultaContaBancariaFiltro.item.dados.ID;
+			dados.FILTRO.FILTRO_TIPO_DOCUMENTO = gScope.ConsultaTipoDocumentoFiltro.item.dados.ID;
+			dados.FILTRO.FILTRO_MODULO_CONTA = gScope.ConsultaModuloContaItemFiltro.item.dados.ID;
 
 			return dados;
 		}
@@ -1260,14 +1368,19 @@ Devices)
 							return row.DESC_MODULO_CONTA;
 						} },
 
+					{ "data": "TIPO_DOCUMENTO_ID", "title": 'Tipo Documento',
+						render: function render(data, type, row) {
+							return row.DESC_TIPO_DOCUMENTO;
+						} },
+
 					{ "data": "CONTA_BANCARIA_ID", "title": 'Conta Bancária',
 						render: function render(data, type, row) {
 							return row.DESC_CONTA;
 						} },
 
-					{ "data": "VALOR_TOTAL", "title": 'Valor Total',
+					{ "data": "VALOR_TOTAL", "title": 'Valor Total', "className": "text-right",
 						render: function render(data, type, row) {
-							return number_format(row.VALOR_TOTAL, 2, ',', '.');
+							return 'R$ ' + number_format(row.VALOR_TOTAL, 2, ',', '.');
 						} },
 
 					{ "data": "DATA", "title": 'Data',
@@ -1275,14 +1388,34 @@ Devices)
 							return moment(angular.copy(row.DATA)).format('DD/MM/YYYY');
 						} },
 
-					{ "data": "STATUS", "title": 'Status',
+					{ "data": "DATA_VENCIMENTO", "title": 'Data Vencimento',
+						render: function render(data, type, row) {
+							return moment(angular.copy(row.DATA_VENCIMENTO)).format('DD/MM/YYYY');
+						} },
+
+					{ "data": "STATUS", "title": 'Status', "className": "text-center",
 						render: function render(data, type, row) {
 							var html = '';
 
+							var valor1 = new Date();
+							var admission = moment(moment(valor1).toDate(), 'DD-MM-YYYY');
+							var dataUtilizada = moment(row.DATA_VENCIMENTO).toDate();
+
+							if (data == 1 || data == 2) {
+								dataUtilizada = moment(row.DATA_RECEBIMENTO).toDate();
+							}
+
+							var discharge = moment(dataUtilizada, 'DD-MM-YYYY');
+							var result = discharge.diff(admission, 'days');
+							result = Math.abs(result);
+
 							if (data == 0) {
-								html = '<div class="badge badge-green mr-3 text-small">PAGO</div>';
+								// html = '<div class="badge badge-default mr-3 text-small">NÃO EFETIVADO</div>';
+								html = html + '<div class="badge badge-danger mr-3 text-small">VENCE EM ' + result + ' DIAS</div>';
 							} else if (data == 1) {
-								html = '<div class="badge badge-danger mr-3 text-small">RECEBIDO</div>';
+								html = '<div class="badge badge-green mr-3 text-small">PAGO HÁ ' + result + ' DIAS</div>';
+							} else if (data == 2) {
+								html = '<div class="badge badge-primary mr-3 text-small">RECEBIDO HÁ ' + result + ' DIAS</div>';
 							}
 
 							return html;

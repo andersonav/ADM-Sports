@@ -21,7 +21,10 @@ class LancamentosController extends Controller
 
     public function lancamentos(Request $request)
     {
-        $lancamentos = $this->getLancamentos(0);
+
+        $dados   = $request->FILTRO;
+
+        $lancamentos = $this->getLancamentos($dados);
         
         return response()->json($lancamentos);
     }
@@ -108,7 +111,9 @@ class LancamentosController extends Controller
             }
         }
 
-        $lancamento = $this->getLancamentos($id);
+        $obj = (object) [];
+        $obj->ID = $id;  
+        $lancamento = $this->getLancamentos($obj);
         $ret = $lancamento[0];
 
         return response()->json($ret);
@@ -122,12 +127,44 @@ class LancamentosController extends Controller
         return response()->json($lancamento);
     }
 
-    public function getLancamentos($id){
+    public function getLancamentos($param){
 
         $idStr = '';
 
-        if($id > 0){
-            $idStr = 'AND T.ID = ' . $id;
+        if(isset($param->ID) && $param->ID > 0){
+            $idStr = 'AND T.ID = ' . $param->ID;
+        }
+
+        $tipoData = '';
+
+        if(isset($param->TIPO_DATA_FILTRO) && $param->TIPO_DATA_FILTRO > 0){
+            if($param->TIPO_DATA_FILTRO == 1){
+                $tipoData = "AND T.DATA BETWEEN " .'\''. $param->FDATA_INICIO . '\'' . " AND " . '\''. $param->FDATA_FINAL . '\'';
+            }else if($param->TIPO_DATA_FILTRO == 2){
+                $tipoData = "AND T.DATA_VENCIMENTO BETWEEN " .'\''. $param->FDATA_INICIO . '\'' . " AND " . '\''. $param->FDATA_FINAL . '\'';
+            }if($param->TIPO_DATA_FILTRO == 3){
+                $tipoData = "AND T.DATA_RECEBIMENTO BETWEEN " .'\''. $param->FDATA_INICIO . '\'' . " AND " . '\''. $param->FDATA_FINAL . '\'';
+            }
+        }
+
+        $contaBancaria = '';
+        if(isset($param->FILTRO_CONTA_BANCARIA) && $param->FILTRO_CONTA_BANCARIA > 0){
+            $contaBancaria = 'AND T.CONTA_BANCARIA_ID = ' . $param->FILTRO_CONTA_BANCARIA;
+        }
+        
+        $tipoDocumento = '';
+        if(isset($param->FILTRO_TIPO_DOCUMENTO) && $param->FILTRO_TIPO_DOCUMENTO > 0){
+            $tipoDocumento = 'AND T.TIPO_DOCUMENTO_ID = ' . $param->FILTRO_TIPO_DOCUMENTO;
+        }
+        
+        $moduloConta = '';
+        if(isset($param->FILTRO_MODULO_CONTA) && $param->FILTRO_MODULO_CONTA > 0){
+            $moduloConta = 'AND T.MODULO_CONTA_ITEM_ID = ' . $param->FILTRO_MODULO_CONTA;
+        }
+        
+        $status = '';
+        if(isset($param->FILTRO_STATUS) && $param->FILTRO_STATUS > 0){
+            $status = 'AND T.STATUS = ' . $param->FILTRO_STATUS;
         }
 
         $sql = "SELECT 
@@ -135,6 +172,8 @@ class LancamentosController extends Controller
                 LPAD(T.ID, 4, '0') AS DESC_ID,
 
                 CONCAT(LPAD(MCI.ID, 4, '0'), ' - ', MCI.DESCRICAO) AS DESC_MODULO_CONTA,
+
+                CONCAT(LPAD(TIPO.ID, 4, '0'), ' - ', TIPO.DESCRICAO) AS DESC_TIPO_DOCUMENTO,
 
                 CONCAT(LPAD(C.ID, 4, '0'), ' - ', C.DESCRICAO) AS DESC_CONTA,
 
@@ -153,7 +192,12 @@ class LancamentosController extends Controller
             LEFT JOIN tbperfil P ON P.ID = T.PERFIL_ID
             LEFT JOIN tbconta_bancaria C ON C.ID = T.CONTA_BANCARIA_ID
             WHERE T.ID > 0
-            $idStr";
+            $idStr
+            $tipoData
+            $contaBancaria
+            $tipoDocumento
+            $moduloConta
+            $status";
 
         $args = [
         ];
